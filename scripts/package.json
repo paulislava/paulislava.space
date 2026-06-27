@@ -1,0 +1,11 @@
+{
+  "name": "paulislava-scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "seed": "npx tsx seed.ts"
+  },
+  "dependencies": {
+    "tsx": "^4.0.0"
+  }
+}
