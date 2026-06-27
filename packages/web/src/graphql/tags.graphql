@@ -1,0 +1,9 @@
+query GetAllProjectTags {
+  tags(
+    filters: { category: { eq: "project" } }
+    pagination: { limit: 100 }
+    sort: "name:asc"
+  ) {
+    ...TagFields
+  }
+}
