@@ -1,8 +1,9 @@
+import 'server-only';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
-import { registerApolloClient } from '@apollo/experimental-nextjs-app-support';
 
-export const { getClient } = registerApolloClient(() => {
+export function getClient() {
   return new ApolloClient({
+    ssrMode: true,
     cache: new InMemoryCache(),
     link: new HttpLink({
       uri: `${process.env.STRAPI_URL ?? 'http://localhost:1337'}/graphql`,
@@ -11,4 +12,4 @@ export const { getClient } = registerApolloClient(() => {
       },
     }),
   });
-});
+}
