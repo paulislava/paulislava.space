@@ -59,7 +59,7 @@ export default function Skills({ technologies }: SkillsProps) {
                   const icon = mediaUrl(tech.icon);
                   return (
                     <div
-                      key={tech.id}
+                      key={tech.documentId}
                       className="skill-badge glass rounded-xl px-3 py-2 flex items-center gap-2 hover:border-[#6366f1]/40 transition-all duration-200 hover:-translate-y-0.5 cursor-default"
                     >
                       {icon && (

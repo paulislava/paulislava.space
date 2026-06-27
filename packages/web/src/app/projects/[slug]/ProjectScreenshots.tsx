@@ -21,7 +21,7 @@ export default function ProjectScreenshots({ screenshots }: { screenshots: Strap
       {screenshots.map((s) => {
         const url = mediaUrl(s, 'large') ?? mediaUrl(s) ?? '';
         return (
-          <SwiperSlide key={s.id}>
+          <SwiperSlide key={s.documentId}>
             <div className="relative aspect-video bg-[#12121a]">
               <Image src={url} alt={s.alternativeText ?? ''} fill className="object-cover" />
             </div>

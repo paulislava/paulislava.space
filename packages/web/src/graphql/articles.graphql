@@ -1,3 +1,21 @@
+fragment ArticleCardFields on Article {
+  documentId
+  title
+  slug
+  excerpt
+  createdAt
+  publishedAt
+  cover {
+    ...MediaFields
+  }
+  tags {
+    ...TagFields
+  }
+  technologies {
+    ...TechnologyFields
+  }
+}
+
 query GetArticles($limit: Int = 10) {
   articles(
     pagination: { limit: $limit }
@@ -16,24 +34,5 @@ query GetArticleBySlug($slug: String!) {
   ) {
     ...ArticleCardFields
     content
-  }
-}
-
-fragment ArticleCardFields on Article {
-  id
-  documentId
-  title
-  slug
-  excerpt
-  createdAt
-  publishedAt
-  cover {
-    ...MediaFields
-  }
-  tags {
-    ...TagFields
-  }
-  technologies {
-    ...TechnologyFields
   }
 }

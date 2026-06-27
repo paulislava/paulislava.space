@@ -38,7 +38,7 @@ export default function ArticleCard({ item, type }: ArticleCardProps) {
           )}
           {item.tags.length > 0 && (
             <div className="flex flex-wrap gap-1">
-              {item.tags.slice(0, 2).map((tag) => <Tag key={tag.id} tag={tag} />)}
+              {item.tags.slice(0, 2).map((tag) => <Tag key={tag.documentId} tag={tag} />)}
             </div>
           )}
         </div>

@@ -54,9 +54,9 @@ export default async function ArticlePage({ params }: PageProps) {
           <p className="text-[#94a3b8] text-lg mb-6 leading-relaxed">{article.excerpt}</p>
         )}
         <div className="flex flex-wrap gap-2 mb-8">
-          {article.tags.map((tag) => <Tag key={tag.id} tag={tag} size="md" />)}
+          {article.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
           {article.technologies.map((tech) => (
-            <span key={tech.id} className="text-xs text-[#6366f1] bg-[#6366f1]/10 border border-[#6366f1]/20 rounded-lg px-2.5 py-1">
+            <span key={tech.documentId} className="text-xs text-[#6366f1] bg-[#6366f1]/10 border border-[#6366f1]/20 rounded-lg px-2.5 py-1">
               {tech.name}
             </span>
           ))}

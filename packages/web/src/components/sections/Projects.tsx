@@ -59,7 +59,7 @@ export default function Projects({ projects }: ProjectsProps) {
           {projects.map((project) => {
             const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover);
             return (
-              <SwiperSlide key={project.id}>
+              <SwiperSlide key={project.documentId}>
                 <Link href={`/projects/${project.slug}`} className="group block">
                   <div className="glass rounded-2xl overflow-hidden hover:border-[#6366f1]/40 transition-all duration-300 pb-2">
                     <div className="relative h-52 bg-[#12121a]">
@@ -85,11 +85,11 @@ export default function Projects({ projects }: ProjectsProps) {
                         <p className="text-[#94a3b8] text-sm mb-3 line-clamp-2">{project.shortDescription}</p>
                       )}
                       <div className="flex flex-wrap gap-1.5 mb-3">
-                        {project.tags.slice(0, 3).map((tag) => <Tag key={tag.id} tag={tag} />)}
+                        {project.tags.slice(0, 3).map((tag) => <Tag key={tag.documentId} tag={tag} />)}
                       </div>
                       <div className="flex flex-wrap gap-1.5">
                         {project.technologies.slice(0, 5).map((tech) => (
-                          <span key={tech.id} className="text-xs text-[#6366f1] bg-[#6366f1]/10 rounded px-1.5 py-0.5">
+                          <span key={tech.documentId} className="text-xs text-[#6366f1] bg-[#6366f1]/10 rounded px-1.5 py-0.5">
                             {tech.name}
                           </span>
                         ))}

@@ -2,7 +2,7 @@
 // Server-side Apollo queries are in strapi.ts (server-only).
 
 export interface StrapiMedia {
-  id: number;
+  documentId: string;
   url: string;
   alternativeText: string | null;
   width: number | null;
@@ -16,7 +16,6 @@ export interface StrapiMedia {
 }
 
 export interface Technology {
-  id: number;
   documentId: string;
   name: string;
   slug: string;
@@ -26,7 +25,6 @@ export interface Technology {
 }
 
 export interface Tag {
-  id: number;
   documentId: string;
   name: string;
   slug: string;
@@ -48,7 +46,6 @@ export interface RichTextBlock {
 }
 
 export interface WorkExperience {
-  id: number;
   documentId: string;
   title: string;
   company: string;
@@ -63,7 +60,6 @@ export interface WorkExperience {
 }
 
 export interface Project {
-  id: number;
   documentId: string;
   title: string;
   slug: string;
@@ -79,7 +75,6 @@ export interface Project {
 }
 
 export interface Article {
-  id: number;
   documentId: string;
   title: string;
   slug: string;
@@ -93,7 +88,6 @@ export interface Article {
 }
 
 export interface NewsItem {
-  id: number;
   documentId: string;
   title: string;
   slug: string;
@@ -102,7 +96,7 @@ export interface NewsItem {
   cover: StrapiMedia | null;
   tags: Tag[];
   technologies: Technology[];
-  projects: Pick<Project, 'id' | 'documentId' | 'title' | 'slug'>[];
+  projects: Pick<Project, 'documentId' | 'title' | 'slug'>[];
   publishedAt: string;
   createdAt: string;
 }

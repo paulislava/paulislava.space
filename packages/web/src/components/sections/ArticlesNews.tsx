@@ -40,8 +40,8 @@ export default function ArticlesNews({ articles, news }: ArticlesNewsProps) {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {tab === 'articles'
-              ? articles.map((a) => <ArticleCard key={a.id} item={a} type="article" />)
-              : news.map((n) => <ArticleCard key={n.id} item={n} type="news" />)}
+              ? articles.map((a) => <ArticleCard key={a.documentId} item={a} type="article" />)
+              : news.map((n) => <ArticleCard key={n.documentId} item={n} type="news" />)}
           </div>
         )}
       </div>

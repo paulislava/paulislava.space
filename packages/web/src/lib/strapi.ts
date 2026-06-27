@@ -26,7 +26,7 @@ import type {
 
 const MEDIA_FIELDS = gql`
   fragment MediaFields on UploadFile {
-    id
+    documentId
     url
     alternativeText
     width
@@ -37,7 +37,6 @@ const MEDIA_FIELDS = gql`
 
 const TECHNOLOGY_FIELDS = gql`
   fragment TechnologyFields on Technology {
-    id
     documentId
     name
     slug
@@ -52,7 +51,6 @@ const TECHNOLOGY_FIELDS = gql`
 
 const TAG_FIELDS = gql`
   fragment TagFields on Tag {
-    id
     documentId
     name
     slug
@@ -63,7 +61,6 @@ const TAG_FIELDS = gql`
 
 const PROJECT_CARD_FIELDS = gql`
   fragment ProjectCardFields on Project {
-    id
     documentId
     title
     slug
@@ -100,7 +97,6 @@ const GET_TECHNOLOGIES = gql`
 const GET_WORK_EXPERIENCES = gql`
   query GetWorkExperiences {
     workExperiences(pagination: { limit: 100 }, sort: "startDate:desc") {
-      id
       documentId
       title
       company
@@ -165,7 +161,6 @@ const GET_PROJECT_BY_SLUG = gql`
 const GET_ARTICLES = gql`
   query GetArticles($limit: Int = 10) {
     articles(pagination: { limit: $limit }, sort: "createdAt:desc", status: PUBLISHED) {
-      id
       documentId
       title
       slug
@@ -195,7 +190,6 @@ const GET_ARTICLE_BY_SLUG = gql`
       pagination: { limit: 1 }
       status: PUBLISHED
     ) {
-      id
       documentId
       title
       slug
@@ -222,7 +216,6 @@ const GET_ARTICLE_BY_SLUG = gql`
 const GET_NEWS_ITEMS = gql`
   query GetNewsItems($limit: Int = 10) {
     newsItems(pagination: { limit: $limit }, sort: "createdAt:desc", status: PUBLISHED) {
-      id
       documentId
       title
       slug
@@ -252,7 +245,6 @@ const GET_NEWS_BY_SLUG = gql`
       pagination: { limit: 1 }
       status: PUBLISHED
     ) {
-      id
       documentId
       title
       slug
@@ -270,7 +262,6 @@ const GET_NEWS_BY_SLUG = gql`
         ...TechnologyFields
       }
       projects {
-        id
         documentId
         title
         slug
@@ -334,4 +325,3 @@ export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
   const data = await gqlQuery<{ newsItems: NewsItem[] }>(GET_NEWS_BY_SLUG, { slug });
   return data.newsItems?.[0] ?? null;
 }
-

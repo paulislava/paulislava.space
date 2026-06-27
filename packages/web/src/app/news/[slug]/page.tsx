@@ -54,7 +54,7 @@ export default async function NewsPage({ params }: PageProps) {
           <p className="text-[#94a3b8] text-lg mb-6 leading-relaxed">{item.excerpt}</p>
         )}
         <div className="flex flex-wrap gap-2 mb-4">
-          {item.tags.map((tag) => <Tag key={tag.id} tag={tag} size="md" />)}
+          {item.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
         </div>
         {item.projects.length > 0 && (
           <div className="mb-8">
@@ -62,7 +62,7 @@ export default async function NewsPage({ params }: PageProps) {
             <div className="flex flex-wrap gap-2">
               {item.projects.map((p) => (
                 <Link
-                  key={p.id}
+                  key={p.documentId}
                   href={`/projects/${p.slug}`}
                   className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors underline"
                 >

@@ -42,7 +42,7 @@ export default function Experience({ workExperiences }: ExperienceProps) {
             {workExperiences.map((exp) => {
               const logo = mediaUrl(exp.logo, 'thumbnail') ?? mediaUrl(exp.logo);
               return (
-                <div key={exp.id} className="exp-item relative">
+                <div key={exp.documentId} className="exp-item relative">
                   <div className="absolute -left-10 top-6 w-4 h-4 rounded-full bg-[#6366f1] border-2 border-[#0a0a0f]" />
 
                   <div className="glass rounded-2xl p-6">
@@ -95,7 +95,7 @@ export default function Experience({ workExperiences }: ExperienceProps) {
                       <div className="flex flex-wrap gap-1.5 mt-3">
                         {exp.technologies.slice(0, 6).map((tech) => (
                           <span
-                            key={tech.id}
+                            key={tech.documentId}
                             className="text-xs text-[#06b6d4] bg-[#06b6d4]/10 rounded px-1.5 py-0.5"
                           >
                             {tech.name}

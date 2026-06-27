@@ -1,6 +1,5 @@
 query GetWorkExperiences {
   workExperiences(pagination: { limit: 100 }, sort: "startDate:desc") {
-    id
     documentId
     title
     company

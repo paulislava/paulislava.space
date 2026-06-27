@@ -36,12 +36,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           )}
           {project.tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-3">
-              {project.tags.slice(0, 3).map((tag) => <Tag key={tag.id} tag={tag} />)}
+              {project.tags.slice(0, 3).map((tag) => <Tag key={tag.documentId} tag={tag} />)}
             </div>
           )}
           <div className="flex flex-wrap gap-1.5">
             {project.technologies.slice(0, 4).map((tech) => (
-              <span key={tech.id} className="text-xs text-[#6366f1] bg-[#6366f1]/10 rounded px-1.5 py-0.5">
+              <span key={tech.documentId} className="text-xs text-[#6366f1] bg-[#6366f1]/10 rounded px-1.5 py-0.5">
                 {tech.name}
               </span>
             ))}

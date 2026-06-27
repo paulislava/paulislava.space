@@ -1,5 +1,5 @@
 fragment MediaFields on UploadFile {
-  id
+  documentId
   url
   alternativeText
   width
@@ -8,7 +8,6 @@ fragment MediaFields on UploadFile {
 }
 
 fragment TechnologyFields on Technology {
-  id
   documentId
   name
   slug
@@ -20,7 +19,6 @@ fragment TechnologyFields on Technology {
 }
 
 fragment TagFields on Tag {
-  id
   documentId
   name
   slug

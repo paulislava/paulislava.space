@@ -82,7 +82,7 @@ export default async function ProjectPage({ params }: PageProps) {
               GitHub →
             </a>
           )}
-          {project.tags.map((tag) => <Tag key={tag.id} tag={tag} size="md" />)}
+          {project.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -108,7 +108,7 @@ export default async function ProjectPage({ params }: PageProps) {
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
                   <span
-                    key={tech.id}
+                    key={tech.documentId}
                     className="text-xs text-[#f1f5f9] bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5"
                   >
                     {tech.name}

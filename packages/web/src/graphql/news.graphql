@@ -1,3 +1,21 @@
+fragment NewsCardFields on News {
+  documentId
+  title
+  slug
+  excerpt
+  createdAt
+  publishedAt
+  cover {
+    ...MediaFields
+  }
+  tags {
+    ...TagFields
+  }
+  technologies {
+    ...TechnologyFields
+  }
+}
+
 query GetNewsItems($limit: Int = 10) {
   news_items: newsItems(
     pagination: { limit: $limit }
@@ -17,29 +35,9 @@ query GetNewsBySlug($slug: String!) {
     ...NewsCardFields
     content
     projects {
-      id
       documentId
       title
       slug
     }
-  }
-}
-
-fragment NewsCardFields on News {
-  id
-  documentId
-  title
-  slug
-  excerpt
-  createdAt
-  publishedAt
-  cover {
-    ...MediaFields
-  }
-  tags {
-    ...TagFields
-  }
-  technologies {
-    ...TechnologyFields
   }
 }
