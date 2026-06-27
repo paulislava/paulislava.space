@@ -3,7 +3,7 @@
   "collectionName": "news_items",
   "info": {
     "singularName": "news",
-    "pluralName": "news",
+    "pluralName": "news-items",
     "displayName": "News",
     "description": ""
   },
