@@ -226,9 +226,7 @@ jobs:
             cp "$PAULISLAVA_APP" /tmp/paulislava-nginx.bak 2>/dev/null || true
             cp "$CMS_APP" /tmp/cms-nginx.bak 2>/dev/null || true
             echo "$PAULISLAVA_CONF" | base64 -d > "$PAULISLAVA_APP"
-            if [ -f "$CMS_APP" ]; then
-              echo "$CMS_CONF" | base64 -d > "$CMS_APP"
-            fi
+            echo "$CMS_CONF" | base64 -d > "$CMS_APP"
             if nginx -t; then
               systemctl restart nginx
               echo "✓ nginx reloaded"
