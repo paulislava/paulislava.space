@@ -44,7 +44,7 @@ services:
       S3_BUCKET: ${S3_BUCKET:-4565b9a17706-stylish-albert}
       S3_REGION: ru-msk
       S3_ENDPOINT: https://s3.ru1.storage.beget.cloud
-      CDN_BASE_URL: https://cdn.beznomera.space
+      CDN_BASE_URL: https://cdn.beznomera.net
     volumes:
       - ./packages/cms/src:/app/src
       - ./packages/cms/config:/app/config
