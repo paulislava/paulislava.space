@@ -14,6 +14,7 @@ RUN npm run build
 FROM base AS runner
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
 COPY --from=build /app/src ./src
 COPY --from=build /app/config ./config
 COPY --from=build /app/public ./public
