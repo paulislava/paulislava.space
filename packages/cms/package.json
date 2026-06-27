@@ -1,0 +1,29 @@
+{
+  "name": "paulislava-cms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Strapi CMS for paulislava.space",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "export": "strapi export",
+    "import": "strapi import",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi/strapi": "5.49.0",
+    "@strapi/plugin-users-permissions": "5.49.0",
+    "@strapi/provider-upload-aws-s3": "5.49.0",
+    "better-sqlite3": "8.6.0",
+    "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0 <=22.x.x",
+    "npm": ">=6.0.0"
+  }
+}

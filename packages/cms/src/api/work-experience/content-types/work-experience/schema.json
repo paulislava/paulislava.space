@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "work_experiences",
+  "info": {
+    "singularName": "work-experience",
+    "pluralName": "work-experiences",
+    "displayName": "Work Experience",
+    "description": ""
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "company": { "type": "string", "required": true },
+    "companyUrl": { "type": "string" },
+    "startDate": { "type": "date", "required": true },
+    "endDate": { "type": "date" },
+    "description": { "type": "blocks" },
+    "technologies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::technology.technology",
+      "inversedBy": "workExperiences"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "isRemote": { "type": "boolean", "default": false },
+    "location": { "type": "string" }
+  }
+}
