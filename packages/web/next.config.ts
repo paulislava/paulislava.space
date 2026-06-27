@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.beznomera.space',
+        hostname: 'cdn.beznomera.net',
       },
     ],
   },

@@ -1,0 +1,39 @@
+query GetArticles($limit: Int = 10) {
+  articles(
+    pagination: { limit: $limit }
+    sort: "createdAt:desc"
+    status: PUBLISHED
+  ) {
+    ...ArticleCardFields
+  }
+}
+
+query GetArticleBySlug($slug: String!) {
+  articles(
+    filters: { slug: { eq: $slug } }
+    pagination: { limit: 1 }
+    status: PUBLISHED
+  ) {
+    ...ArticleCardFields
+    content
+  }
+}
+
+fragment ArticleCardFields on Article {
+  id
+  documentId
+  title
+  slug
+  excerpt
+  createdAt
+  publishedAt
+  cover {
+    ...MediaFields
+  }
+  tags {
+    ...TagFields
+  }
+  technologies {
+    ...TechnologyFields
+  }
+}

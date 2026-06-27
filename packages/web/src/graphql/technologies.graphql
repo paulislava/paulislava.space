@@ -1,0 +1,5 @@
+query GetTechnologies {
+  technologies(pagination: { limit: 100 }, sort: "category:asc,name:asc") {
+    ...TechnologyFields
+  }
+}

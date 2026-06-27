@@ -3,7 +3,7 @@ export default ({ env }) => ({
     config: {
       provider: 'aws-s3',
       providerOptions: {
-        baseUrl: env('CDN_BASE_URL', 'https://cdn.beznomera.space'),
+        baseUrl: env('CDN_BASE_URL', 'https://cdn.beznomera.net'),
         rootPath: '',
         s3Options: {
           region: env('S3_REGION', 'ru-msk'),
@@ -23,6 +23,18 @@ export default ({ env }) => ({
         upload: {},
         uploadStream: {},
         delete: {},
+      },
+    },
+  },
+  graphql: {
+    config: {
+      endpoint: '/graphql',
+      shadowCRUD: true,
+      playgroundAlways: true,
+      defaultLimit: 100,
+      maxLimit: 200,
+      apolloServer: {
+        tracing: false,
       },
     },
   },

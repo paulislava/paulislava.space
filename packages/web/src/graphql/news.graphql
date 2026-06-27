@@ -1,0 +1,45 @@
+query GetNewsItems($limit: Int = 10) {
+  news_items: newsItems(
+    pagination: { limit: $limit }
+    sort: "createdAt:desc"
+    status: PUBLISHED
+  ) {
+    ...NewsCardFields
+  }
+}
+
+query GetNewsBySlug($slug: String!) {
+  news_items: newsItems(
+    filters: { slug: { eq: $slug } }
+    pagination: { limit: 1 }
+    status: PUBLISHED
+  ) {
+    ...NewsCardFields
+    content
+    projects {
+      id
+      documentId
+      title
+      slug
+    }
+  }
+}
+
+fragment NewsCardFields on News {
+  id
+  documentId
+  title
+  slug
+  excerpt
+  createdAt
+  publishedAt
+  cover {
+    ...MediaFields
+  }
+  tags {
+    ...TagFields
+  }
+  technologies {
+    ...TechnologyFields
+  }
+}

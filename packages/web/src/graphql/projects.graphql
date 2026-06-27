@@ -1,0 +1,52 @@
+query GetFeaturedProjects {
+  projects(
+    filters: { featured: { eq: true } }
+    pagination: { limit: 20 }
+    sort: "createdAt:desc"
+  ) {
+    ...ProjectCardFields
+    screenshots {
+      ...MediaFields
+    }
+  }
+}
+
+query GetAllProjects {
+  projects(
+    pagination: { limit: 100 }
+    sort: "createdAt:desc"
+    status: PUBLISHED
+  ) {
+    ...ProjectCardFields
+  }
+}
+
+query GetProjectBySlug($slug: String!) {
+  projects(filters: { slug: { eq: $slug } }, pagination: { limit: 1 }) {
+    ...ProjectCardFields
+    description
+    screenshots {
+      ...MediaFields
+    }
+  }
+}
+
+fragment ProjectCardFields on Project {
+  id
+  documentId
+  title
+  slug
+  shortDescription
+  url
+  githubUrl
+  featured
+  cover {
+    ...MediaFields
+  }
+  technologies {
+    ...TechnologyFields
+  }
+  tags {
+    ...TagFields
+  }
+}

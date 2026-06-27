@@ -1,0 +1,29 @@
+fragment MediaFields on UploadFile {
+  id
+  url
+  alternativeText
+  width
+  height
+  formats
+}
+
+fragment TechnologyFields on Technology {
+  id
+  documentId
+  name
+  slug
+  category
+  websiteUrl
+  icon {
+    ...MediaFields
+  }
+}
+
+fragment TagFields on Tag {
+  id
+  documentId
+  name
+  slug
+  color
+  category
+}
