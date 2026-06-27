@@ -16,12 +16,13 @@ import {
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
+
   const [workExperiences, technologies, featuredProjects, articles, news] = await Promise.all([
-    getWorkExperiences().catch(() => []),
-    getTechnologies().catch(() => []),
-    getFeaturedProjects().catch(() => []),
-    getArticles(6).catch(() => []),
-    getNewsItems(6).catch(() => []),
+    getWorkExperiences(),
+    getTechnologies(),
+    getFeaturedProjects(),
+    getArticles(6),
+    getNewsItems(6),
   ]);
 
   return (

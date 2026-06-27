@@ -152,7 +152,7 @@ paulislava.space/
 4. **Skills** — сетка иконок технологий, сгруппированных по категориям, hover-эффекты
 5. **Projects** — горизонтальный Swiper-слайдер с featured-проектами: cover, название, теги, стек, ссылки
 6. **Articles & News** — две вкладки, карточки с cover + excerpt + теги, ссылка на полную страницу
-7. **Contact** — форма (имя, email, сообщение) → отправка на `p-kondratov@mail.ru` через Next.js API route + SMTP/Resend
+7. **Contact** — форма (имя, email, сообщение) → отправка на `i@paulislava.space` через Next.js API route + SMTP/Resend
 
 ### Отдельные страницы
 - `/projects/[slug]` — hero с cover, Swiper screenshots, full richtext, стек, ссылки, блок "Новости проекта"

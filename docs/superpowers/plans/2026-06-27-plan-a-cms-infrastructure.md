@@ -780,9 +780,9 @@ STRAPI_API_TOKEN=change_me
 # Contact form
 SMTP_HOST=smtp.mail.ru
 SMTP_PORT=465
-SMTP_USER=p-kondratov@mail.ru
+SMTP_USER=i@paulislava.space
 SMTP_PASS=change_me
-CONTACT_EMAIL=p-kondratov@mail.ru
+CONTACT_EMAIL=i@paulislava.space
 
 # ISR revalidation secret
 REVALIDATE_SECRET=change_me
@@ -1262,7 +1262,7 @@ services:
       SMTP_PORT: ${SMTP_PORT:-465}
       SMTP_USER: ${SMTP_USER}
       SMTP_PASS: ${SMTP_PASS}
-      CONTACT_EMAIL: p-kondratov@mail.ru
+      CONTACT_EMAIL: i@paulislava.space
     volumes:
       - ./packages/web/src:/app/src
     ports:
@@ -1297,7 +1297,7 @@ REVALIDATE_SECRET=change_me
 # Email
 SMTP_HOST=smtp.mail.ru
 SMTP_PORT=465
-SMTP_USER=p-kondratov@mail.ru
+SMTP_USER=i@paulislava.space
 SMTP_PASS=change_me
 ```
 
@@ -1402,7 +1402,7 @@ git commit -m "feat: add nginx proxy configs for paulislava.space and cms subdom
 | `REVALIDATE_SECRET` | случайная строка |
 | `SMTP_HOST` | `smtp.mail.ru` |
 | `SMTP_PORT` | `465` |
-| `SMTP_USER` | `p-kondratov@mail.ru` |
+| `SMTP_USER` | `i@paulislava.space` |
 | `SMTP_PASS` | пароль от почты |
 
 **Variables (GitHub → Settings → Variables):**
@@ -1730,9 +1730,9 @@ STRAPI_API_TOKEN=<токен из Strapi Admin>
 REVALIDATE_SECRET=<случайная строка>
 SMTP_HOST=smtp.mail.ru
 SMTP_PORT=465
-SMTP_USER=p-kondratov@mail.ru
+SMTP_USER=i@paulislava.space
 SMTP_PASS=<пароль от почты>
-CONTACT_EMAIL=p-kondratov@mail.ru
+CONTACT_EMAIL=i@paulislava.space
 ```
 
 - [ ] **Step 5: Создать репозиторий на GitHub и запушить**

@@ -8,7 +8,7 @@ import { getYearsOfExperience } from '@/lib/utils';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: getYearsOfExperience(2018), label: 'лет опыта', suffix: '+' },
+  { value: getYearsOfExperience(2011), label: 'лет опыта', suffix: '' },
   { value: 9, label: 'проектов', suffix: '' },
   { value: 4, label: 'хакатона', suffix: '' },
   { value: 3, label: 'города', suffix: '' },
@@ -59,7 +59,7 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="fade-in space-y-4 text-[#94a3b8] leading-relaxed">
             <p>
-              Software Engineer с 6+ годами опыта. Строю fullstack-продукты — от Telegram Mini App до внутренних корпоративных сервисов.
+              Software Engineer с 15 годами опыта. Строю fullstack-продукты — от Telegram Mini App до внутренних корпоративных сервисов.
             </p>
             <p>
               Умею проектировать архитектуру, настраивать CI/CD, писать код и объяснять технические решения команде. Работал в SberDevices, стартапах и университете.
@@ -77,7 +77,7 @@ export default function About() {
                 GitHub →
               </a>
               <a
-                href="mailto:p-kondratov@mail.ru"
+                href="mailto:i@paulislava.space"
                 className="text-[#6366f1] hover:text-[#06b6d4] transition-colors text-sm font-mono"
               >
                 Email →

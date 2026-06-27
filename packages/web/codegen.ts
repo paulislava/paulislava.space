@@ -4,17 +4,6 @@ import 'dotenv/config';
 const STRAPI_URL = process.env.STRAPI_URL ?? 'http://localhost:1337';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN ?? '';
 
-const sharedConfig = {
-  enumsAsTypes: true,
-  dedupeFragments: true,
-  scalars: {
-    JSON: 'Record<string, unknown>',
-    DateTime: 'string',
-    Upload: 'File',
-    Long: 'number',
-  },
-};
-
 const config: CodegenConfig = {
   schema: {
     [`${STRAPI_URL}/graphql`]: {
@@ -23,16 +12,19 @@ const config: CodegenConfig = {
   },
   documents: ['src/**/*.graphql'],
   generates: {
-    './src/gql/types.ts': {
-      plugins: ['typescript'],
-      config: sharedConfig,
-    },
-    './src/gql/operations.ts': {
-      plugins: ['typescript-operations'],
+    './src/gql/graphql.ts': {
+      plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
+      // typescript-operations может дублировать enum типы — dedupeFragments решает это
+
       config: {
-        ...sharedConfig,
-        onlyOperationTypes: true,
-        importDocumentNodeExternallyFrom: './types',
+        enumsAsTypes: true,
+        dedupeFragments: true,
+        scalars: {
+          JSON: 'Record<string, unknown>',
+          DateTime: 'string',
+          Upload: 'File',
+          Long: 'number',
+        },
       },
     },
   },

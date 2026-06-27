@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "dev:cms": "npm run dev --workspace=packages/cms",
-    "dev:web": "npm run dev --workspace=packages/web",
+    "dev:web": "npm run dev --workspace=packages/web --env-file=.env",
     "build": "npm run build --workspace=packages/cms && npm run build --workspace=packages/web"
   },
   "engines": {

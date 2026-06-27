@@ -41,15 +41,15 @@ export default async function ProjectPage({ params }: PageProps) {
   const cover = mediaUrl(project.cover, 'large') ?? mediaUrl(project.cover);
 
   return (
-    <main className="min-h-screen pt-20">
-      <div className="relative h-[50vh] min-h-[320px]">
+    <main className="min-h-screen">
+      <div className="relative">
         {cover ? (
           <Image src={cover} alt={project.title} fill className="object-cover opacity-50" priority />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-[#6366f1]/20 to-[#06b6d4]/20" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent" />
-        <div className="absolute bottom-8 left-0 right-0 px-6 max-w-4xl mx-auto">
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-4">
           <Link href="/#projects" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-3 block font-mono">
             ← Назад к проектам
           </Link>
@@ -60,7 +60,20 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 pt-6 pb-12">
+        {(project.tags.length > 0 || project.technologies.length > 0) && (
+          <div className="flex flex-wrap gap-2 max-w-[500px] mb-4">
+            {project.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
+            {project.technologies.map((tech) => (
+              <span
+                key={tech.documentId}
+                className="text-xs text-[#f1f5f9] bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5"
+              >
+                {tech.name}
+              </span>
+            ))}
+          </div>
+        )}
         <div className="flex flex-wrap gap-4 items-center mb-10">
           {project.url && (
             <a
@@ -82,41 +95,22 @@ export default async function ProjectPage({ params }: PageProps) {
               GitHub →
             </a>
           )}
-          {project.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            {project.description?.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-[#f1f5f9] mb-4">О проекте</h2>
-                <RichText blocks={project.description} />
-              </div>
-            )}
-
-            {project.screenshots?.length > 0 && (
-              <div className="mb-8">
-                <h2 className="text-xl font-bold text-[#f1f5f9] mb-4">Скриншоты</h2>
-                <ProjectScreenshots screenshots={project.screenshots} />
-              </div>
-            )}
-          </div>
-
-          <div>
-            <div className="glass rounded-2xl p-5 sticky top-24">
-              <h3 className="text-sm font-mono uppercase tracking-widest text-[#6366f1] mb-4">Стек</h3>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech.documentId}
-                    className="text-xs text-[#f1f5f9] bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5"
-                  >
-                    {tech.name}
-                  </span>
-                ))}
-              </div>
+        <div className="max-w-3xl">
+          {project.description?.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-[#f1f5f9] mb-4">О проекте</h2>
+              <RichText blocks={project.description} />
             </div>
-          </div>
+          )}
+
+          {project.screenshots?.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-[#f1f5f9] mb-4">Скриншоты</h2>
+              <ProjectScreenshots screenshots={project.screenshots} />
+            </div>
+          )}
         </div>
       </div>
     </main>

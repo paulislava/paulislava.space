@@ -120,7 +120,7 @@ export default function Hero() {
         <p className="text-[#6366f1] font-mono text-sm mb-4 tracking-widest uppercase">Привет, я</p>
 
         <h1 ref={headingRef} className="text-5xl md:text-7xl font-bold text-[#f1f5f9] mb-4 leading-tight">
-          Paul{' '}
+          Pavel{' '}
           <span className="gradient-text">Kondratov</span>
         </h1>
 
@@ -130,8 +130,8 @@ export default function Hero() {
         </p>
 
         <p className="text-[#94a3b8] text-base max-w-xl mx-auto mb-10">
-          6+ лет в разработке — от стартапов до продуктов SberDevices.
-          Строю масштабируемые веб-приложения и DevOps-пайплайны.
+          15 лет в разработке — от стартапов до бигтеха.<br />
+          Выстраиваю масштабируемые системы и приложения.
         </p>
 
         <div ref={ctaRef} className="flex gap-4 justify-center flex-wrap">

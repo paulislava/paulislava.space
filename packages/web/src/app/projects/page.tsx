@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProjectsPage() {
-  const projects = await getAllProjects().catch(() => []);
+  const projects = await getAllProjects();
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-6">

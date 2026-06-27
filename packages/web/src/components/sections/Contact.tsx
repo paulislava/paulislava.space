@@ -99,10 +99,10 @@ export default function Contact() {
         <div className="mt-12 text-center space-y-2">
           <p className="text-[#94a3b8] text-sm">Или напрямую:</p>
           <a
-            href="mailto:p-kondratov@mail.ru"
+            href="mailto:i@paulislava.space"
             className="text-[#6366f1] hover:text-[#06b6d4] transition-colors font-mono text-sm"
           >
-            p-kondratov@mail.ru
+            i@paulislava.space
           </a>
         </div>
       </div>
