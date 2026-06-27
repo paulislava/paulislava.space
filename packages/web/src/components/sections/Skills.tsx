@@ -28,7 +28,7 @@ export default function Skills({ technologies, tags }: SkillsProps) {
       if (!containerRef.current) return;
 
       cloudInstance = TagCloud(containerRef.current, texts, {
-        radius: 260,
+        radius: 520,
         maxSpeed: 'fast',
         initSpeed: 'fast',
         direction: 135,
@@ -68,19 +68,16 @@ export default function Skills({ technologies, tags }: SkillsProps) {
   }, [technologies, tags, router]);
 
   return (
-    <section id="skills" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Навыки</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Технологии</h2>
-        </div>
-
-        <div
-          ref={containerRef}
-          className="tagcloud relative mx-auto"
-          style={{ width: '100%', height: '560px' }}
-        />
+    <section id="skills" className="py-24 px-6 text-center">
+      <div className="mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Технологии</h2>
       </div>
+
+      <div
+        ref={containerRef}
+        className="tagcloud relative mx-auto"
+        style={{ width: '100%', height: '1100px' }}
+      />
     </section>
   );
 }
