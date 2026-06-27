@@ -1873,18 +1873,6 @@ export type WorkExperienceRelationResponseCollection = {
   nodes: Array<WorkExperience>;
 };
 
-export type Enum_Tag_Category =
-  | 'article'
-  | 'news'
-  | 'project';
-
-export type Enum_Technology_Category =
-  | 'Backend'
-  | 'Database'
-  | 'DevOps'
-  | 'Frontend'
-  | 'Other';
-
 export type ArticleCardFieldsFragment = { documentId: string, title: string, slug: string, excerpt: string | null, createdAt: string | null, publishedAt: string | null, cover: { documentId: string, url: string, alternativeText: string | null, width: number | null, height: number | null, formats: Record<string, unknown> | null } | null, tags: Array<{ documentId: string, name: string, slug: string, color: string | null, category: Enum_Tag_Category } | null>, technologies: Array<{ documentId: string, name: string, slug: string, category: Enum_Technology_Category, websiteUrl: string | null, icon: { documentId: string, url: string, alternativeText: string | null, width: number | null, height: number | null, formats: Record<string, unknown> | null } | null } | null> };
 
 export type GetArticlesQueryVariables = Exact<{
