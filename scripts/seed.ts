@@ -6,6 +6,23 @@ const headers = {
   Authorization: `Bearer ${TOKEN}`,
 };
 
+function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9а-яё\s-]/gi, '')
+    .replace(/[а-яё]/gi, (ch) => {
+      const map: Record<string, string> = {
+        а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'yo',ж:'zh',з:'z',и:'i',й:'y',
+        к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',
+        х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya',
+      };
+      return map[ch.toLowerCase()] ?? ch;
+    })
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 async function post(endpoint: string, data: unknown) {
   const res = await fetch(`${STRAPI_URL}/api/${endpoint}`, {
     method: 'POST',
@@ -57,7 +74,7 @@ async function main() {
   ];
 
   for (const tech of techList) {
-    const created = await post('technologies', tech);
+    const created = await post('technologies', { ...tech, slug: slugify(tech.name) });
     techs[tech.name] = created.id;
     console.log(`  ✓ Technology: ${tech.name}`);
   }
@@ -77,7 +94,7 @@ async function main() {
   ];
 
   for (const tag of tags) {
-    await post('tags', tag);
+    await post('tags', { ...tag, slug: slugify(tag.name) });
     console.log(`  ✓ Tag: ${tag.name}`);
   }
 
@@ -199,6 +216,7 @@ async function main() {
   // --- Project: BEZNOMERA ---
   await post('projects', {
     title: 'BEZNOMERA',
+    slug: 'beznomera',
     shortDescription: 'Социальная сеть для водителей с Telegram Mini App, чат-ботом и QR-кодами',
     url: 'https://beznomera.net',
     featured: true,
