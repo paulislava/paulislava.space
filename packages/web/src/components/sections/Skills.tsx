@@ -3,13 +3,14 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Technology, mediaUrl } from '@/lib/strapi-types';
+import { Technology, Tag, mediaUrl } from '@/lib/strapi-types';
 import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface SkillsProps {
   technologies: Technology[];
+  tags: Tag[];
 }
 
 const CATEGORY_ORDER: Technology['category'][] = ['Frontend', 'Backend', 'Database', 'DevOps', 'Other'];
@@ -21,7 +22,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   Other: '#94a3b8',
 };
 
-export default function Skills({ technologies }: SkillsProps) {
+export default function Skills({ technologies, tags }: SkillsProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
   const grouped = CATEGORY_ORDER.reduce<Record<string, Technology[]>>((acc, cat) => {

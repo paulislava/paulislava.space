@@ -11,12 +11,13 @@ import {
   GetArticleBySlugDocument,
   GetNewsItemsDocument,
   GetNewsBySlugDocument,
+  GetAllProjectTagsDocument,
 } from '@/gql/graphql';
 import type { TypedDocumentNode } from '@graphql-typed-document-node/core';
 
 export type { StrapiMedia, Technology, WorkExperience, Project, Article, NewsItem, Tag, RichTextBlock } from './strapi-types';
 export { mediaUrl } from './strapi-types';
-import type { Technology, WorkExperience, Project, Article, NewsItem } from './strapi-types';
+import type { Technology, WorkExperience, Project, Article, NewsItem, Tag } from './strapi-types';
 
 async function gqlQuery<TData, TVariables extends OperationVariables>(
   document: TypedDocumentNode<TData, TVariables>,
@@ -71,4 +72,9 @@ export async function getNewsItems(limit = 10): Promise<NewsItem[]> {
 export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
   const data = await gqlQuery(GetNewsBySlugDocument, { slug });
   return (data.news_items?.[0] ?? null) as unknown as NewsItem | null;
+}
+
+export async function getProjectTags(): Promise<Tag[]> {
+  const data = await gqlQuery(GetAllProjectTagsDocument);
+  return (data.tags ?? []) as unknown as Tag[];
 }

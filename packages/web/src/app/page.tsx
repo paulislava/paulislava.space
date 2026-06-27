@@ -11,18 +11,20 @@ import {
   getFeaturedProjects,
   getArticles,
   getNewsItems,
+  getProjectTags,
 } from '@/lib/strapi';
 
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
 
-  const [workExperiences, technologies, featuredProjects, articles, news] = await Promise.all([
+  const [workExperiences, technologies, featuredProjects, articles, news, projectTags] = await Promise.all([
     getWorkExperiences(),
     getTechnologies(),
     getFeaturedProjects(),
     getArticles(6),
     getNewsItems(6),
+    getProjectTags(),
   ]);
 
   return (
@@ -30,7 +32,7 @@ export default async function HomePage() {
       <Hero />
       <About />
       <Experience workExperiences={workExperiences} />
-      <Skills technologies={technologies} />
+      <Skills technologies={technologies} tags={projectTags} />
       <Projects projects={featuredProjects} />
       <ArticlesNews articles={articles} news={news} />
       <Contact />
