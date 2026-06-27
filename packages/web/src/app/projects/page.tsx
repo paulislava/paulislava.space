@@ -1,16 +1,36 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
-import { getAllProjects, mediaUrl } from '@/lib/strapi';
-import Tag from '@/components/ui/Tag';
+import { Suspense } from 'react';
+import { getAllProjects } from '@/lib/strapi';
+import type { Tag, Technology } from '@/lib/strapi-types';
+import ProjectsClient from './ProjectsClient';
 
 export const metadata: Metadata = {
   title: 'Проекты',
   description: 'Все проекты Павла Кондратова',
 };
 
+function uniqueBy<T>(arr: T[], key: keyof T): T[] {
+  const seen = new Set();
+  return arr.filter((item) => {
+    const k = item[key];
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+}
+
 export default async function ProjectsPage() {
   const projects = await getAllProjects();
+
+  const allTags: Tag[] = uniqueBy(
+    projects.flatMap((p) => p.tags),
+    'documentId',
+  );
+  const allTechs: Technology[] = uniqueBy(
+    projects.flatMap((p) => p.technologies),
+    'documentId',
+  );
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-6">
@@ -25,51 +45,9 @@ export default async function ProjectsPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-[#f1f5f9] mt-4">Все проекты</h1>
         </div>
 
-        {projects.length === 0 ? (
-          <p className="text-[#94a3b8] text-center py-24">Проекты скоро появятся</p>
-        ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => {
-              const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover);
-              return (
-                <Link
-                  key={project.documentId}
-                  href={`/projects/${project.slug}`}
-                  className="glass rounded-2xl overflow-hidden group hover:border-[#6366f1]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col"
-                >
-                  {cover && (
-                    <div className="relative h-44 overflow-hidden">
-                      <Image
-                        src={cover}
-                        alt={project.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    </div>
-                  )}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h2 className="font-bold text-[#f1f5f9] text-lg mb-2 group-hover:text-[#6366f1] transition-colors">
-                      {project.title}
-                    </h2>
-                    {project.shortDescription && (
-                      <p className="text-[#94a3b8] text-sm leading-relaxed mb-4 flex-1">
-                        {project.shortDescription}
-                      </p>
-                    )}
-                    {project.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-auto pt-3">
-                        {project.tags.slice(0, 4).map((tag) => (
-                          <Tag key={tag.documentId} tag={tag} />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
+        <Suspense fallback={<div className="text-[#94a3b8]">Загрузка...</div>}>
+          <ProjectsClient projects={projects} allTags={allTags} allTechs={allTechs} />
+        </Suspense>
       </div>
     </main>
   );
