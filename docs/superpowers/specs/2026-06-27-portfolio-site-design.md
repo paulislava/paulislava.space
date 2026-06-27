@@ -100,7 +100,13 @@ paulislava.space/
 | `technologies` | relation m2m | → technology |
 
 ### news
-Идентичная структура с `article`.
+Идентичная структура с `article`, плюс:
+
+| Поле | Тип | Описание |
+|---|---|---|
+| `projects` | relation m2m | → project (новость привязана к проекту) |
+
+На странице `/projects/[slug]` отображается блок "Новости проекта" — все новости, связанные с этим проектом.
 
 ### technology
 | Поле | Тип | Описание |
@@ -149,12 +155,13 @@ paulislava.space/
 7. **Contact** — форма (имя, email, сообщение) → отправка на `p-kondratov@mail.ru` через Next.js API route + SMTP/Resend
 
 ### Отдельные страницы
-- `/projects/[slug]` — hero с cover, Swiper screenshots, full richtext, стек, ссылки
+- `/projects/[slug]` — hero с cover, Swiper screenshots, full richtext, стек, ссылки, блок "Новости проекта"
 - `/articles/[slug]` — читабельная статья, cover, теги, технологии, related
 - `/news/[slug]` — аналогично статьям
 
 ### Получение данных (ISR)
-- `fetch` с `next: { tags: ['projects'] }` и т.п.
+- Все запросы к Strapi — только серверные (RSC, route handlers). Никаких `NEXT_PUBLIC_*` переменных для Strapi, никакого клиентского fetch к CMS.
+- `fetch` с `next: { tags: ['projects'] }` и т.п., переменная `STRAPI_URL` доступна только на сервере
 - `revalidateTag()` вызывается из `/api/revalidate` при вебхуке Strapi
 - `generateStaticParams` для slug-страниц
 
@@ -190,8 +197,8 @@ build-web  ──┬────────────────────
 **deploy-web:**
 - SSH → pull `ghcr.io/paulislava/paulislava.space:web-$SHA`
 - `docker stop paulislava_web || true && docker rm -f paulislava_web || true`
-- `docker run --name paulislava_web -d -p 4100:3000 ...`
-- Health check: `curl localhost:4100/health` × 10 попыток × 15s
+- `docker run --name paulislava_web -d -p 4200:3000 ...`
+- Health check: `curl localhost:4200/health` × 10 попыток × 15s
 
 **deploy-nginx:**
 - Кодирует `nginx/production.conf` в base64 → SSH → декодирует
@@ -202,7 +209,7 @@ build-web  ──┬────────────────────
 **clean:** `docker image prune -f && docker container prune -f`
 
 ### GitHub Secrets
-`SERVER_SSH_KEY`, `CMS_APP_KEYS`, `CMS_JWT_SECRET`, `CMS_ADMIN_JWT_SECRET`, `CMS_TRANSFER_TOKEN_SALT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `NEXT_PUBLIC_STRAPI_URL`, `STRAPI_API_TOKEN`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_EMAIL`
+`SERVER_SSH_KEY`, `CMS_APP_KEYS`, `CMS_JWT_SECRET`, `CMS_ADMIN_JWT_SECRET`, `CMS_TRANSFER_TOKEN_SALT`, `S3_ACCESS_KEY_ID`, `S3_SECRET_ACCESS_KEY`, `STRAPI_URL` (server-side only, не exposed в браузер), `STRAPI_API_TOKEN`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_EMAIL`, `DATABASE_URL`
 
 ---
 
@@ -210,10 +217,10 @@ build-web  ──┬────────────────────
 
 **Docker-контейнеры:**
 - `paulislava_cms` → `localhost:1337` (Strapi, `--network host`, подключается к системному PostgreSQL)
-- `paulislava_web` → `localhost:4100` (Next.js)
+- `paulislava_web` → `localhost:4200` (Next.js)
 
 **nginx (paulislava.space):**
-- `paulislava.space` → proxy `localhost:4100`
+- `paulislava.space` → proxy `localhost:4200`
 - `cms.paulislava.space` → proxy `localhost:1337`
 
 **S3/CDN:**
