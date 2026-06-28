@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Technology, Tag } from '@/lib/strapi-types';
 
@@ -12,27 +12,38 @@ interface SkillsProps {
 export default function Skills({ technologies, tags }: SkillsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile || !containerRef.current) return;
 
     const items = [
       ...technologies.map((t) => ({ type: 'tech', slug: t.slug, name: t.name, color: '#6366f1' })),
       ...tags.map((t) => ({ type: 'tag', slug: t.slug, name: t.name, color: t.color ?? '#94a3b8' })),
     ];
 
-    const texts = items.map((item) => item.name);
-    let cloudInstance: { destroy(): void } | undefined;
     const container = containerRef.current;
+    // Constrain radius by both width and height to prevent clipping
+    const radius = Math.min(
+      520,
+      Math.floor(container.offsetWidth * 0.42),
+      Math.floor(container.offsetHeight * 0.42),
+    );
+    const fontSize = radius < 200 ? '12px' : radius < 350 ? '14px' : '16px';
 
-    // Radius scales to 40% of container width, capped at 520px
-    const radius = Math.min(520, Math.floor(container.offsetWidth * 0.4));
-    const fontSize = radius < 180 ? '11px' : radius < 320 ? '13px' : '15px';
+    let cloudInstance: { destroy(): void } | undefined;
 
     import('TagCloud').then(({ default: TagCloud }) => {
       if (!containerRef.current) return;
 
-      cloudInstance = TagCloud(containerRef.current, texts, {
+      cloudInstance = TagCloud(containerRef.current, items.map((i) => i.name), {
         radius,
         maxSpeed: 'fast',
         initSpeed: 'fast',
@@ -40,8 +51,7 @@ export default function Skills({ technologies, tags }: SkillsProps) {
         keep: true,
       });
 
-      const spans = containerRef.current.querySelectorAll<HTMLElement>('.tagcloud--item');
-      spans.forEach((span, i) => {
+      containerRef.current.querySelectorAll<HTMLElement>('.tagcloud--item').forEach((span, i) => {
         const item = items[i];
         if (!item) return;
         span.dataset.itemType = item.type;
@@ -56,32 +66,49 @@ export default function Skills({ technologies, tags }: SkillsProps) {
     const handleClick = (e: MouseEvent) => {
       const span = (e.target as HTMLElement).closest<HTMLElement>('.tagcloud--item');
       if (!span) return;
-      const type = span.dataset.itemType;
-      const slug = span.dataset.itemSlug;
-      if (type && slug) {
-        router.push(`/projects?${type}=${slug}`);
-      }
+      const { itemType, itemSlug } = span.dataset;
+      if (itemType && itemSlug) router.push(`/projects?${itemType}=${itemSlug}`);
     };
 
     container.addEventListener('click', handleClick as EventListener);
-
     return () => {
       container.removeEventListener('click', handleClick as EventListener);
       cloudInstance?.destroy();
     };
-  }, [technologies, tags, router]);
+  }, [technologies, tags, router, isMobile]);
+
+  const allItems = [
+    ...technologies.map((t) => ({ type: 'tech', slug: t.slug, name: t.name, color: '#6366f1' })),
+    ...tags.map((t) => ({ type: 'tag', slug: t.slug, name: t.name, color: t.color ?? '#94a3b8' })),
+  ];
 
   return (
-    <section id="skills" className="py-16 text-center overflow-hidden">
+    <section id="skills" className="py-16 text-center">
       <div className="mb-8 px-6">
         <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Технологии</h2>
       </div>
 
-      <div
-        ref={containerRef}
-        className="tagcloud relative w-full"
-        style={{ height: '80vh' }}
-      />
+      {isMobile ? (
+        <div className="flex flex-wrap gap-2 justify-center px-6">
+          {allItems.map((item) => (
+            <button
+              key={`${item.type}-${item.slug}`}
+              onClick={() => router.push(`/projects?${item.type}=${item.slug}`)}
+              className="px-3 py-1.5 text-xs rounded-lg border border-white/10 glass hover:border-[#6366f1]/40 transition-all"
+              style={{ color: item.color }}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      ) : (
+        /* display:block overrides TagCloud's injected display:inline-block */
+        <div
+          ref={containerRef}
+          className="relative w-full"
+          style={{ height: '80vh', display: 'block' }}
+        />
+      )}
     </section>
   );
 }
