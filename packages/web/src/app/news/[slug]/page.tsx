@@ -37,7 +37,7 @@ export default async function NewsPage({ params }: PageProps) {
   const cover = mediaUrl(item.cover, 'large') ?? mediaUrl(item.cover);
 
   return (
-    <main className="min-h-screen pt-20">
+    <main className="pt-20">
       {cover && (
         <div className="relative h-64">
           <Image src={cover} alt={item.title} fill className="object-cover opacity-40" priority />

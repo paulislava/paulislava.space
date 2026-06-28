@@ -33,7 +33,7 @@ export default async function ArticlesPage() {
   );
 
   return (
-    <main className="min-h-screen pt-24 pb-16 px-6">
+    <main className="pt-24 pb-16 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
           <Link

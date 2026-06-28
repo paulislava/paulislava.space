@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { codeToHtml } from 'shiki';
 import { RichTextBlock } from '@/lib/strapi-types';
+import CopyButton from './CopyButton';
 
 interface RichTextProps {
   blocks: RichTextBlock[];
@@ -10,8 +12,8 @@ function renderChildren(children: RichTextBlock['children']): React.ReactNode {
   return children.map((child, i) => {
     if (child.type === 'text') {
       let node: React.ReactNode = child.text ?? '';
-      if (child.code) node = <code key={i} className="bg-[#0f172a] text-[#06b6d4] px-1.5 py-0.5 rounded text-sm font-mono">{node}</code>;
-      if (child.bold) node = <strong key={i}>{node}</strong>;
+      if (child.code) node = <code key={i} className="bg-[#0d1117] text-[#7dd3fc] px-1.5 py-0.5 rounded text-[0.875em] font-mono">{node}</code>;
+      if (child.bold) node = <strong key={i} className="font-semibold text-[#e2e8f0]">{node}</strong>;
       if (child.italic) node = <em key={i}>{node}</em>;
       if (child.underline) node = <u key={i}>{node}</u>;
       if (child.strikethrough) node = <s key={i}>{node}</s>;
@@ -24,7 +26,7 @@ function renderChildren(children: RichTextBlock['children']): React.ReactNode {
           href={child.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#6366f1] hover:text-[#06b6d4] underline transition-colors"
+          className="text-[#6366f1] hover:text-[#06b6d4] underline underline-offset-2 transition-colors"
         >
           {renderChildren(child.children ?? [])}
         </a>
@@ -34,10 +36,73 @@ function renderChildren(children: RichTextBlock['children']): React.ReactNode {
   });
 }
 
-export default function RichText({ blocks, className = '' }: RichTextProps) {
+function extractText(children: RichTextBlock['children']): string {
+  return children
+    .map((c) => {
+      if (c.type === 'text') return c.text ?? '';
+      if (c.children) return extractText(c.children);
+      return '';
+    })
+    .join('');
+}
+
+const LANG_MAP: Record<string, string> = {
+  js: 'javascript',
+  jsx: 'jsx',
+  ts: 'typescript',
+  tsx: 'tsx',
+  typescript: 'typescript',
+  javascript: 'javascript',
+  python: 'python',
+  py: 'python',
+  bash: 'bash',
+  sh: 'bash',
+  shell: 'bash',
+  css: 'css',
+  html: 'html',
+  json: 'json',
+  yaml: 'yaml',
+  yml: 'yaml',
+  sql: 'sql',
+  rust: 'rust',
+  go: 'go',
+  graphql: 'graphql',
+  gql: 'graphql',
+  mdx: 'mdx',
+  md: 'markdown',
+};
+
+async function HighlightedCode({ code, language }: { code: string; language?: string }) {
+  const lang = LANG_MAP[language?.toLowerCase() ?? ''] ?? 'typescript';
+
+  let html: string;
+  try {
+    html = await codeToHtml(code, {
+      lang,
+      theme: 'github-dark',
+    });
+  } catch {
+    html = `<pre><code>${code.replace(/</g, '&lt;')}</code></pre>`;
+  }
+
+  return (
+    <div className="relative group mb-6">
+      <div className="flex items-center justify-between bg-[#161b22] border border-white/5 rounded-t-xl px-4 py-2">
+        <span className="text-xs font-mono text-[#4b5563]">{language ?? 'code'}</span>
+        <CopyButton code={code} />
+      </div>
+      <div
+        className="[&>pre]:!bg-[#0d1117] [&>pre]:!m-0 [&>pre]:rounded-b-xl [&>pre]:rounded-t-none [&>pre]:p-5 [&>pre]:overflow-x-auto [&>pre]:text-sm [&>pre]:leading-relaxed [&>pre]:border [&>pre]:border-t-0 [&>pre]:border-white/5"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </div>
+  );
+}
+
+export default async function RichText({ blocks, className = '' }: RichTextProps) {
   return (
     <div className={`max-w-none ${className}`}>
-      {blocks.map((block, i) => {
+      {await Promise.all(blocks.map(async (block, i) => {
         switch (block.type) {
           case 'paragraph':
             return (
@@ -76,12 +141,10 @@ export default function RichText({ blocks, className = '' }: RichTextProps) {
               </ListTag>
             );
           }
-          case 'code':
-            return (
-              <pre key={i} className="bg-[#0d1117] border border-white/5 rounded-xl p-5 font-mono text-sm text-[#7dd3fc] overflow-x-auto mb-6 leading-relaxed">
-                <code>{renderChildren(block.children)}</code>
-              </pre>
-            );
+          case 'code': {
+            const code = extractText(block.children);
+            return <HighlightedCode key={i} code={code} language={block.language} />;
+          }
           case 'quote':
             return (
               <blockquote
@@ -111,7 +174,7 @@ export default function RichText({ blocks, className = '' }: RichTextProps) {
           default:
             return null;
         }
-      })}
+      }))}
     </div>
   );
 }

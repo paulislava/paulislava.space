@@ -41,7 +41,7 @@ export default async function ProjectPage({ params }: PageProps) {
   const cover = mediaUrl(project.cover, 'large') ?? mediaUrl(project.cover);
 
   return (
-    <main className="min-h-screen">
+    <main>
       <div className="relative">
         {cover ? (
           <Image src={cover} alt={project.title} fill className="object-cover opacity-50" priority />
