@@ -54,12 +54,12 @@ export default function Projects({ projects }: ProjectsProps) {
         {!isBeginning && (
           <>
             <div
-              className="hidden sm:block absolute left-0 inset-y-0 w-40 z-10 pointer-events-none"
+              className="absolute left-0 inset-y-0 w-16 sm:w-40 z-10 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at left center, #0a0a0f 0%, transparent 70%)' }}
             />
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] cursor-pointer hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
+              className="flex absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] cursor-pointer hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
               aria-label="Предыдущий"
             >
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -140,12 +140,12 @@ export default function Projects({ projects }: ProjectsProps) {
         {!isEnd && (
           <>
             <div
-              className="hidden sm:block absolute right-0 inset-y-0 w-40 z-10 pointer-events-none"
+              className="absolute right-0 inset-y-0 w-16 sm:w-40 z-10 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at right center, #0a0a0f 0%, transparent 70%)' }}
             />
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="hidden sm:flex absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
+              className="flex absolute cursor-pointer right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
               aria-label="Следующий"
             >
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
