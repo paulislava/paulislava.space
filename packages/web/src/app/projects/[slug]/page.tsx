@@ -50,7 +50,7 @@ export default async function ProjectPage({ params }: PageProps) {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent" />
         <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-4">
-          <Link href="/#projects" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-3 block font-mono">
+          <Link href="/projects" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-3 block font-mono">
             ← Назад к проектам
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold text-[#f1f5f9] mb-3">{project.title}</h1>
