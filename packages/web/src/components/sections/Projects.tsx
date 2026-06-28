@@ -37,7 +37,7 @@ export default function Projects({ projects }: ProjectsProps) {
         <div className="section-header mb-10 flex items-end justify-between">
           <div>
             <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Проекты</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Что я строил</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Что я создавал</h2>
           </div>
           <Link
             href="/projects"
@@ -69,7 +69,7 @@ export default function Projects({ projects }: ProjectsProps) {
           </>
         )}
 
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto">
           <Swiper
             modules={[A11y]}
             spaceBetween={24}
