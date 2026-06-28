@@ -26,6 +26,16 @@ query GetArticles($limit: Int = 10) {
   }
 }
 
+query GetAllArticles {
+  articles(
+    pagination: { limit: 100 }
+    sort: "createdAt:desc"
+    status: PUBLISHED
+  ) {
+    ...ArticleCardFields
+  }
+}
+
 query GetArticleBySlug($slug: String!) {
   articles(
     filters: { slug: { eq: $slug } }

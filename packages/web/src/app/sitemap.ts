@@ -20,13 +20,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     ...articles.map((a) => ({
       url: `${BASE}/articles/${a.slug}`,
-      lastModified: new Date(a.createdAt),
+      lastModified: new Date(a.publishedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),
     ...news.map((n) => ({
       url: `${BASE}/news/${n.slug}`,
-      lastModified: new Date(n.createdAt),
+      lastModified: new Date(n.publishedAt),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
     })),

@@ -31,8 +31,8 @@ export default ({ env }) => ({
       endpoint: '/graphql',
       shadowCRUD: true,
       playgroundAlways: true,
-      defaultLimit: 100,
-      maxLimit: 200,
+      defaultLimit: -1,
+      maxLimit: -1, 
       apolloServer: {
         tracing: false,
         introspection: true,

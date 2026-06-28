@@ -10,6 +10,7 @@ import {
   GetAllProjectsDocument,
   GetProjectBySlugDocument,
   GetArticlesDocument,
+  GetAllArticlesDocument,
   GetArticleBySlugDocument,
   GetNewsItemsDocument,
   GetNewsBySlugDocument,
@@ -72,7 +73,15 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   return (data.projects?.[0] ?? null) as unknown as Project | null;
 }
 
-export async function getArticles(limit = 10): Promise<Article[]> {
+export async function getAllArticles(): Promise<Article[]> {
+  const data = await gqlQuery(GetAllArticlesDocument, undefined, {
+    tags: ['articles'],
+    revalidate: 1800,
+  });
+  return (data.articles ?? []) as unknown as Article[];
+}
+
+export async function getArticles(limit = -1): Promise<Article[]> {
   const data = await gqlQuery(GetArticlesDocument, { limit }, {
     tags: ['articles'],
     revalidate: 1800,
