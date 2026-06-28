@@ -35,11 +35,17 @@ export interface Tag {
 export interface RichTextBlock {
   type: string;
   level?: number;
+  format?: 'ordered' | 'unordered';
+  language?: string;
+  image?: { url: string; alternativeText?: string; width?: number; height?: number };
   children: Array<{
     type: string;
     text?: string;
     bold?: boolean;
     italic?: boolean;
+    underline?: boolean;
+    strikethrough?: boolean;
+    code?: boolean;
     url?: string;
     children?: RichTextBlock['children'];
   }>;
