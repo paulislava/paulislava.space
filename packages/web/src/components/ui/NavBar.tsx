@@ -23,14 +23,14 @@ export default function NavBar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      className="fixed px-6 top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
         background: scrolled ? 'rgba(10,10,15,0.9)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         borderBottom: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
       }}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto py-4 flex items-center justify-between">
         <Link href="/" className="font-mono text-sm font-bold gradient-text">
           Павел Кондратов |  @paulislava
         </Link>
