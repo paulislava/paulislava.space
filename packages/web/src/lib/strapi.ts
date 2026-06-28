@@ -1,6 +1,8 @@
 import 'server-only';
-import { print } from 'graphql';
+import type { OperationVariables } from '@apollo/client';
 import type { TypedDocumentNode } from '@graphql-typed-document-node/core';
+import { getClient } from './apollo';
+import type { NextCacheOptions } from './apollo';
 import {
   GetTechnologiesDocument,
   GetWorkExperiencesDocument,
@@ -18,117 +20,94 @@ export type { StrapiMedia, Technology, WorkExperience, Project, Article, NewsIte
 export { mediaUrl } from './strapi-types';
 import type { Technology, WorkExperience, Project, Article, NewsItem, Tag } from './strapi-types';
 
-const STRAPI_URL = process.env.STRAPI_URL || 'https://cms.paulislava.space';
-const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN ?? '';
-
-interface GqlOptions {
-  tags?: string[];
-  revalidate?: number;
-}
-
-async function gqlFetch<TData, TVariables>(
+async function gqlQuery<TData, TVariables extends OperationVariables>(
   document: TypedDocumentNode<TData, TVariables>,
   variables?: TVariables,
-  options?: GqlOptions,
+  cache?: NextCacheOptions,
 ): Promise<TData> {
-  const res = await fetch(`${STRAPI_URL}/graphql`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-    },
-    body: JSON.stringify({ query: print(document), variables }),
-    next: {
-      tags: options?.tags,
-      revalidate: options?.revalidate,
-    },
-  });
-
-  if (!res.ok) throw new Error(`GraphQL request failed: ${res.status}`);
-
-  const json = (await res.json()) as { data?: TData; errors?: Array<{ message: string }> };
-  if (json.errors?.length) throw new Error(json.errors.map((e) => e.message).join(', '));
-  if (!json.data) throw new Error('No data returned from GraphQL');
-
-  return json.data;
+  // Apollo v4 VariablesOption требует точного типа; any только здесь
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const result = await getClient(cache).query({ query: document, variables: variables as any, fetchPolicy: 'no-cache' });
+  if (!result.data) throw new Error('No data returned from GraphQL');
+  return result.data;
 }
 
 export async function getTechnologies(): Promise<Technology[]> {
-  const data = await gqlFetch(GetTechnologiesDocument, undefined, {
+  const data = await gqlQuery(GetTechnologiesDocument, undefined, {
     tags: ['technologies'],
-    revalidate: 86400, // 24h — справочник, меняется редко
+    revalidate: 86400,
   });
   return (data.technologies ?? []) as unknown as Technology[];
 }
 
 export async function getWorkExperiences(): Promise<WorkExperience[]> {
-  const data = await gqlFetch(GetWorkExperiencesDocument, undefined, {
+  const data = await gqlQuery(GetWorkExperiencesDocument, undefined, {
     tags: ['work-experiences'],
-    revalidate: 86400, // 24h
+    revalidate: 86400,
   });
   return (data.workExperiences ?? []) as unknown as WorkExperience[];
 }
 
 export async function getFeaturedProjects(): Promise<Project[]> {
-  const data = await gqlFetch(GetFeaturedProjectsDocument, undefined, {
+  const data = await gqlQuery(GetFeaturedProjectsDocument, undefined, {
     tags: ['projects'],
-    revalidate: 3600, // 1h
+    revalidate: 3600,
   });
   return (data.projects ?? []) as unknown as Project[];
 }
 
 export async function getAllProjects(): Promise<Project[]> {
-  const data = await gqlFetch(GetAllProjectsDocument, undefined, {
+  const data = await gqlQuery(GetAllProjectsDocument, undefined, {
     tags: ['projects'],
-    revalidate: 3600, // 1h
+    revalidate: 3600,
   });
   return (data.projects ?? []) as unknown as Project[];
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
-  const data = await gqlFetch(GetProjectBySlugDocument, { slug }, {
+  const data = await gqlQuery(GetProjectBySlugDocument, { slug }, {
     tags: ['projects', `project-${slug}`],
-    revalidate: 3600, // 1h
+    revalidate: 3600,
   });
   return (data.projects?.[0] ?? null) as unknown as Project | null;
 }
 
 export async function getArticles(limit = 10): Promise<Article[]> {
-  const data = await gqlFetch(GetArticlesDocument, { limit }, {
+  const data = await gqlQuery(GetArticlesDocument, { limit }, {
     tags: ['articles'],
-    revalidate: 1800, // 30min
+    revalidate: 1800,
   });
   return (data.articles ?? []) as unknown as Article[];
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const data = await gqlFetch(GetArticleBySlugDocument, { slug }, {
+  const data = await gqlQuery(GetArticleBySlugDocument, { slug }, {
     tags: ['articles', `article-${slug}`],
-    revalidate: 1800, // 30min
+    revalidate: 1800,
   });
   return (data.articles?.[0] ?? null) as unknown as Article | null;
 }
 
 export async function getNewsItems(limit = 10): Promise<NewsItem[]> {
-  const data = await gqlFetch(GetNewsItemsDocument, { limit }, {
+  const data = await gqlQuery(GetNewsItemsDocument, { limit }, {
     tags: ['news'],
-    revalidate: 900, // 15min — новости обновляются часто
+    revalidate: 900,
   });
   return (data.news_items ?? []) as unknown as NewsItem[];
 }
 
 export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
-  const data = await gqlFetch(GetNewsBySlugDocument, { slug }, {
+  const data = await gqlQuery(GetNewsBySlugDocument, { slug }, {
     tags: ['news', `news-${slug}`],
-    revalidate: 900, // 15min
+    revalidate: 900,
   });
   return (data.news_items?.[0] ?? null) as unknown as NewsItem | null;
 }
 
 export async function getProjectTags(): Promise<Tag[]> {
-  const data = await gqlFetch(GetAllProjectTagsDocument, undefined, {
+  const data = await gqlQuery(GetAllProjectTagsDocument, undefined, {
     tags: ['tags'],
-    revalidate: 86400, // 24h
+    revalidate: 86400,
   });
   return (data.tags ?? []) as unknown as Tag[];
 }
