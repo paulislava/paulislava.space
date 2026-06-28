@@ -7,7 +7,7 @@ const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: { default: 'Pavel Kondratov — Software Engineer', template: '%s | Pavel Kondratov' },
+  title: { default: 'Павел Кондратов — Software Engineer', template: '%s | Павел Кондратов' },
   description: 'Software Engineer — React, Next.js, NestJS, DevOps. Портфолио проектов и статьи.',
   metadataBase: new URL('https://paulislava.space'),
   openGraph: {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Pavel Kondratov',
+  name: 'Павел Кондратов',
   url: 'https://paulislava.space',
   jobTitle: 'Software Engineer',
   worksFor: { '@type': 'Organization', name: 'SberDevices' },

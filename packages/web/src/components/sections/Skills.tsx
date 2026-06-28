@@ -32,9 +32,9 @@ export default function Skills({ technologies, tags }: SkillsProps) {
     const container = containerRef.current;
     // Constrain radius by both width and height to prevent clipping
     const radius = Math.min(
-      520,
-      Math.floor(container.offsetWidth * 0.42),
-      Math.floor(container.offsetHeight * 0.42),
+      720,
+      Math.floor(container.offsetWidth * 0.62),
+      Math.floor(container.offsetHeight * 0.62),
     );
     const fontSize = radius < 200 ? '12px' : radius < 350 ? '14px' : '16px';
 
@@ -106,7 +106,12 @@ export default function Skills({ technologies, tags }: SkillsProps) {
         <div
           ref={containerRef}
           className="relative w-full"
-          style={{ height: '80vh', display: 'block' }}
+          style={{
+            height: '80vh', 
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
         />
       )}
     </section>

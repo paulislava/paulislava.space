@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
-const ROLES = ['Software Engineer', 'Tech Lead', 'Full-Stack Developer', 'DevOps Engineer'];
+const ROLES = ['Архитектор', 'Software Engineer', 'Tech Lead', 'Full-Stack Developer', 'DevOps Engineer'];
 
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -120,8 +120,8 @@ export default function Hero() {
         <p className="text-[#6366f1] font-mono text-sm mb-4 tracking-widest uppercase">Привет, я</p>
 
         <h1 ref={headingRef} className="text-5xl md:text-7xl font-bold text-[#f1f5f9] mb-4 leading-tight">
-          Pavel{' '}
-          <span className="gradient-text">Kondratov</span>
+          Павел{' '}
+          <span className="gradient-text">Кондратов</span>
         </h1>
 
         <p ref={subtitleRef} className="text-xl md:text-2xl text-[#94a3b8] mb-8 h-8">

@@ -32,7 +32,7 @@ export default function NavBar() {
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link href="/" className="font-mono text-sm font-bold gradient-text">
-          paulislava
+          Павел Кондратов |  @paulislava
         </Link>
         <ul className="hidden md:flex gap-6">
           {links.map((l) => (
