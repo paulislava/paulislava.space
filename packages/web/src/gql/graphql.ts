@@ -17,6 +17,27 @@ export type Scalars = {
   JSON: { input: Record<string, unknown>; output: Record<string, unknown>; }
 };
 
+export type ComponentSectionsMdxSection = {
+  __typename?: 'ComponentSectionsMdxSection';
+  content: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+export type ComponentSectionsFaqItem = {
+  __typename?: 'ComponentSectionsFaqItem';
+  answer: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  question: Scalars['String']['output'];
+};
+
+export type ComponentSectionsFaqSection = {
+  __typename?: 'ComponentSectionsFaqSection';
+  id: Scalars['ID']['output'];
+  items: Array<Maybe<ComponentSectionsFaqItem>>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 export type Article = {
   __typename?: 'Article';
   content?: Maybe<Scalars['JSON']['output']>;
@@ -24,6 +45,7 @@ export type Article = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   documentId: Scalars['ID']['output'];
   excerpt?: Maybe<Scalars['String']['output']>;
+  mainContent?: Maybe<Array<Maybe<ComponentSectionsMdxSection | ComponentSectionsFaqSection>>>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   slug: Scalars['String']['output'];
   tags: Array<Maybe<Tag>>;
@@ -1887,7 +1909,7 @@ export type GetArticleBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetArticleBySlugQuery = { articles: Array<{ content: Record<string, unknown> | null, documentId: string, title: string, slug: string, excerpt: string | null, createdAt: string | null, publishedAt: string | null, cover: { documentId: string, url: string, alternativeText: string | null, width: number | null, height: number | null, formats: Record<string, unknown> | null } | null, tags: Array<{ documentId: string, name: string, slug: string, color: string | null, category: Enum_Tag_Category } | null>, technologies: Array<{ documentId: string, name: string, slug: string, category: Enum_Technology_Category, websiteUrl: string | null, icon: { documentId: string, url: string, alternativeText: string | null, width: number | null, height: number | null, formats: Record<string, unknown> | null } | null } | null> } | null> };
+export type GetArticleBySlugQuery = { articles: Array<{ content: Record<string, unknown> | null, mainContent: Array<{ __typename: 'ComponentSectionsMdxSection', title: string | null, content: string } | { __typename: 'ComponentSectionsFaqSection', title: string | null, items: Array<{ question: string, answer: string } | null> } | null> | null, documentId: string, title: string, slug: string, excerpt: string | null, createdAt: string | null, publishedAt: string | null, cover: { documentId: string, url: string, alternativeText: string | null, width: number | null, height: number | null, formats: Record<string, unknown> | null } | null, tags: Array<{ documentId: string, name: string, slug: string, color: string | null, category: Enum_Tag_Category } | null>, technologies: Array<{ documentId: string, name: string, slug: string, category: Enum_Technology_Category, websiteUrl: string | null, icon: { documentId: string, url: string, alternativeText: string | null, width: number | null, height: number | null, formats: Record<string, unknown> | null } | null } | null> } | null> };
 
 export type MediaFieldsFragment = { documentId: string, url: string, alternativeText: string | null, width: number | null, height: number | null, formats: Record<string, unknown> | null };
 

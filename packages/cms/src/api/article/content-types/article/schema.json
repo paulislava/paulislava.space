@@ -28,6 +28,10 @@
       "relation": "manyToMany",
       "target": "api::technology.technology",
       "inversedBy": "articles"
+    },
+    "mainContent": {
+      "type": "dynamiczone",
+      "components": ["sections.mdx-section", "sections.faq-section"]
     }
   }
 }

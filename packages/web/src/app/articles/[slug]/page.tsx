@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getArticles, getArticleBySlug, mediaUrl } from '@/lib/strapi';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
+import ArticleSections from '@/components/ui/ArticleSections';
 import { formatDate } from '@/lib/utils';
 
 interface PageProps { params: Promise<{ slug: string }> }
@@ -64,6 +65,9 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className="glass rounded-2xl p-8">
           <RichText blocks={article.content} />
         </div>
+        {article.mainContent?.length > 0 && (
+          <ArticleSections sections={article.mainContent} />
+        )}
       </div>
     </main>
   );

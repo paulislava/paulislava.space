@@ -74,12 +74,32 @@ export interface Project {
   tags: Tag[];
 }
 
+export interface MdxSection {
+  __typename: 'ComponentSectionsMdxSection';
+  title: string | null;
+  content: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface FaqSection {
+  __typename: 'ComponentSectionsFaqSection';
+  title: string | null;
+  items: FaqItem[];
+}
+
+export type ArticleSection = MdxSection | FaqSection;
+
 export interface Article {
   documentId: string;
   title: string;
   slug: string;
   excerpt: string | null;
   content: RichTextBlock[];
+  mainContent: ArticleSection[];
   cover: StrapiMedia | null;
   tags: Tag[];
   technologies: Technology[];

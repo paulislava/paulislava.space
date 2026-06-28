@@ -34,5 +34,19 @@ query GetArticleBySlug($slug: String!) {
   ) {
     ...ArticleCardFields
     content
+    mainContent {
+      __typename
+      ... on ComponentSectionsMdxSection {
+        title
+        content
+      }
+      ... on ComponentSectionsFaqSection {
+        title
+        items {
+          question
+          answer
+        }
+      }
+    }
   }
 }
