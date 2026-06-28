@@ -65,7 +65,7 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className="glass rounded-2xl p-8">
           <RichText blocks={article.content} />
         </div>
-        {article.mainContent?.length > 0 && (
+        {article.mainContent && article.mainContent.length > 0 && (
           <ArticleSections sections={article.mainContent} />
         )}
       </div>

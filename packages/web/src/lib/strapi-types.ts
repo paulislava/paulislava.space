@@ -88,7 +88,7 @@ export interface FaqItem {
 export interface FaqSection {
   __typename: 'ComponentSectionsFaqSection';
   title: string | null;
-  items: FaqItem[];
+  items: (FaqItem | null)[] | null;
 }
 
 export type ArticleSection = MdxSection | FaqSection;
