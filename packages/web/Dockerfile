@@ -6,6 +6,10 @@ COPY package.json ./
 RUN npm install
 
 FROM base AS builder
+ARG STRAPI_API_TOKEN
+ARG STRAPI_URL
+ENV STRAPI_API_TOKEN=${STRAPI_API_TOKEN}
+ENV STRAPI_URL=${STRAPI_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build

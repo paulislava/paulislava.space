@@ -5,9 +5,9 @@ const BASE = 'https://paulislava.space';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [projects, articles, news] = await Promise.all([
-    getAllProjects(),
-    getArticles(100),
-    getNewsItems(100),
+    getAllProjects().catch(() => []),
+    getArticles(100).catch(() => []),
+    getNewsItems(100).catch(() => []),
   ]);
 
   return [

@@ -50,18 +50,23 @@ export default function Projects({ projects }: ProjectsProps) {
 
       {/* Full-width carousel strip — cancels section px-6 to reach screen edges */}
       <div className="relative -mx-6">
-        {/* Left edge: gradient + arrow */}
-        <div className="absolute left-0 inset-y-0 w-32 bg-gradient-to-r from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
+        {/* Left edge: gradient + arrow — only when not at beginning */}
         {!isBeginning && (
-          <button
-            onClick={() => swiperRef.current?.slidePrev()}
-            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] cursor-pointer hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
-            aria-label="Предыдущий"
-          >
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+          <>
+            <div
+              className="hidden sm:block absolute left-0 inset-y-0 w-40 z-10 pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse at left center, #0a0a0f 0%, transparent 70%)' }}
+            />
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] cursor-pointer hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
+              aria-label="Предыдущий"
+            >
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          </>
         )}
 
         <div className="max-w-6xl mx-auto px-6">
@@ -131,18 +136,23 @@ export default function Projects({ projects }: ProjectsProps) {
           </Swiper>
         </div>
 
-        {/* Right edge: gradient + arrow */}
-        <div className="absolute right-0 inset-y-0 w-32 bg-gradient-to-l from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
+        {/* Right edge: gradient + arrow — only when not at end */}
         {!isEnd && (
-          <button
-            onClick={() => swiperRef.current?.slideNext()}
-            className="hidden sm:flex absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
-            aria-label="Следующий"
-          >
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          <>
+            <div
+              className="hidden sm:block absolute right-0 inset-y-0 w-40 z-10 pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse at right center, #0a0a0f 0%, transparent 70%)' }}
+            />
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              className="hidden sm:flex absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass items-center justify-center text-[#94a3b8] hover:text-[#6366f1] hover:border-[#6366f1]/50 transition-all duration-200"
+              aria-label="Следующий"
+            >
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </>
         )}
       </div>
 
