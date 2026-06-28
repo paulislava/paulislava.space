@@ -20,7 +20,7 @@ function FaqSectionView({ section }: { section: FaqSection }) {
         <h2 className="text-2xl font-bold text-[#f1f5f9] mb-6">{section.title}</h2>
       )}
       <div className="space-y-3">
-        {(section.items ?? []).filter(Boolean).map((item, i) => (
+        {(section.items ?? []).filter((item): item is NonNullable<typeof item> => item !== null).map((item, i) => (
           <details
             key={i}
             className="group glass rounded-xl border border-[#1e293b] open:border-[#6366f1]/30"
