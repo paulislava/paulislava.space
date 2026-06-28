@@ -18,7 +18,7 @@ export type { StrapiMedia, Technology, WorkExperience, Project, Article, NewsIte
 export { mediaUrl } from './strapi-types';
 import type { Technology, WorkExperience, Project, Article, NewsItem, Tag } from './strapi-types';
 
-const STRAPI_URL = process.env.STRAPI_URL ?? 'https://cms.paulislava.space';
+const STRAPI_URL = process.env.STRAPI_URL || 'https://cms.paulislava.space';
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN ?? '';
 
 interface GqlOptions {
