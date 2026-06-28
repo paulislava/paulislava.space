@@ -34,12 +34,14 @@ export default function Contact() {
 
         {status === 'ok' ? (
           <div className="text-center py-8">
-            <p className="text-2xl mb-2">✓</p>
+            <svg aria-hidden="true" className="w-8 h-8 text-[#10b981] mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
             <p className="text-[#10b981] font-semibold mb-1">Сообщение отправлено!</p>
             <p className="text-[#94a3b8] text-sm">Я отвечу в ближайшее время.</p>
             <button
               onClick={() => setStatus('idle')}
-              className="mt-4 text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors"
+              className="mt-4 px-4 py-2 text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] rounded-lg"
             >
               Отправить ещё
             </button>
@@ -48,42 +50,45 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
-                <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Имя</label>
+                <label htmlFor="contact-name" className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Имя</label>
                 <input
+                  id="contact-name"
                   type="text"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="Ваше имя"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[#f1f5f9] text-sm placeholder:text-[#94a3b8]/50 focus:outline-none focus:border-[#6366f1]/50 transition-colors"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[#f1f5f9] text-sm placeholder:text-[#94a3b8]/50 outline-none focus-visible:border-[#6366f1]/70 focus-visible:ring-2 focus-visible:ring-[#6366f1]/30 transition-colors"
                 />
               </div>
               <div>
-                <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Email</label>
+                <label htmlFor="contact-email" className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Email</label>
                 <input
+                  id="contact-email"
                   type="email"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="your@email.com"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[#f1f5f9] text-sm placeholder:text-[#94a3b8]/50 focus:outline-none focus:border-[#6366f1]/50 transition-colors"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[#f1f5f9] text-sm placeholder:text-[#94a3b8]/50 outline-none focus-visible:border-[#6366f1]/70 focus-visible:ring-2 focus-visible:ring-[#6366f1]/30 transition-colors"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Сообщение</label>
+              <label htmlFor="contact-message" className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Сообщение</label>
               <textarea
+                id="contact-message"
                 required
                 rows={5}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 placeholder="Расскажите о вашем проекте или задаче..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[#f1f5f9] text-sm placeholder:text-[#94a3b8]/50 focus:outline-none focus:border-[#6366f1]/50 transition-colors resize-none"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[#f1f5f9] text-sm placeholder:text-[#94a3b8]/50 outline-none focus-visible:border-[#6366f1]/70 focus-visible:ring-2 focus-visible:ring-[#6366f1]/30 transition-colors resize-none"
               />
             </div>
 
             {status === 'error' && (
-              <p className="text-red-400 text-sm text-center">Не удалось отправить. Попробуйте позже.</p>
+              <p role="alert" className="text-red-400 text-sm text-center">Не удалось отправить. Попробуйте позже.</p>
             )}
 
             <button
