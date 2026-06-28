@@ -4,12 +4,12 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const links = [
-  { href: '#about', label: 'Обо мне' },
-  { href: '#experience', label: 'Опыт' },
-  { href: '#skills', label: 'Навыки' },
-  { href: '#projects', label: 'Проекты' },
-  { href: '#articles', label: 'Статьи' },
-  { href: '#contact', label: 'Контакт' },
+  { href: '/#about', label: 'Обо мне' },
+  { href: '/#experience', label: 'Опыт' },
+  { href: '/#skills', label: 'Навыки' },
+  { href: '/#projects', label: 'Проекты' },
+  { href: '/#articles', label: 'Статьи' },
+  { href: '/#contact', label: 'Контакт' },
 ];
 
 export default function NavBar() {
