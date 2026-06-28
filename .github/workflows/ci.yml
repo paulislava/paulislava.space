@@ -170,8 +170,8 @@ jobs:
             echo "$ENV_B64" | base64 -d > /tmp/paulislava-web.env
             docker run --name paulislava_web -d -p 4200:3000 \
               --env-file /tmp/paulislava-web.env \
-              --add-host mail.beget.com:mail.beget.com
-              -e STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}
+              --add-host mail.beget.com:mail.beget.com \
+              -e STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }} \
               ghcr.io/paulislava/paulislava.space:web-$IMAGE_TAG
             rm -f /tmp/paulislava-web.env
 
