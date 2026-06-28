@@ -24,7 +24,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 px-6">
+    <section id="contact" className="pt-24 pb-12 px-6">
       <div className="max-w-2xl mx-auto">
         <div className="mb-12 text-center">
           <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Контакт</p>
@@ -33,7 +33,7 @@ export default function Contact() {
         </div>
 
         {status === 'ok' ? (
-          <div className="glass rounded-2xl p-8 text-center">
+          <div className="text-center py-8">
             <p className="text-2xl mb-2">✓</p>
             <p className="text-[#10b981] font-semibold mb-1">Сообщение отправлено!</p>
             <p className="text-[#94a3b8] text-sm">Я отвечу в ближайшее время.</p>
@@ -45,7 +45,7 @@ export default function Contact() {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Имя</label>
