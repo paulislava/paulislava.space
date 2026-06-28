@@ -38,23 +38,23 @@ export default async function ArticlePage({ params }: PageProps) {
   const cover = mediaUrl(article.cover, 'large') ?? mediaUrl(article.cover);
 
   return (
-    <main className="min-h-screen pt-20">
+    <main className="pt-20">
       {cover && (
         <div className="relative h-64">
           <Image src={cover} alt={article.title} fill className="object-cover opacity-40" priority />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
         </div>
       )}
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        <Link href="/#articles" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-6 block font-mono">
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <Link href="/articles" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-8 flex items-center gap-1.5 font-mono w-fit">
           ← Назад к статьям
         </Link>
-        <p className="text-[#94a3b8] text-sm mb-2">{formatDate(article.createdAt)}</p>
-        <h1 className="text-3xl md:text-4xl font-bold text-[#f1f5f9] mb-4">{article.title}</h1>
+        <p className="text-[#94a3b8] text-sm mb-3 font-mono">{formatDate(article.publishedAt ?? article.createdAt)}</p>
+        <h1 className="text-4xl md:text-5xl font-bold text-[#f1f5f9] mb-5 leading-tight">{article.title}</h1>
         {article.excerpt && (
-          <p className="text-[#94a3b8] text-lg mb-6 leading-relaxed">{article.excerpt}</p>
+          <p className="text-[#94a3b8] text-xl mb-8 leading-relaxed max-w-2xl">{article.excerpt}</p>
         )}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-12 pb-8 border-b border-white/5">
           {article.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
           {article.technologies.map((tech) => (
             <span key={tech.documentId} className="text-xs text-[#6366f1] bg-[#6366f1]/10 border border-[#6366f1]/20 rounded-lg px-2.5 py-1">
@@ -62,9 +62,7 @@ export default async function ArticlePage({ params }: PageProps) {
             </span>
           ))}
         </div>
-        <div className="glass rounded-2xl p-8">
-          <RichText blocks={article.content} />
-        </div>
+        <RichText blocks={article.content} />
         {article.mainContent && article.mainContent.length > 0 && (
           <ArticleSections sections={article.mainContent} />
         )}

@@ -36,25 +36,30 @@ function renderChildren(children: RichTextBlock['children']): React.ReactNode {
 
 export default function RichText({ blocks, className = '' }: RichTextProps) {
   return (
-    <div className={`prose prose-invert max-w-none ${className}`}>
+    <div className={`max-w-none ${className}`}>
       {blocks.map((block, i) => {
         switch (block.type) {
           case 'paragraph':
             return (
-              <p key={i} className="text-[#94a3b8] leading-relaxed mb-4">
+              <p key={i} className="text-[#b0bec5] text-[1.05rem] leading-[1.85] mb-6">
                 {renderChildren(block.children)}
               </p>
             );
           case 'heading': {
             const level = block.level ?? 2;
-            const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-            const sizes: Record<number, string> = {
-              1: 'text-3xl', 2: 'text-2xl', 3: 'text-xl', 4: 'text-lg', 5: 'text-base', 6: 'text-sm',
+            const HTag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+            const styles: Record<number, string> = {
+              1: 'text-3xl md:text-4xl font-bold text-[#f1f5f9] mb-4 mt-12',
+              2: 'text-2xl md:text-3xl font-bold text-[#f1f5f9] mb-3 mt-10',
+              3: 'text-xl font-semibold text-[#e2e8f0] mb-3 mt-8',
+              4: 'text-lg font-semibold text-[#e2e8f0] mb-2 mt-6',
+              5: 'text-base font-semibold text-[#cbd5e1] mb-2 mt-4',
+              6: 'text-sm font-semibold text-[#94a3b8] mb-2 mt-4',
             };
             return (
-              <Tag key={i} className={`${sizes[level] ?? 'text-xl'} font-bold text-[#f1f5f9] mb-3 mt-6`}>
+              <HTag key={i} className={styles[level] ?? styles[2]}>
                 {renderChildren(block.children)}
-              </Tag>
+              </HTag>
             );
           }
           case 'list': {
@@ -63,7 +68,7 @@ export default function RichText({ blocks, className = '' }: RichTextProps) {
             return (
               <ListTag
                 key={i}
-                className={`${isOrdered ? 'list-decimal' : 'list-disc'} list-inside text-[#94a3b8] mb-4 space-y-1`}
+                className={`${isOrdered ? 'list-decimal' : 'list-disc'} pl-6 text-[#b0bec5] text-[1.05rem] mb-6 space-y-2 leading-relaxed`}
               >
                 {block.children.map((item, j) => (
                   <li key={j}>{renderChildren(item.children ?? [])}</li>
@@ -73,7 +78,7 @@ export default function RichText({ blocks, className = '' }: RichTextProps) {
           }
           case 'code':
             return (
-              <pre key={i} className="glass rounded-lg p-4 font-mono text-sm text-[#06b6d4] overflow-x-auto mb-4">
+              <pre key={i} className="bg-[#0d1117] border border-white/5 rounded-xl p-5 font-mono text-sm text-[#7dd3fc] overflow-x-auto mb-6 leading-relaxed">
                 <code>{renderChildren(block.children)}</code>
               </pre>
             );
@@ -81,7 +86,7 @@ export default function RichText({ blocks, className = '' }: RichTextProps) {
             return (
               <blockquote
                 key={i}
-                className="border-l-4 border-[#6366f1] pl-4 my-4 text-[#94a3b8] italic"
+                className="border-l-2 border-[#6366f1] pl-6 my-8 text-[#94a3b8] italic text-lg leading-relaxed"
               >
                 {renderChildren(block.children)}
               </blockquote>
@@ -90,7 +95,7 @@ export default function RichText({ blocks, className = '' }: RichTextProps) {
             const img = block.image;
             if (!img?.url) return null;
             return (
-              <div key={i} className="my-6 rounded-xl overflow-hidden">
+              <div key={i} className="my-8 rounded-xl overflow-hidden">
                 <Image
                   src={img.url}
                   alt={img.alternativeText ?? ''}
@@ -102,7 +107,7 @@ export default function RichText({ blocks, className = '' }: RichTextProps) {
             );
           }
           case 'divider':
-            return <hr key={i} className="border-[#1e293b] my-8" />;
+            return <hr key={i} className="border-white/5 my-10" />;
           default:
             return null;
         }
