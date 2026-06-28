@@ -78,6 +78,7 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [scrollOpacity, setScrollOpacity] = useState(1);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -99,6 +100,12 @@ export default function Hero() {
 
     return () => clearTimeout(timeout);
   }, [displayed, deleting, roleIndex]);
+
+  useEffect(() => {
+    const onScroll = () => setScrollOpacity(Math.max(0, 1 - window.scrollY / 200));
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.2 });
@@ -150,7 +157,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div aria-hidden="true" className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+      <div aria-hidden="true" className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-150" style={{ opacity: scrollOpacity * 0.4 }}>
         <span className="text-xs text-[#94a3b8] font-mono">scroll</span>
         <div className="w-px h-12 bg-gradient-to-b from-[#6366f1] to-transparent" />
       </div>

@@ -43,7 +43,7 @@ export default function NavBar() {
     >
       <div className="max-w-6xl mx-auto py-4 flex items-center justify-between">
         <Link href="/" className="font-mono text-sm font-bold gradient-text">
-          Павел Кондратов | @paulislava
+          Pavel Kondratov | @paulislava
         </Link>
 
         <ul className="hidden md:flex gap-6">
