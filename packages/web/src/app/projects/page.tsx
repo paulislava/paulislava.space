@@ -21,7 +21,7 @@ function uniqueBy<T>(arr: T[], key: keyof T): T[] {
 }
 
 export default async function ProjectsPage() {
-  const projects = await getAllProjects();
+  const projects = await getAllProjects().catch(() => []);
 
   const allTags: Tag[] = uniqueBy(
     projects.flatMap((p) => p.tags),
