@@ -161,7 +161,7 @@ jobs:
           host: beznomera.net
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
-          envs: GHCR_TOKEN,GHCR_ACTOR,IMAGE_TAG,ENV_B64
+          envs: GHCR_TOKEN,GHCR_ACTOR,IMAGE_TAG,ENV_B64,STRAPI_API_TOKEN
           script: |
             echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_ACTOR" --password-stdin
             docker pull ghcr.io/paulislava/paulislava.space:web-$IMAGE_TAG
