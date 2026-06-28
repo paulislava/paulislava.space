@@ -46,6 +46,15 @@ export const metadata: Metadata = {
     images: [{ url: '/og-default.png', width: 1200, height: 630 }],
   },
   twitter: { card: 'summary_large_image' },
+  alternates: {
+    types: {
+      'application/rss+xml': [
+        { url: '/rss.xml', title: 'Павел Кондратов — Всё' },
+        { url: '/rss/articles.xml', title: 'Павел Кондратов — Статьи' },
+        { url: '/rss/news.xml', title: 'Павел Кондратов — Новости' },
+      ],
+    },
+  },
 };
 
 const jsonLd = {
