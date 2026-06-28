@@ -1,7 +1,7 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 import 'dotenv/config';
 
-const STRAPI_URL = process.env.STRAPI_URL ?? 'http://localhost:1337';
+const STRAPI_URL = process.env.STRAPI_URL ?? 'https://cms.paulislava.space';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN ?? '';
 
 const config: CodegenConfig = {
