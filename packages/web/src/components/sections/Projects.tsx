@@ -32,12 +32,12 @@ export default function Projects({ projects }: ProjectsProps) {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="py-24 px-6 bg-[#12121a]/50 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" ref={sectionRef} className="py-24  bg-[#12121a]/50 overflow-hidden">
+      <div className="max-w-6xl px-6 mx-auto">
         <div className="section-header mb-10 flex items-end justify-between">
           <div>
             <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Проекты</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Что я создавал</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Что я создаю</h2>
           </div>
           <Link
             href="/projects"
@@ -49,7 +49,7 @@ export default function Projects({ projects }: ProjectsProps) {
       </div>
 
       {/* Full-width carousel strip — cancels section px-6 to reach screen edges */}
-      <div className="relative -mx-6">
+      <div className="relative px-6">
         {/* Left edge: gradient + arrow — only when not at beginning */}
         {!isBeginning && (
           <>
