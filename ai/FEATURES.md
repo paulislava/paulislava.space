@@ -16,3 +16,9 @@
 - `packages/web/src/app/layout.tsx` — `metadata.alternates` для автодискавери
 
 Кеш: `revalidate: 1800`. Спецсимволы через `<![CDATA[...]]>`.
+
+## SEO, AI-видимость и Яндекс Метрика (2026-07-02)
+
+Добавлены Метрика, цель формы, `llms.txt`, расширенный `robots.txt`, JSON-LD для ключевых страниц и файл подтверждения Яндекс Вебмастера.
+
+Подробнее: [seo-ai-visibility-and-yandex-metrika.md](features/seo-ai-visibility-and-yandex-metrika.md)

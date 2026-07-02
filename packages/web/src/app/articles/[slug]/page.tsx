@@ -7,6 +7,7 @@ import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import ArticleSections from '@/components/ui/ArticleSections';
 import { formatDate } from '@/lib/utils';
+import { absoluteUrl, articleJsonLd } from '@/lib/seo';
 
 interface PageProps { params: Promise<{ slug: string }> }
 
@@ -26,7 +27,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: article.title,
     description: article.excerpt ?? undefined,
-    openGraph: { images: article.cover ? [{ url: article.cover.url }] : [] },
+    alternates: { canonical: absoluteUrl(`/articles/${article.slug}`) },
+    openGraph: {
+      type: 'article',
+      url: absoluteUrl(`/articles/${article.slug}`),
+      title: article.title,
+      description: article.excerpt ?? undefined,
+      images: article.cover ? [{ url: article.cover.url }] : [],
+      publishedTime: article.publishedAt,
+      authors: ['Павел Кондратов'],
+    },
   };
 }
 
@@ -67,6 +77,10 @@ export default async function ArticlePage({ params }: PageProps) {
           <ArticleSections sections={article.mainContent} />
         )}
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(article)) }}
+      />
     </main>
   );
 }

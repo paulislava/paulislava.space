@@ -6,6 +6,7 @@ import { getNewsItems, getNewsBySlug, mediaUrl } from '@/lib/strapi';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import { formatDate } from '@/lib/utils';
+import { absoluteUrl, newsJsonLd } from '@/lib/seo';
 
 interface PageProps { params: Promise<{ slug: string }> }
 
@@ -25,7 +26,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: item.title,
     description: item.excerpt ?? undefined,
-    openGraph: { images: item.cover ? [{ url: item.cover.url }] : [] },
+    alternates: { canonical: absoluteUrl(`/news/${item.slug}`) },
+    openGraph: {
+      type: 'article',
+      url: absoluteUrl(`/news/${item.slug}`),
+      title: item.title,
+      description: item.excerpt ?? undefined,
+      images: item.cover ? [{ url: item.cover.url }] : [],
+      publishedTime: item.publishedAt,
+      authors: ['Павел Кондратов'],
+    },
   };
 }
 
@@ -76,6 +86,10 @@ export default async function NewsPage({ params }: PageProps) {
           <RichText blocks={item.content} />
         </div>
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsJsonLd(item)) }}
+      />
     </main>
   );
 }

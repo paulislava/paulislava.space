@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { reachMetrikaGoal } from '@/lib/metrika';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -18,6 +19,7 @@ export default function Contact() {
       if (!res.ok) throw new Error();
       setStatus('ok');
       setForm({ name: '', email: '', message: '' });
+      reachMetrikaGoal('contact_form_success');
     } catch {
       setStatus('error');
     }

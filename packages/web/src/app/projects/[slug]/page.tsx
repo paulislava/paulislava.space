@@ -6,6 +6,7 @@ import { getAllProjects, getProjectBySlug, mediaUrl } from '@/lib/strapi';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import ProjectScreenshots from './ProjectScreenshots';
+import { absoluteUrl, projectJsonLd } from '@/lib/seo';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -27,7 +28,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: project.title,
     description: project.shortDescription ?? undefined,
+    alternates: { canonical: absoluteUrl(`/projects/${project.slug}`) },
     openGraph: {
+      type: 'website',
+      url: absoluteUrl(`/projects/${project.slug}`),
+      title: project.title,
+      description: project.shortDescription ?? undefined,
       images: project.cover ? [{ url: project.cover.url }] : [],
     },
   };
@@ -113,6 +119,10 @@ export default async function ProjectPage({ params }: PageProps) {
           )}
         </div>
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project)) }}
+      />
     </main>
   );
 }

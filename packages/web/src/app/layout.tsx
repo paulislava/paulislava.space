@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import NavBar from '@/components/ui/NavBar';
 import Contact from '@/components/sections/Contact';
+import YandexMetrika from '@/components/analytics/YandexMetrika';
+import { personJsonLd, websiteJsonLd } from '@/lib/seo';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
@@ -57,28 +59,17 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Павел Кондратов',
-  url: 'https://paulislava.space',
-  jobTitle: 'Software Engineer',
-  worksFor: { '@type': 'Organization', name: 'SberDevices' },
-  sameAs: ['https://github.com/paulislava'],
-  email: 'i@paulislava.space',
-  address: { '@type': 'PostalAddress', addressLocality: 'Екатеринбург', addressCountry: 'RU' },
-};
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([personJsonLd, websiteJsonLd]) }}
         />
       </head>
       <body>
+        <YandexMetrika />
         <NavBar />
         {children}
         <Contact />
