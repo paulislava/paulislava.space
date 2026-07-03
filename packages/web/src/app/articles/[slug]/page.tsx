@@ -69,13 +69,29 @@ export default async function ArticlePage({ params }: PageProps) {
         {article.excerpt && (
           <p className="text-[#94a3b8] text-xl mb-8 leading-relaxed max-w-2xl">{article.excerpt}</p>
         )}
-        <div className="flex flex-wrap gap-2 mb-12 pb-8 border-b border-white/5">
-          {article.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
-          {article.technologies.map((tech) => (
-            <span key={tech.documentId} className="text-xs text-[#6366f1] bg-[#6366f1]/10 border border-[#6366f1]/20 rounded-lg px-2.5 py-1">
-              {tech.name}
-            </span>
-          ))}
+        <div className="mb-12 pb-8 border-b border-white/5 space-y-3">
+          {article.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {article.tags.map((tag) => (
+                <Link key={tag.documentId} href={`/articles?tag=${tag.slug}`}>
+                  <Tag tag={tag} size="md" />
+                </Link>
+              ))}
+            </div>
+          )}
+          {article.technologies.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {article.technologies.map((tech) => (
+                <Link
+                  key={tech.documentId}
+                  href={`/articles?tech=${tech.slug}`}
+                  className="text-xs text-[#6366f1] bg-[#6366f1]/10 border border-[#6366f1]/20 rounded-lg px-2.5 py-1 hover:bg-[#6366f1]/20 transition-colors"
+                >
+                  {tech.name}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
         <RichText blocks={article.content} />
         {article.mainContent && article.mainContent.length > 0 && (
