@@ -54,3 +54,13 @@
 **Нетривиальные детали:**
 - Структура главной теперь читаетcя как case-study first: сначала hero, затем кейсы, затем экспертные материалы, и только потом биографические секции.
 - CTA в hero и секции проектов синхронизированы с языком кейсов.
+
+## SEO-исправления: canonical + og-default.png (2026-07-04)
+
+**Проблемы:**
+- `og-default.png` отсутствовал в `/public`, хотя был прописан в `layout.tsx` — OG image не отображался.
+- Canonical URL не был задан в metadata.
+
+**Что сделано:**
+- `packages/web/src/app/layout.tsx` — добавлен `alternates.canonical: 'https://paulislava.space'`
+- `packages/web/public/og-default.png` — сгенерирован (1200×630, тёмный фон, текст: имя + роли + URL)

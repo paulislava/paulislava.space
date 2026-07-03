@@ -49,6 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image' },
   alternates: {
+    canonical: 'https://paulislava.space',
     types: {
       'application/rss+xml': [
         { url: '/rss.xml', title: 'Павел Кондратов — Всё' },
