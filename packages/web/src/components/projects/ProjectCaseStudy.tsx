@@ -71,14 +71,19 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
     <div className="max-w-6xl mx-auto px-6 pt-6 pb-12">
       {hasMeta && (
         <div className="flex flex-wrap gap-2 max-w-3xl mb-4">
-          {project.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
+          {project.tags.map((tag) => (
+            <Link key={tag.documentId} href={`/projects?tag=${tag.slug}`}>
+              <Tag tag={tag} size="md" />
+            </Link>
+          ))}
           {project.technologies.map((technology) => (
-            <span
+            <Link
               key={technology.documentId}
-              className="text-xs text-[#f1f5f9] bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5"
+              href={`/projects?tech=${technology.slug}`}
+              className="text-xs text-[#f1f5f9] bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5 hover:border-[#6366f1]/40 hover:bg-[#6366f1]/10 transition-colors"
             >
               {technology.name}
-            </span>
+            </Link>
           ))}
         </div>
       )}
@@ -129,12 +134,13 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
             {project.technologies.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((technology) => (
-                  <span
+                  <Link
                     key={technology.documentId}
-                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-[#e2e8f0]"
+                    href={`/projects?tech=${technology.slug}`}
+                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-[#e2e8f0] hover:border-[#6366f1]/40 hover:bg-[#6366f1]/10 transition-colors"
                   >
                     {technology.name}
-                  </span>
+                  </Link>
                 ))}
               </div>
             ) : (
@@ -145,7 +151,11 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
 
             {project.tags.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-2">
-                {project.tags.map((tag) => <Tag key={tag.documentId} tag={tag} />)}
+                {project.tags.map((tag) => (
+                  <Link key={tag.documentId} href={`/projects?tag=${tag.slug}`}>
+                    <Tag tag={tag} />
+                  </Link>
+                ))}
               </div>
             )}
           </Section>
