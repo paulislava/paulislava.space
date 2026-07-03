@@ -10,6 +10,10 @@ interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+function getNormalizedShortDescription(shortDescription: string | null) {
+  return shortDescription?.trim() || undefined;
+}
+
 export async function generateStaticParams() {
   try {
     const projects = await getAllProjects();
@@ -23,15 +27,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
   if (!project) return {};
+
+  const shortDescription = getNormalizedShortDescription(project.shortDescription);
+
   return {
     title: project.title,
-    description: project.shortDescription ?? undefined,
+    description: shortDescription,
     alternates: { canonical: absoluteUrl(`/projects/${project.slug}`) },
     openGraph: {
       type: 'website',
       url: absoluteUrl(`/projects/${project.slug}`),
       title: project.title,
-      description: project.shortDescription ?? undefined,
+      description: shortDescription,
       images: project.cover ? [{ url: project.cover.url }] : [],
     },
   };
@@ -42,6 +49,7 @@ export default async function ProjectPage({ params }: PageProps) {
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
+  const shortDescription = getNormalizedShortDescription(project.shortDescription);
   const cover = mediaUrl(project.cover, 'large') ?? mediaUrl(project.cover);
 
   return (
@@ -58,8 +66,8 @@ export default async function ProjectPage({ params }: PageProps) {
             ← Назад к проектам
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold text-[#f1f5f9] mb-3">{project.title}</h1>
-          {project.shortDescription && (
-            <p className="text-[#94a3b8] text-lg">{project.shortDescription}</p>
+          {shortDescription && (
+            <p className="text-[#94a3b8] text-lg">{shortDescription}</p>
           )}
         </div>
       </div>
