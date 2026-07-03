@@ -21,7 +21,8 @@ function buildFaqItems(project: Project) {
     ? project.technologies.map((technology) => technology.name).join(', ')
     : 'Стек на этой странице будет дополнен по мере публикации материалов проекта.';
 
-  const taskAnswer = project.shortDescription
+  const shortDescription = project.shortDescription?.trim();
+  const taskAnswer = shortDescription
     ?? 'Подробная постановка задачи ещё не вынесена в CMS, но кейс будет пополняться по мере обновления проекта.';
 
   const roleAnswer = project.description?.length > 0
@@ -62,6 +63,7 @@ function Section({
 export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
   const relatedTopics = buildRelatedTopics(project);
   const faqItems = buildFaqItems(project);
+  const shortDescription = project.shortDescription?.trim();
   const hasNarrative = project.description?.length > 0;
   const hasMeta = project.tags.length > 0 || project.technologies.length > 0;
 
@@ -108,7 +110,7 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         <div className="space-y-8">
           <Section title="Контекст и задача">
             <p className="text-[#cbd5e1] text-base leading-7">
-              {project.shortDescription ?? 'Кейс будет дополнен подробным контекстом по мере публикации материалов проекта.'}
+              {shortDescription ?? 'Кейс будет дополнен подробным контекстом по мере публикации материалов проекта.'}
             </p>
           </Section>
 
