@@ -1,10 +1,10 @@
-import { buildLlmsIndex, getLlmsSnapshot } from '@/lib/llms';
+import { buildLlmsFull, getLlmsSnapshot } from '@/lib/llms';
 
 export const revalidate = 1800;
 
 export async function GET() {
   const snapshot = await getLlmsSnapshot();
-  const body = buildLlmsIndex(snapshot);
+  const body = buildLlmsFull(snapshot);
 
   return new Response(body, {
     headers: {
