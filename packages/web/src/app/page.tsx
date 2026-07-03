@@ -14,7 +14,6 @@ import {
 } from '@/lib/strapi';
 
 export default async function HomePage() {
-
   const [workExperiences, technologies, featuredProjects, articles, news, projectTags] = await Promise.all([
     getWorkExperiences(),
     getTechnologies(),
@@ -27,11 +26,11 @@ export default async function HomePage() {
   return (
     <main>
       <Hero />
+      <Projects projects={featuredProjects} />
+      <ArticlesNews articles={articles} news={news} />
       <About />
       <Experience workExperiences={workExperiences} />
       <Skills technologies={technologies} tags={projectTags} />
-      <Projects projects={featuredProjects} />
-      <ArticlesNews articles={articles} news={news} />
     </main>
   );
 }

@@ -19,10 +19,15 @@ export default function ArticlesNews({ articles, news }: ArticlesNewsProps) {
   return (
     <section id="articles" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Контент</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Статьи и новости</h2>
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Экспертные разборы</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">
+              Статьи, где я объясняю архитектурные и инженерные решения
+            </h2>
+            <p className="mt-3 text-[#94a3b8] max-w-2xl">
+              Практические темы: frontend, архитектура, platform engineering и AI.
+            </p>
           </div>
           {articles.length > 0 && (
             <Link

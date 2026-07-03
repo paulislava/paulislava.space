@@ -137,8 +137,8 @@ export default function Hero() {
         </p>
 
         <p className="text-[#94a3b8] text-base max-w-xl mx-auto mb-10">
-          15 лет в разработке — от стартапов до бигтеха.<br />
-          Выстраиваю масштабируемые системы и приложения.
+          Инженерные кейсы, frontend-архитектура, Next.js/React, backend/platform work и AI-агенты.<br />
+          Показываю, как решаю сложные задачи и довожу их до результата.
         </p>
 
         <div ref={ctaRef} className="flex gap-4 justify-center flex-wrap">
@@ -146,7 +146,7 @@ export default function Hero() {
             href="#projects"
             className="px-6 py-3 rounded-xl font-semibold text-sm bg-[#6366f1] text-white hover:bg-[#4f46e5] transition-colors duration-200"
           >
-            Проекты
+            Кейсы
           </a>
           <a
             href="#contact"

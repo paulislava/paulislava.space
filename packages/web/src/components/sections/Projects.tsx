@@ -34,16 +34,21 @@ export default function Projects({ projects }: ProjectsProps) {
   return (
     <section id="projects" ref={sectionRef} className="py-24  bg-[#12121a]/50 overflow-hidden">
       <div className="max-w-6xl px-6 mx-auto">
-        <div className="section-header mb-10 flex items-end justify-between">
-          <div>
-            <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Проекты</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">Что я создаю</h2>
+        <div className="section-header mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Ключевые кейсы</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">
+              Проекты, где я решал реальные инженерные задачи
+            </h2>
+            <p className="mt-3 text-[#94a3b8] max-w-2xl">
+              Не просто список работ, а кейсы с контекстом, ограничениями, стеком и результатом.
+            </p>
           </div>
           <Link
             href="/projects"
             className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#6366f1] text-white hover:bg-[#4f46e5] transition-colors duration-200"
           >
-            Все проекты →
+            Все кейсы →
           </Link>
         </div>
       </div>
@@ -161,7 +166,7 @@ export default function Projects({ projects }: ProjectsProps) {
           href="/projects"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold bg-[#6366f1] text-white hover:bg-[#4f46e5] transition-colors duration-200"
         >
-          Все проекты →
+          Все кейсы →
         </Link>
       </div>
     </section>

@@ -40,3 +40,17 @@
 - `packages/web/src/graphql/articles.graphql` — обновлены запросы, добавлен `GetAllArticleSeries`
 
 **Важно:** `gql/graphql.ts` нужно перегенерировать после деплоя CMS (`npm run generate` в `packages/web`). До этого момента `getArticleExtras` и `getAllArticleSeries` используют inline gql-запросы и возвращают пустые данные gracefully.
+
+## Главная под `case-study first` (2026-07-04)
+
+Главная страница усилена так, чтобы первым смысловым блоком после hero были кейсы, а не биографические секции.
+
+**Что изменено:**
+- `packages/web/src/app/page.tsx` — проекты и статьи подняты выше About/Experience/Skills.
+- `packages/web/src/components/sections/Hero.tsx` — copy hero смещён в сторону инженерных кейсов и результата.
+- `packages/web/src/components/sections/Projects.tsx` — секция переоформлена как блок ключевых кейсов с контекстом и ограничениями.
+- `packages/web/src/components/sections/ArticlesNews.tsx` — секция переоформлена как экспертные разборы архитектурных и инженерных решений.
+
+**Нетривиальные детали:**
+- Структура главной теперь читаетcя как case-study first: сначала hero, затем кейсы, затем экспертные материалы, и только потом биографические секции.
+- CTA в hero и секции проектов синхронизированы с языком кейсов.
