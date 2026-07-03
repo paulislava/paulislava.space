@@ -23,7 +23,8 @@
     "shiki": "^4.3.0",
     "swiper": "^14.0.0",
     "TagCloud": "^2.5.0",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "yet-another-react-lightbox": "^3.32.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^7.1.3",
