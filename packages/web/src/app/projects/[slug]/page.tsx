@@ -3,9 +3,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllProjects, getProjectBySlug, mediaUrl } from '@/lib/strapi';
-import RichText from '@/components/ui/RichText';
-import Tag from '@/components/ui/Tag';
-import ProjectScreenshots from './ProjectScreenshots';
+import ProjectCaseStudy from '@/components/projects/ProjectCaseStudy';
 import { absoluteUrl, projectJsonLd } from '@/lib/seo';
 
 interface PageProps {
@@ -66,59 +64,7 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 pt-6 pb-12">
-        {(project.tags.length > 0 || project.technologies.length > 0) && (
-          <div className="flex flex-wrap gap-2 max-w-[500px] mb-4">
-            {project.tags.map((tag) => <Tag key={tag.documentId} tag={tag} size="md" />)}
-            {project.technologies.map((tech) => (
-              <span
-                key={tech.documentId}
-                className="text-xs text-[#f1f5f9] bg-white/5 border border-white/10 rounded-lg px-2.5 py-1.5"
-              >
-                {tech.name}
-              </span>
-            ))}
-          </div>
-        )}
-        <div className="flex flex-wrap gap-4 items-center mb-10">
-          {project.url && (
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-xl bg-[#6366f1] text-white text-sm font-semibold hover:bg-[#4f46e5] transition-colors"
-            >
-              Открыть сайт →
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-xl glass text-[#f1f5f9] text-sm font-semibold hover:border-[#6366f1]/40 transition-colors"
-            >
-              GitHub →
-            </a>
-          )}
-        </div>
-
-        <div className="max-w-3xl">
-          {project.description?.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-xl font-bold text-[#f1f5f9] mb-4">О проекте</h2>
-              <RichText blocks={project.description} />
-            </div>
-          )}
-
-          {project.screenshots?.length > 0 && (
-            <div className="mb-8">
-              <h2 className="text-xl font-bold text-[#f1f5f9] mb-4">Скриншоты</h2>
-              <ProjectScreenshots screenshots={project.screenshots} />
-            </div>
-          )}
-        </div>
-      </div>
+      <ProjectCaseStudy project={project} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project)) }}
