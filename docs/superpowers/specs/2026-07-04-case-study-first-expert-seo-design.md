@@ -1,213 +1,214 @@
-# Case Study First + Expert Articles SEO Design
+# Дизайн: кейсы как основа, статьи как слой экспертности
 
-## Goal
+## Цель
 
-Strengthen `paulislava.space` as a portfolio-first site where projects are the main proof of expertise and articles act as the expert explanation layer. The site should become easier to understand for:
+Усилить `paulislava.space` как сайт-портфолио, где проекты являются главным доказательством экспертизы, а статьи выступают слоем, который объясняет инженерное мышление, решения и trade-off'ы.
 
-- human visitors evaluating engineering depth;
-- classic search engines indexing topic clusters;
-- LLM-based systems extracting expertise, case studies, and supporting articles.
+Сайт должен стать понятнее для:
 
-## Product Direction
+- живых посетителей, которые оценивают глубину инженерного опыта;
+- поисковых систем, которые индексируют тематические кластеры;
+- LLM-систем, которые извлекают экспертизу, кейсы и подтверждающие статьи.
 
-The site should present Pavel first through real engineering case studies, then reinforce those cases with articles that explain the decisions, trade-offs, and implementation thinking behind the work.
+## Продуктовое направление
 
-This is not a shift away from articles. It is a tighter connection between:
+Сайт должен в первую очередь показывать Павла через реальные инженерные кейсы, а затем усиливать эти кейсы статьями, которые объясняют принятые решения, ограничения и подход к реализации.
 
-- `project -> proof of execution`
-- `article -> proof of thinking`
+Это не отказ от статей. Это более плотная связка:
 
-## Scope
+- `проект -> доказательство, что задача реально решалась`
+- `статья -> доказательство глубины мышления и объяснимости решений`
 
-This design covers:
+## Объём работ
 
-- homepage positioning and content hierarchy;
-- project page structure as case studies;
-- article page structure as expert analysis;
-- dynamic `llms.txt` and `llms-full.txt` delivery via Next;
-- SEO and structured-data improvements that support the case-study-first direction.
+Этот дизайн включает:
 
-This design does not include:
+- позиционирование и иерархию контента на главной;
+- структуру project-страниц как полноценных кейсов;
+- структуру article-страниц как экспертных разборов;
+- динамическую генерацию `llms.txt` и `llms-full.txt` через Next;
+- улучшения SEO и structured data, поддерживающие стратегию `case-study first`.
 
-- major CMS schema redesign;
-- new admin/editor UI;
-- Bing Webmaster setup;
-- unrelated visual redesign outside the affected sections.
+Этот дизайн не включает:
 
-## Homepage Changes
+- крупную переработку схемы CMS;
+- новый admin/editor UI;
+- настройку Bing Webmaster;
+- несвязанный редизайн сайта за пределами затронутых секций.
 
-### Positioning
+## Изменения на главной
 
-The homepage should communicate three things quickly:
+### Позиционирование
 
-1. Pavel's engineering focus.
-2. The most credible project evidence.
-3. The article layer that explains how he thinks.
+Главная должна быстро отвечать на три вопроса:
 
-### Content Changes
+1. На каких инженерных направлениях специализируется Павел.
+2. Какие проекты лучше всего подтверждают этот опыт.
+3. Где посмотреть глубину мышления и разбор решений.
 
-- Tighten the hero copy around 2-3 strongest expertise areas.
-- Reframe the projects section from a generic portfolio listing into highlighted case studies.
-- Add stronger outcome-oriented cues to project cards or previews.
-- Reframe the article section as expert breakdowns, not just recent posts.
+### Изменения в контенте
 
-### Information Hierarchy
+- Уточнить hero-copy вокруг 2-3 самых сильных направлений экспертизы.
+- Переформулировать секцию проектов: не просто портфолио, а выделенные кейсы.
+- Добавить более явные outcome-сигналы в карточки или превью проектов.
+- Переформулировать секцию статей как экспертные разборы, а не просто последние публикации.
 
-Recommended hierarchy:
+### Иерархия информации
 
-1. Identity and specialization
-2. Featured case studies
-3. Expert articles connected to those case studies
-4. Remaining supporting sections
+Рекомендуемая иерархия:
 
-## Project Page Changes
+1. Идентичность и специализация
+2. Ключевые кейсы
+3. Экспертные статьи, связанные с кейсами
+4. Остальные поддерживающие секции
 
-Each project page should read as a case study instead of a simple portfolio detail page.
+## Изменения на страницах проектов
 
-### New/Expanded Sections
+Каждая project-страница должна восприниматься как кейс, а не как обычная страница детали портфолио.
 
-- Context
-- Problem / task
-- Pavel's role
-- Constraints
-- Solution
-- Result / impact
-- Technology stack
-- Related articles
+### Новые или усиленные секции
+
+- Контекст
+- Задача / проблема
+- Моя роль
+- Ограничения
+- Решение
+- Результат / эффект
+- Технологический стек
+- Связанные статьи
 - FAQ
 
-### Behavioral Goal
+### Поведенческая цель
 
-The reader should quickly understand:
+Читатель должен быстро понять:
 
-- what kind of engineering problem this project represents;
-- how Pavel contributed;
-- what technical choices were made;
-- where to read deeper reasoning in article form.
+- какую инженерную задачу представляет этот проект;
+- как именно Павел участвовал в решении;
+- какие технические решения были приняты;
+- где можно прочитать более глубокий разбор в статьях.
 
-## Article Page Changes
+## Изменения на страницах статей
 
-Articles should become stronger expert assets connected to applied work.
+Статьи должны стать более сильными экспертными активами, связанными с прикладной работой.
 
-### New/Expanded Sections
+### Новые или усиленные секции
 
-- Clear framing of the engineering topic or problem
-- Why the topic matters in production practice
-- Related projects where the ideas were applied
-- Stronger thematic linking to adjacent articles and projects
+- Ясное framing инженерной темы или проблемы
+- Почему тема важна в продакшн-практике
+- Связанные проекты, где эти идеи были применены
+- Более сильная тематическая перелинковка со смежными статьями и проектами
 
-### Behavioral Goal
+### Поведенческая цель
 
-The reader should understand that the article is not abstract content marketing. It should clearly connect to real engineering practice.
+Читатель должен понимать, что статья не является абстрактным контент-маркетингом. Она должна явно связываться с реальной инженерной практикой.
 
-## Linking Model
+## Модель перелинковки
 
-The site should establish explicit bidirectional links:
+Сайт должен выстраивать явные двусторонние связи:
 
-- project pages link to relevant articles;
-- article pages link to relevant projects.
+- project-страницы ссылаются на релевантные статьи;
+- article-страницы ссылаются на релевантные проекты.
 
-This creates a stronger topical graph for:
+Это создаёт более сильный тематический граф для:
 
-- internal navigation;
-- search engine understanding;
-- LLM retrieval and summarization.
+- внутренней навигации;
+- понимания сайта поисковиками;
+- retrieval и summarization со стороны LLM.
 
-## LLM Files
+## LLM-файлы
 
-### Hard Requirement
+### Жёсткое требование
 
-Both `llms.txt` and `llms-full.txt` must be implemented as dynamic Next route handlers, not static files.
+И `llms.txt`, и `llms-full.txt` должны быть реализованы как динамические Next route handlers, а не как статические файлы.
 
 ### `llms.txt`
 
-Purpose:
+Назначение:
 
-- concise machine-readable overview of the site;
-- main expertise areas;
-- important projects;
-- important articles;
-- high-signal entry points.
+- краткий машинно-читаемый обзор сайта;
+- основные направления экспертизы;
+- важные проекты;
+- важные статьи;
+- high-signal точки входа.
 
-Characteristics:
+Характеристики:
 
-- short;
-- high-signal;
-- optimized for discovery and routing.
+- короткий;
+- насыщенный смыслом;
+- оптимизированный под discovery и routing.
 
 ### `llms-full.txt`
 
-Purpose:
+Назначение:
 
-- richer machine-readable expertise layer;
-- expanded summaries of key projects and key articles;
-- explicit mapping between projects and articles;
-- more context for AI systems that want a fuller representation of the site.
+- более богатый машинно-читаемый слой экспертизы;
+- расширенные summaries ключевых проектов и ключевых статей;
+- явная карта связей между проектами и статьями;
+- больше контекста для AI-систем, которым нужно более полное представление о сайте.
 
-Characteristics:
+Характеристики:
 
-- generated dynamically from current site content;
-- more descriptive than `llms.txt`;
-- still plain text and easy to parse.
+- генерируется динамически из текущего контента;
+- более описательный, чем `llms.txt`;
+- остаётся plain text и легко парсится.
 
-### Data Strategy
+### Стратегия данных
 
-Both files should be produced by Next routes from current content sources so they stay aligned with the latest published projects/articles without manual sync drift.
+Оба файла должны генерироваться Next route'ами из актуальных источников контента, чтобы они автоматически оставались синхронизированы с опубликованными проектами и статьями без ручного рассинхрона.
 
-## SEO and Structured Data
+## SEO и structured data
 
-### Metadata Direction
+### Направление по metadata
 
-- Project pages should be described as case studies / engineering work.
-- Article pages should be described as expert analysis / technical writing.
-- Homepage metadata should reflect both project execution and expert writing.
+- Project-страницы должны описываться как инженерные кейсы / практическая работа.
+- Article-страницы должны описываться как экспертный технический разбор.
+- Metadata главной должны отражать и практическую реализацию, и экспертное письмо.
 
-### Structured Data Direction
+### Направление по structured data
 
-Strengthen structured data so projects and articles are easier to interpret as:
+Нужно усилить structured data так, чтобы проекты и статьи легче интерпретировались как:
 
-- real portfolio work;
-- authored expert material;
-- part of one coherent expertise graph.
+- реальная портфельная работа;
+- авторский экспертный материал;
+- части одного цельного графа экспертизы.
 
-Where useful, augment existing schema with clearer relationships among:
+Там, где это уместно, нужно усилить связи между:
 
 - person;
 - website;
 - project/work;
 - article.
 
-## Implementation Boundaries
+## Границы реализации
 
-Prefer current project patterns:
+Нужно опираться на текущие паттерны проекта:
 
-- Next App Router route handlers for generated text outputs;
-- existing SEO helper utilities where possible;
-- minimal, local changes to homepage, project pages, article pages, and SEO helpers;
-- no speculative abstraction unless repeated logic clearly needs it.
+- Next App Router route handlers для текстовых генерируемых выходов;
+- существующие SEO-хелперы, где это уместно;
+- локальные точечные изменения главной, project-страниц, article-страниц и SEO-утилит;
+- без преждевременных абстракций, если они не устраняют явное повторение.
 
-## Testing and Verification
+## Проверка и верификация
 
-Implementation should verify:
+Реализация должна подтвердить:
 
-- `llms.txt` returns dynamic current content;
-- `llms-full.txt` returns dynamic current content;
-- homepage still renders correctly;
-- project and article pages still build/render correctly;
-- metadata/schema remain valid and present on key pages.
+- `llms.txt` отдаёт динамический актуальный контент;
+- `llms-full.txt` отдаёт динамический актуальный контент;
+- главная страница по-прежнему корректно рендерится;
+- страницы проектов и статей по-прежнему корректно собираются и рендерятся;
+- metadata и schema остаются валидными и присутствуют на ключевых страницах.
 
-## Risks
+## Риски
 
-- Overloading the homepage with too much explanatory text.
-- Adding weak or repetitive copy instead of high-signal case-study language.
-- Producing `llms-full.txt` that is verbose but not meaningfully structured.
-- Creating links between projects and articles without strong topical relevance.
+- Перегрузить главную избыточным поясняющим текстом.
+- Добавить слабый или повторяющийся copy вместо сильного кейсового языка.
+- Сделать `llms-full.txt` многословным, но неструктурным.
+- Создать связи между проектами и статьями без реальной тематической близости.
 
-## Recommended Implementation Order
+## Рекомендуемый порядок реализации
 
-1. Dynamic `llms-full.txt` and `llms.txt` content model
-2. Homepage reframing
-3. Project page case-study structure
-4. Article page expert/project linking
-5. Metadata and structured-data refinements
-
+1. Динамическая модель `llms.txt` и `llms-full.txt`
+2. Переформулировка и усиление главной
+3. Кейсовая структура project-страниц
+4. Связи article-страниц с проектами
+5. Доработка metadata и structured data
