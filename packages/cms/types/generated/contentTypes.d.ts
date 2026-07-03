@@ -440,6 +440,39 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiArticleSeriesArticleSeries
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'article_series';
+  info: {
+    description: '\u0426\u0438\u043A\u043B \u0441\u0442\u0430\u0442\u0435\u0439';
+    displayName: 'Article Series';
+    pluralName: 'article-series-list';
+    singularName: 'article-series';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article-series.article-series'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   collectionName: 'articles';
   info: {
@@ -467,7 +500,16 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     mainContent: Schema.Attribute.DynamicZone<
       ['sections.mdx-section', 'sections.faq-section']
     >;
+    orderInSeries: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
+    relatedArticles: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::article.article'
+    >;
+    series: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::article-series.article-series'
+    >;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     technologies: Schema.Attribute.Relation<
@@ -1187,6 +1229,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::article-series.article-series': ApiArticleSeriesArticleSeries;
       'api::article.article': ApiArticleArticle;
       'api::news.news': ApiNewsNews;
       'api::project.project': ApiProjectProject;

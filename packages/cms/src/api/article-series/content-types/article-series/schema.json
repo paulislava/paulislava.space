@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "article_series",
+  "info": {
+    "singularName": "article-series",
+    "pluralName": "article-series-list",
+    "displayName": "Article Series",
+    "description": "Цикл статей"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "description": { "type": "text" },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article",
+      "mappedBy": "series"
+    }
+  }
+}

@@ -22,3 +22,21 @@
 Добавлены Метрика, цель формы, `llms.txt`, расширенный `robots.txt`, JSON-LD для ключевых страниц и файл подтверждения Яндекс Вебмастера.
 
 Подробнее: [seo-ai-visibility-and-yandex-metrika.md](features/seo-ai-visibility-and-yandex-metrika.md)
+
+## Похожие статьи, циклы и навигация (2026-07-03)
+
+Структура для связанных статей и навигации по циклам.
+
+**CMS:**
+- Новый content type `article-series` (title, slug, description, articles oneToMany)
+- В `article` schema: поля `relatedArticles` (manyToMany self), `series` (manyToOne → article-series), `orderInSeries` (integer)
+
+**Web:**
+- `packages/web/src/components/ui/RelatedArticles.tsx` — блок «Похожие статьи» (карточки)
+- `packages/web/src/components/ui/SeriesNavigation.tsx` — блок цикла: список частей, prev/next кнопки
+- `packages/web/src/app/series/page.tsx` — список всех циклов
+- `packages/web/src/app/series/[slug]/page.tsx` — разводящая страница цикла
+- `packages/web/src/lib/strapi.ts` — `getArticleExtras()`, `getAllArticleSeries()`, `getArticleSeriesBySlug()`
+- `packages/web/src/graphql/articles.graphql` — обновлены запросы, добавлен `GetAllArticleSeries`
+
+**Важно:** `gql/graphql.ts` нужно перегенерировать после деплоя CMS (`npm run generate` в `packages/web`). До этого момента `getArticleExtras` и `getAllArticleSeries` используют inline gql-запросы и возвращают пустые данные gracefully.

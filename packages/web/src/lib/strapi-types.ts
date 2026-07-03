@@ -99,6 +99,41 @@ export interface FaqSection {
 
 export type ArticleSection = MdxSection | FaqSection;
 
+export interface ArticleSeriesItem {
+  documentId: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+}
+
+export interface ArticleSeries {
+  documentId: string;
+  title: string;
+  slug: string;
+  description: string | null;
+  articles: ArticleSeriesItem[];
+}
+
+export interface ArticleSeriesWithCovers {
+  documentId: string;
+  title: string;
+  slug: string;
+  description: string | null;
+  articles: (ArticleSeriesItem & { publishedAt: string; cover: StrapiMedia | null })[];
+}
+
+export interface ArticleCard {
+  documentId: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  cover: StrapiMedia | null;
+  tags: Tag[];
+  technologies: Technology[];
+  publishedAt: string;
+  createdAt: string;
+}
+
 export interface Article {
   documentId: string;
   title: string;
@@ -111,6 +146,9 @@ export interface Article {
   technologies: Technology[];
   publishedAt: string;
   createdAt: string;
+  relatedArticles: ArticleCard[];
+  series: ArticleSeries | null;
+  orderInSeries: number | null;
 }
 
 export interface NewsItem {

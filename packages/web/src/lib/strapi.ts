@@ -12,14 +12,15 @@ import {
   GetArticlesDocument,
   GetAllArticlesDocument,
   GetArticleBySlugDocument,
+  GetAllArticleSeriesDocument,
   GetNewsItemsDocument,
   GetNewsBySlugDocument,
   GetAllProjectTagsDocument,
 } from '@/gql/graphql';
 
-export type { StrapiMedia, Technology, WorkExperience, Project, Article, NewsItem, Tag, RichTextBlock } from './strapi-types';
+export type { StrapiMedia, Technology, WorkExperience, Project, Article, ArticleCard, ArticleSeries, ArticleSeriesWithCovers, NewsItem, Tag, RichTextBlock } from './strapi-types';
 export { mediaUrl } from './strapi-types';
-import type { Technology, WorkExperience, Project, Article, NewsItem, Tag } from './strapi-types';
+import type { Technology, WorkExperience, Project, Article, ArticleSeriesWithCovers, NewsItem, Tag } from './strapi-types';
 
 async function gqlQuery<TData, TVariables extends OperationVariables>(
   document: TypedDocumentNode<TData, TVariables>,
@@ -119,4 +120,17 @@ export async function getProjectTags(): Promise<Tag[]> {
     revalidate: 86400,
   });
   return (data.tags ?? []) as unknown as Tag[];
+}
+
+export async function getAllArticleSeries(): Promise<ArticleSeriesWithCovers[]> {
+  const data = await gqlQuery(GetAllArticleSeriesDocument, undefined, {
+    tags: ['article-series'],
+    revalidate: 1800,
+  });
+  return ((data as { articleSeriesList_connection?: { nodes?: unknown[] } }).articleSeriesList_connection?.nodes ?? []) as unknown as ArticleSeriesWithCovers[];
+}
+
+export async function getArticleSeriesBySlug(slug: string): Promise<ArticleSeriesWithCovers | null> {
+  const allSeries = await getAllArticleSeries();
+  return allSeries.find((s) => s.slug === slug) ?? null;
 }

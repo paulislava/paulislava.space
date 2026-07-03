@@ -6,6 +6,8 @@ import { getArticles, getArticleBySlug, mediaUrl } from '@/lib/strapi';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import ArticleSections from '@/components/ui/ArticleSections';
+import RelatedArticles from '@/components/ui/RelatedArticles';
+import SeriesNavigation from '@/components/ui/SeriesNavigation';
 import { formatDate } from '@/lib/utils';
 import { absoluteUrl, articleJsonLd } from '@/lib/seo';
 
@@ -46,6 +48,9 @@ export default async function ArticlePage({ params }: PageProps) {
   if (!article) notFound();
 
   const cover = mediaUrl(article.cover, 'large') ?? mediaUrl(article.cover);
+  const relatedArticles = article.relatedArticles ?? [];
+  const series = article.series ?? null;
+  const orderInSeries = article.orderInSeries ?? null;
 
   return (
     <main className="pt-20">
@@ -76,6 +81,10 @@ export default async function ArticlePage({ params }: PageProps) {
         {article.mainContent && article.mainContent.length > 0 && (
           <ArticleSections sections={article.mainContent} />
         )}
+        {series && (
+          <SeriesNavigation series={series} currentSlug={slug} orderInSeries={orderInSeries} />
+        )}
+        <RelatedArticles articles={relatedArticles} />
       </div>
       <script
         type="application/ld+json"

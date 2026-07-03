@@ -58,5 +58,42 @@ query GetArticleBySlug($slug: String!) {
         }
       }
     }
+    relatedArticles(pagination: { limit: 6 }) {
+      ...ArticleCardFields
+    }
+    series {
+      documentId
+      title
+      slug
+      description
+      articles(sort: "orderInSeries:asc", pagination: { limit: 100 }) {
+        documentId
+        title
+        slug
+        excerpt
+      }
+    }
+    orderInSeries
+  }
+}
+
+query GetAllArticleSeries {
+  articleSeriesList_connection(pagination: { limit: 100 }) {
+    nodes {
+      documentId
+      title
+      slug
+      description
+      articles(sort: "orderInSeries:asc", pagination: { limit: 100 }) {
+        documentId
+        title
+        slug
+        excerpt
+        publishedAt
+        cover {
+          ...MediaFields
+        }
+      }
+    }
   }
 }

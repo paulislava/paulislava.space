@@ -32,6 +32,20 @@
     "mainContent": {
       "type": "dynamiczone",
       "components": ["sections.mdx-section", "sections.faq-section"]
+    },
+    "relatedArticles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article"
+    },
+    "series": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article-series.article-series",
+      "inversedBy": "articles"
+    },
+    "orderInSeries": {
+      "type": "integer"
     }
   }
 }
