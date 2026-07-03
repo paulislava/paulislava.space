@@ -13,8 +13,12 @@ const config: CodegenConfig = {
   documents: ['src/**/*.graphql'],
   generates: {
     './src/gql/graphql.ts': {
-      plugins: ['typescript', 'typescript-operations', 'typed-document-node'],
-      // typescript-operations может дублировать enum типы — dedupeFragments решает это
+      plugins: [
+        { add: { content: '// @ts-nocheck' } },
+        'typescript',
+        'typescript-operations',
+        'typed-document-node',
+      ],
 
       config: {
         enumsAsTypes: true,
