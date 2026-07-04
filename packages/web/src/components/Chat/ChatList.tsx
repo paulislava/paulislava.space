@@ -190,6 +190,7 @@ const ResizeHandle = styled.div`
 const MainArea = styled.div`
   flex: 1;
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 
