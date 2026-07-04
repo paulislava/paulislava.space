@@ -69,6 +69,8 @@ const SidebarHeader = styled.div`
 const SidebarScroll = styled.div`
   overflow-y: auto;
   flex: 1;
+  min-height: 0;
+  overscroll-behavior: contain;
 `;
 
 // ─── Chat item (Telegram style) ───────────────────────────────────────────────
