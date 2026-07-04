@@ -154,6 +154,12 @@ const MsgList = styled.div`
   flex-direction: column;
   gap: 3px;
   overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MsgRow = styled.div<{ $out: boolean; $selectionMode?: boolean }>`

@@ -71,6 +71,12 @@ const SidebarScroll = styled.div`
   flex: 1;
   min-height: 0;
   overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 // ─── Chat item (Telegram style) ───────────────────────────────────────────────
