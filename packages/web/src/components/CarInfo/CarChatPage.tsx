@@ -11,9 +11,6 @@ import { themeable } from '@/themes/utils';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
 `;
 
 const ChatHeader = styled.div`

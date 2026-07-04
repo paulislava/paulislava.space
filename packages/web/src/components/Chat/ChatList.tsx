@@ -18,11 +18,9 @@ const MOBILE_BP = 640;
 // ─── Layout ──────────────────────────────────────────────────────────────────
 
 const Layout = styled.div`
-  flex: 1;
-  min-height: 0;
   display: flex;
-  overflow: hidden;
   position: relative;
+  min-height: 100svh;
 `;
 
 const SidebarPanel = styled.div<{ $open: boolean; $width: number }>`
@@ -32,7 +30,6 @@ const SidebarPanel = styled.div<{ $open: boolean; $width: number }>`
   flex-direction: column;
   background: ${themeable('secondaryBackground')};
   border-right: 1px solid rgba(128, 128, 128, 0.1);
-  overflow: hidden;
   transition: width 0.25s ease;
 
   @media (max-width: ${MOBILE_BP - 1}px) {
@@ -49,7 +46,6 @@ const SidebarInner = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 
   @media (max-width: ${MOBILE_BP - 1}px) {
     min-width: unset;
@@ -67,16 +63,7 @@ const SidebarHeader = styled.div`
 `;
 
 const SidebarScroll = styled.div`
-  overflow-y: auto;
   flex: 1;
-  min-height: 0;
-  overscroll-behavior: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 // ─── Chat item (Telegram style) ───────────────────────────────────────────────
@@ -198,7 +185,6 @@ const ResizeHandle = styled.div`
 const MainArea = styled.div`
   flex: 1;
   min-width: 0;
-  min-height: 0;
   display: flex;
   flex-direction: column;
 

@@ -20,12 +20,10 @@ import { FileFolder } from '@shared/file/file.types';
 // ─── Layout ──────────────────────────────────────────────────────────────────
 
 const Wrapper = styled.div`
-  flex: 1;
-  min-height: 0;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   background: ${themeable('mainBackgroundColor')};
-  overflow: hidden;
 `;
 
 // ─── Header ──────────────────────────────────────────────────────────────────
@@ -39,6 +37,9 @@ const Header = styled.div`
   flex-shrink: 0;
   background: ${themeable('secondaryBackground')};
   border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 const BackBtn = styled.button`
@@ -95,6 +96,9 @@ const SelectionBar = styled.div`
   background: ${themeable('secondaryBackground')};
   border-bottom: 1px solid rgba(128, 128, 128, 0.15);
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 const SelectionCancelBtn = styled.button`
@@ -148,18 +152,10 @@ const SelectionActionBtn = styled.button<{ $danger?: boolean }>`
 
 const MsgList = styled.div`
   flex: 1;
-  overflow-y: auto;
   padding: 12px 12px 8px;
   display: flex;
   flex-direction: column;
   gap: 3px;
-  overscroll-behavior: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const MsgRow = styled.div<{ $out: boolean; $selectionMode?: boolean }>`
@@ -395,6 +391,9 @@ const InputArea = styled.div`
   background: ${themeable('secondaryBackground')};
   border-top: 1px solid rgba(128, 128, 128, 0.12);
   flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
 `;
 
 const TextInput = styled.textarea`
@@ -544,7 +543,6 @@ export function ChatWindow({
     deleteMessagesForMe
   } = useChat({ chatId, initialMessages, isOwner });
 
-  const listRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
   const isAtBottomRef = useRef(true);
@@ -573,26 +571,29 @@ export function ChatWindow({
     });
   }, []);
 
-  // Track scroll position
-  const handleScroll = useCallback(() => {
-    const el = listRef.current;
-    if (!el) return;
-    isAtBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 60;
+  // Track scroll position via window
+  useEffect(() => {
+    const onScroll = () => {
+      const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+      isAtBottomRef.current = scrollHeight - scrollTop - clientHeight < 60;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   // Auto-scroll when at bottom
   useEffect(() => {
-    const el = listRef.current;
-    if (el && isAtBottomRef.current) el.scrollTop = el.scrollHeight;
+    if (isAtBottomRef.current) {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+    }
   }, [messages]);
 
   // Scroll to bottom on chat switch
   useEffect(() => {
-    const el = listRef.current;
-    if (el) {
-      el.scrollTop = el.scrollHeight;
-      isAtBottomRef.current = true;
-    }
+    requestAnimationFrame(() => {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+    });
+    isAtBottomRef.current = true;
   }, [chatId]);
 
   // Close context menu on outside click
@@ -686,8 +687,7 @@ export function ChatWindow({
     if (textRef.current) textRef.current.style.height = 'auto';
     isAtBottomRef.current = true;
     setTimeout(() => {
-      const el = listRef.current;
-      if (el) el.scrollTop = el.scrollHeight;
+      window.scrollTo(0, document.documentElement.scrollHeight);
     }, 0);
   }, [text, connected, sendMessage, sendTyping]);
 
@@ -809,7 +809,7 @@ export function ChatWindow({
         </ContactPanel>
       )}
 
-      <MsgList ref={listRef} onScroll={handleScroll}>
+      <MsgList>
         {messages.map((msg, idx) => {
           const showDateSep = idx === 0 || !isSameDay(messages[idx - 1].createdAt, msg.createdAt);
 

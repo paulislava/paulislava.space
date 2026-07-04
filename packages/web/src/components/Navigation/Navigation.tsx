@@ -76,11 +76,9 @@ export const Navigation: React.FC<NavigationProps> = ({ children }) => {
   }
 
   return (
-    <div className='h-full flex flex-col overflow-hidden'>
+    <>
       {isTelegramWebApp ? (
-        <>
-          <TgSpace />
-        </>
+        <TgSpace />
       ) : (
         <div className='hidden lg:block'>
           <StyledNavbar
@@ -134,17 +132,9 @@ export const Navigation: React.FC<NavigationProps> = ({ children }) => {
         </div>
       )}
 
-      {isChatLayout ? (
-        <div style={{ flex: 1, minHeight: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-          {children}
-        </div>
-      ) : (
-        <div style={{ flex: 1, overflowY: 'auto', WebkitOverflowScrolling: 'touch', minHeight: 0 }}>
-          <PageContainer>{children}</PageContainer>
-        </div>
-      )}
+      {isChatLayout ? children : <PageContainer>{children}</PageContainer>}
 
       {!isFullscreenChat && <BottomNavBar />}
-    </div>
+    </>
   );
 };
