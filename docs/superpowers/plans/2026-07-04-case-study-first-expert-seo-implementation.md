@@ -18,7 +18,7 @@
 
 ---
 
-### Задача 1: Динамическая модель для `llms.txt` и `llms-full.txt`
+### Task 1: Динамическая модель для `llms.txt` и `llms-full.txt`
 
 **Файлы:**
 - Создать: `packages/web/src/lib/llms.ts`
@@ -178,7 +178,7 @@ git add packages/web/src/lib/llms.ts packages/web/src/app/llms.txt/route.ts pack
 git commit -m "feat: add dynamic llms routes"
 ```
 
-### Задача 2: Усиление главной под стратегию `case-study first`
+### Task 2: Усиление главной под стратегию `case-study first`
 
 **Файлы:**
 - Изменить: `packages/web/src/app/page.tsx`
@@ -247,7 +247,7 @@ git add packages/web/src/app/page.tsx packages/web/src/components/sections/Hero.
 git commit -m "feat: reframe homepage around case studies"
 ```
 
-### Задача 3: Превратить project-страницы в кейсы
+### Task 3: Превратить project-страницы в кейсы
 
 **Файлы:**
 - Изменить: `packages/web/src/app/projects/[slug]/page.tsx`
@@ -325,7 +325,7 @@ git add 'packages/web/src/app/projects/[slug]/page.tsx' packages/web/src/compone
 git commit -m "feat: turn project pages into case studies"
 ```
 
-### Задача 4: Усилить article-страницы и связать их с проектами
+### Task 4: Усилить article-страницы и связать их с проектами
 
 **Файлы:**
 - Изменить: `packages/web/src/app/articles/[slug]/page.tsx`
@@ -380,7 +380,7 @@ git add 'packages/web/src/app/articles/[slug]/page.tsx' packages/web/src/compone
 git commit -m "feat: connect articles with project expertise"
 ```
 
-### Задача 5: SEO и schema для стратегии `case-study first`
+### Task 5: SEO и schema для стратегии `case-study first`
 
 **Файлы:**
 - Изменить: `packages/web/src/lib/seo.ts`
@@ -457,7 +457,7 @@ git add packages/web/src/lib/seo.ts packages/web/src/app/page.tsx 'packages/web/
 git commit -m "feat: strengthen seo for case study strategy"
 ```
 
-### Задача 6: Документация фичи
+### Task 6: Документация фичи
 
 **Файлы:**
 - Изменить: `ai/FEATURES.md`
