@@ -17,6 +17,21 @@ interface ProjectsProps {
   projects: Project[];
 }
 
+const getCaseFocus = (project: Project) => {
+  const [firstTag] = project.tags;
+  const techNames = project.technologies.slice(0, 2).map((tech) => tech.name);
+
+  if (firstTag && techNames.length > 0) {
+    return `${firstTag.name} / ${techNames.join(' + ')}`;
+  }
+
+  if (techNames.length > 0) {
+    return techNames.join(' + ');
+  }
+
+  return 'Разбор задачи, ограничений и решения';
+};
+
 export default function Projects({ projects }: ProjectsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const swiperRef = useRef<any>(null);
@@ -38,10 +53,10 @@ export default function Projects({ projects }: ProjectsProps) {
           <div className="max-w-3xl">
             <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Ключевые кейсы</p>
             <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9]">
-              Проекты, где я решал реальные инженерные задачи
+              Инженерные кейсы: frontend, платформы и AI-продукты
             </h2>
             <p className="mt-3 text-[#94a3b8] max-w-2xl">
-              Не просто список работ, а кейсы с контекстом, ограничениями, стеком и результатом.
+              Показываю не витрину, а ход работы: какая была задача, где упиралось, какие решения сработали.
             </p>
           </div>
           <Link
@@ -109,13 +124,23 @@ export default function Projects({ projects }: ProjectsProps) {
                             className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                           />
                         ) : (
-                          <div className="absolute inset-0 bg-gradient-to-br from-[#6366f1]/20 to-[#06b6d4]/20 flex items-center justify-center">
-                            <span className="text-5xl font-bold gradient-text opacity-30">{project.title[0]}</span>
+                          <div className="absolute inset-0 bg-[#10141f]">
+                            <div className="absolute left-6 top-6 h-px w-20 bg-[#6366f1]/50" />
+                            <div className="absolute left-6 top-11 h-px w-32 bg-[#06b6d4]/30" />
+                            <span className="absolute bottom-6 left-6 font-mono text-xs uppercase tracking-widest text-[#94a3b8]/60">
+                              Case study
+                            </span>
+                            <span className="absolute right-6 bottom-5 text-6xl font-bold text-[#6366f1]/10">
+                              {project.title[0]}
+                            </span>
                           </div>
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
                       </div>
                       <div className="p-5">
+                        <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-[#6366f1]">
+                          {getCaseFocus(project)}
+                        </p>
                         <h3 className="text-lg font-bold text-[#f1f5f9] mb-1 group-hover:text-[#6366f1] transition-colors">
                           {project.title}
                         </h3>
