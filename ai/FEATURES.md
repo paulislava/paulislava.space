@@ -75,6 +75,23 @@
 
 Подробнее: [case-study-first-expert-seo.md](features/case-study-first-expert-seo.md)
 
+## Split кейса GigaChat / developers.sber.ru (2026-07-12)
+
+Смешанный кейс `gigachat-dev-portal` разделён на два отдельных проекта, чтобы публичный сайт `giga.chat` и developer portal `developers.sber.ru` жили как разные единицы портфолио.
+
+**Что изменено:**
+- В Strapi удалён старый проект `gigachat-dev-portal`.
+- В Strapi созданы два новых проекта: `giga-chat` и `developers-sber-ru`.
+- `packages/web/src/app/projects/[slug]/page.tsx` — добавлен постоянный redirect со старого slug `/projects/gigachat-dev-portal` на `/projects`.
+- `scripts/seed-projects.ts` — один смешанный seed-проект заменён на два отдельных.
+- `packages/web/src/components/projects/ProjectCaseStudy.tsx` — удалён блок `Связанные статьи` из project pages.
+
+**Нетривиальные детали:**
+- Оба новых проекта опубликованы в Strapi и унаследовали стек старого кейса.
+- Старый slug не должен использоваться как живая landing page проекта даже при внешних старых ссылках.
+
+Подробнее: [split-gigachat-case-study.md](features/split-gigachat-case-study.md)
+
 ## SEO-исправления: canonical + og-default.png (2026-07-04)
 
 **Проблемы:**

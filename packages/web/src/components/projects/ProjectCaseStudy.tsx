@@ -9,13 +9,6 @@ interface ProjectCaseStudyProps {
   project: Project;
 }
 
-function buildRelatedTopics(project: Project) {
-  return [
-    ...project.technologies.map((technology) => technology.name),
-    ...project.tags.map((tag) => tag.name),
-  ].slice(0, 6);
-}
-
 function buildFaqItems(project: Project) {
   const technologyAnswer = project.technologies.length > 0
     ? project.technologies.map((technology) => technology.name).join(', ')
@@ -61,7 +54,6 @@ function Section({
 }
 
 export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
-  const relatedTopics = buildRelatedTopics(project);
   const faqItems = buildFaqItems(project);
   const shortDescription = project.shortDescription?.trim();
   const hasNarrative = project.description?.length > 0;
@@ -111,101 +103,72 @@ export default function ProjectCaseStudy({ project }: ProjectCaseStudyProps) {
         )}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(280px,0.9fr)]">
-        <div className="space-y-8">
-          <Section title="Контекст и задача">
-            <p className="text-[#cbd5e1] text-base leading-7">
-              {shortDescription ?? 'Кейс будет дополнен подробным контекстом по мере публикации материалов проекта.'}
+      <div className="max-w-4xl space-y-8">
+        <Section title="Контекст и задача">
+          <p className="text-[#cbd5e1] text-base leading-7">
+            {shortDescription ?? 'Кейс будет дополнен подробным контекстом по мере публикации материалов проекта.'}
+          </p>
+        </Section>
+
+        <Section title="Решение">
+          {hasNarrative ? (
+            <RichText blocks={project.description} />
+          ) : (
+            <p className="text-[#94a3b8] text-base leading-7">
+              Подробное описание решения ещё не опубликовано в CMS. Сейчас страница фиксирует ключевой контекст,
+              стек и материалы проекта, чтобы кейс уже можно было использовать как точку входа.
             </p>
-          </Section>
-
-          <Section title="Решение">
-            {hasNarrative ? (
-              <RichText blocks={project.description} />
-            ) : (
-              <p className="text-[#94a3b8] text-base leading-7">
-                Подробное описание решения ещё не опубликовано в CMS. Сейчас страница фиксирует ключевой контекст,
-                стек и материалы проекта, чтобы кейс уже можно было использовать как точку входа.
-              </p>
-            )}
-          </Section>
-
-          <Section title="Технологический стек">
-            {project.technologies.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((technology) => (
-                  <Link
-                    key={technology.documentId}
-                    href={`/projects?tech=${technology.slug}`}
-                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-[#e2e8f0] hover:border-[#6366f1]/40 hover:bg-[#6366f1]/10 transition-colors"
-                  >
-                    {technology.name}
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <p className="text-[#94a3b8] text-base leading-7">
-                Стек проекта будет уточняться по мере пополнения материалов в CMS.
-              </p>
-            )}
-
-            {project.tags.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <Link key={tag.documentId} href={`/projects?tag=${tag.slug}`}>
-                    <Tag tag={tag} />
-                  </Link>
-                ))}
-              </div>
-            )}
-          </Section>
-
-          {project.screenshots?.length > 0 && (
-            <Section title="Скриншоты">
-              <ProjectScreenshots screenshots={project.screenshots} />
-            </Section>
           )}
+        </Section>
 
-          {!hasNarrative && (
-            <Section title="FAQ">
-              <div className="space-y-4">
-                {faqItems.map((item) => (
-                  <div key={item.question} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <h3 className="text-base font-semibold text-[#f1f5f9]">{item.question}</h3>
-                    <p className="mt-2 text-sm leading-6 text-[#94a3b8]">{item.answer}</p>
-                  </div>
-                ))}
-              </div>
-            </Section>
-          )}
-        </div>
-
-        <aside className="space-y-6">
-          <section className="rounded-2xl border border-white/10 bg-white/5 p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6366f1] mb-3">Case Study</p>
-            <h2 className="text-xl font-bold text-[#f1f5f9] mb-3">Связанные статьи</h2>
-            <p className="text-sm leading-6 text-[#94a3b8]">
-              На этой странице будут отображаться статьи по тем же темам и технологиям.
-              {relatedTopics.length > 0 ? ` В первую очередь сюда подтянутся материалы по ${relatedTopics.join(', ')}.` : ''}
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {relatedTopics.map((topic) => (
-                <span
-                  key={topic}
-                  className="rounded-lg border border-white/10 bg-[#0f172a]/60 px-2.5 py-1.5 text-xs text-[#cbd5e1]"
+        <Section title="Технологический стек">
+          {project.technologies.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {project.technologies.map((technology) => (
+                <Link
+                  key={technology.documentId}
+                  href={`/projects?tech=${technology.slug}`}
+                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-[#e2e8f0] hover:border-[#6366f1]/40 hover:bg-[#6366f1]/10 transition-colors"
                 >
-                  {topic}
-                </span>
+                  {technology.name}
+                </Link>
               ))}
             </div>
-            <Link
-              href="/articles"
-              className="mt-5 inline-flex text-sm font-semibold text-[#06b6d4] transition-colors hover:text-[#67e8f9]"
-            >
-              Перейти к статьям →
-            </Link>
-          </section>
-        </aside>
+          ) : (
+            <p className="text-[#94a3b8] text-base leading-7">
+              Стек проекта будет уточняться по мере пополнения материалов в CMS.
+            </p>
+          )}
+
+          {project.tags.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <Link key={tag.documentId} href={`/projects?tag=${tag.slug}`}>
+                  <Tag tag={tag} />
+                </Link>
+              ))}
+            </div>
+          )}
+        </Section>
+
+        {project.screenshots?.length > 0 && (
+          <Section title="Скриншоты">
+            <ProjectScreenshots screenshots={project.screenshots} />
+          </Section>
+        )}
+
+        {!hasNarrative && (
+          <Section title="FAQ">
+            <div className="space-y-4">
+              {faqItems.map((item) => (
+                <div key={item.question} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <h3 className="text-base font-semibold text-[#f1f5f9]">{item.question}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#94a3b8]">{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
       </div>
     </div>
   );

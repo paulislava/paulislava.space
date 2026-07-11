@@ -123,15 +123,29 @@ async function main() {
       techNames: ['Next.js', 'TypeScript', 'Strapi', 'Docker', 'GitHub Actions', 'PostgreSQL', 'S3', 'Nginx'],
     },
     {
-      title: 'GigaChat Dev Portal',
-      slug: 'gigachat-dev-portal',
-      shortDescription: 'Сайт нейросети GigaChat и портал для разработчиков Сбера',
+      title: 'giga.chat',
+      slug: 'giga-chat',
+      shortDescription: 'Публичный сайт нейросети GigaChat',
+      url: 'https://giga.chat',
+      featured: true,
+      description: [
+        {
+          type: 'paragraph',
+          children: [{ type: 'text', text: 'Разработка публичного сайта нейросети GigaChat в команде SberDevices. Фокус на продуктовом интерфейсе, пользовательском сценарии знакомства с возможностями модели и согласованной реализации фронтенда в рамках большого AI-продукта.' }],
+        },
+      ],
+      techNames: ['React', 'Next.js', 'TypeScript', 'GraphQL', 'Express.js', 'Strapi', 'Redis', 'Docker', 'Nginx', 'MDX'],
+    },
+    {
+      title: 'developers.sber.ru',
+      slug: 'developers-sber-ru',
+      shortDescription: 'Портал для разработчиков Сбера с документацией и tooling',
       url: 'https://developers.sber.ru',
       featured: true,
       description: [
         {
           type: 'paragraph',
-          children: [{ type: 'text', text: 'Разработка сайта нейросети GigaChat и портала для разработчиков Сбера в команде SberDevices. Визуальный MDX-редактор для технических писателей, интеграция с GraphQL API.' }],
+          children: [{ type: 'text', text: 'Разработка developer portal для экосистемы Сбера в команде SberDevices. В кейсе важны сценарии технической документации, визуальный MDX-редактор для технических писателей, интеграция с GraphQL API и организация удобного входа для разработчиков.' }],
         },
       ],
       techNames: ['React', 'Next.js', 'TypeScript', 'GraphQL', 'Express.js', 'Strapi', 'Redis', 'Docker', 'Nginx', 'MDX'],

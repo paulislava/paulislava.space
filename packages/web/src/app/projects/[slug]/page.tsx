@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -25,6 +25,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === 'gigachat-dev-portal') {
+    return {
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
   const project = await getProjectBySlug(slug);
   if (!project) return {};
 
@@ -46,6 +54,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params;
+  if (slug === 'gigachat-dev-portal') {
+    permanentRedirect('/projects');
+  }
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
