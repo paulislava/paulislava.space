@@ -2,16 +2,38 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getArticles, getArticleBySlug, mediaUrl } from '@/lib/strapi';
+import { getAllProjects, getArticles, getArticleBySlug, mediaUrl } from '@/lib/strapi';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import ArticleSections from '@/components/ui/ArticleSections';
 import RelatedArticles from '@/components/ui/RelatedArticles';
+import RelatedProjects from '@/components/articles/RelatedProjects';
 import SeriesNavigation from '@/components/ui/SeriesNavigation';
 import { formatDate } from '@/lib/utils';
 import { absoluteUrl, articleJsonLd } from '@/lib/seo';
+import type { Project } from '@/lib/strapi-types';
 
 interface PageProps { params: Promise<{ slug: string }> }
+
+function pickRelatedProjects(article: Awaited<ReturnType<typeof getArticleBySlug>>, projects: Project[]) {
+  if (!article) return [];
+
+  const articleTagSlugs = new Set(article.tags.map((tag) => tag.slug));
+  const articleTechSlugs = new Set(article.technologies.map((technology) => technology.slug));
+
+  return projects
+    .map((project) => {
+      const tagMatches = project.tags.filter((tag) => articleTagSlugs.has(tag.slug)).length;
+      const techMatches = project.technologies.filter((technology) => articleTechSlugs.has(technology.slug)).length;
+      const score = tagMatches + techMatches * 2;
+
+      return { project, score };
+    })
+    .filter(({ score }) => score > 0)
+    .sort((left, right) => right.score - left.score)
+    .slice(0, 4)
+    .map(({ project }) => project);
+}
 
 export async function generateStaticParams() {
   try {
@@ -44,11 +66,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const [article, projects] = await Promise.all([
+    getArticleBySlug(slug),
+    getAllProjects().catch(() => []),
+  ]);
   if (!article) notFound();
 
   const cover = mediaUrl(article.cover, 'large') ?? mediaUrl(article.cover);
   const relatedArticles = article.relatedArticles ?? [];
+  const relatedProjects = pickRelatedProjects(article, projects);
   const series = article.series ?? null;
   const orderInSeries = article.orderInSeries ?? null;
 
@@ -69,6 +95,14 @@ export default async function ArticlePage({ params }: PageProps) {
         {article.excerpt && (
           <p className="text-[#94a3b8] text-xl mb-8 leading-relaxed max-w-2xl">{article.excerpt}</p>
         )}
+        <section className="mb-12 rounded-2xl border border-white/10 bg-white/5 p-5">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#6366f1] mb-3">Expertise</p>
+          <h2 className="text-xl font-bold text-[#f1f5f9] mb-3">О чём этот разбор</h2>
+          <p className="text-[#cbd5e1] text-sm leading-7">
+            Эта статья объясняет инженерную тему через практическую оптику: какие решения важны в продакшене,
+            на какие trade-off&apos;ы стоит смотреть и где подобные подходы применяются в реальных проектах.
+          </p>
+        </section>
         <div className="mb-12 pb-8 border-b border-white/5 space-y-3">
           {article.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
@@ -100,6 +134,7 @@ export default async function ArticlePage({ params }: PageProps) {
         {series && (
           <SeriesNavigation series={series} currentSlug={slug} orderInSeries={orderInSeries} />
         )}
+        <RelatedProjects projects={relatedProjects} />
         <RelatedArticles articles={relatedArticles} />
       </div>
       <script
