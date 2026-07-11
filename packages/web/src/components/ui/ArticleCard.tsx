@@ -13,7 +13,7 @@ export default function ArticleCard({ item, type }: ArticleCardProps) {
   const href = type === 'article' ? `/articles/${item.slug}` : `/news/${item.slug}`;
   const cover = mediaUrl(item.cover, 'medium') ?? mediaUrl(item.cover);
   return (
-    <Link href={href} className="group block">
+    <Link href={href} className="group block break-inside-avoid mb-5">
       <div className="glass rounded-2xl overflow-hidden hover:border-[#06b6d4]/40 transition-all duration-300 hover:-translate-y-1">
         <div className="relative h-36 bg-[#12121a]">
           {cover ? (
