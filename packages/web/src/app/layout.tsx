@@ -11,7 +11,7 @@ const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin']
 
 export const metadata: Metadata = {
   title: { default: 'Павел Кондратов — Software Engineer', template: '%s | Павел Кондратов' },
-  description: 'Software Engineer — React, Next.js, NestJS, DevOps. Портфолио проектов и статьи.',
+  description: 'Портфолио инженерных кейсов и экспертные статьи Павла Кондратова: frontend, Next.js, архитектура, platform engineering и AI.',
   metadataBase: new URL('https://paulislava.space'),
   manifest: '/manifest.json',
   icons: {

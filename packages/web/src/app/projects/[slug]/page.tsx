@@ -31,14 +31,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const shortDescription = getNormalizedShortDescription(project.shortDescription);
 
   return {
-    title: project.title,
-    description: shortDescription,
+    title: `${project.title} — инженерный кейс`,
+    description: shortDescription ?? `Кейс проекта ${project.title}: контекст, решение, стек и результаты реализации.`,
     alternates: { canonical: absoluteUrl(`/projects/${project.slug}`) },
     openGraph: {
       type: 'website',
       url: absoluteUrl(`/projects/${project.slug}`),
       title: project.title,
-      description: shortDescription,
+      description: shortDescription ?? `Кейс проекта ${project.title}: контекст, решение, стек и результаты реализации.`,
       images: project.cover ? [{ url: project.cover.url }] : [],
     },
   };

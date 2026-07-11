@@ -41,7 +41,7 @@ export const websiteJsonLd = {
   inLanguage: 'ru-RU',
   author: { '@id': `${SITE_URL}/#person` },
   publisher: { '@id': `${SITE_URL}/#person` },
-  description: 'Портфолио, проекты и статьи Павла Кондратова о разработке, архитектуре и технологиях.',
+  description: 'Портфолио инженерных кейсов и экспертные статьи Павла Кондратова о frontend, Next.js, архитектуре, platform engineering и AI.',
 };
 
 export function absoluteUrl(path: string) {
@@ -67,6 +67,11 @@ export function articleJsonLd(article: Article) {
     inLanguage: 'ru-RU',
     author: { '@id': `${SITE_URL}/#person` },
     publisher: { '@id': `${SITE_URL}/#person` },
+    about: [
+      ...article.tags.map((tag) => tag.name),
+      ...article.technologies.map((tech) => tech.name),
+    ],
+    articleSection: article.tags.map((tag) => tag.name),
     keywords: [
       ...article.tags.map((tag) => tag.name),
       ...article.technologies.map((tech) => tech.name),
@@ -107,6 +112,10 @@ export function projectJsonLd(project: Project) {
     author: { '@id': `${SITE_URL}/#person` },
     creator: { '@id': `${SITE_URL}/#person` },
     inLanguage: 'ru-RU',
+    about: [
+      ...project.tags.map((tag) => tag.name),
+      ...project.technologies.map((tech) => tech.name),
+    ],
     sameAs: [project.url, project.githubUrl].filter(Boolean),
     keywords: [
       ...project.tags.map((tag) => tag.name),

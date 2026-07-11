@@ -49,14 +49,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = await getArticleBySlug(slug);
   if (!article) return {};
   return {
-    title: article.title,
-    description: article.excerpt ?? undefined,
+    title: `${article.title} — экспертный разбор`,
+    description: article.excerpt ?? 'Экспертная статья Павла Кондратова о frontend, архитектуре, platform engineering и AI.',
     alternates: { canonical: absoluteUrl(`/articles/${article.slug}`) },
     openGraph: {
       type: 'article',
       url: absoluteUrl(`/articles/${article.slug}`),
       title: article.title,
-      description: article.excerpt ?? undefined,
+      description: article.excerpt ?? 'Экспертная статья Павла Кондратова о frontend, архитектуре, platform engineering и AI.',
       images: article.cover ? [{ url: article.cover.url }] : [],
       publishedTime: article.publishedAt,
       authors: ['Павел Кондратов'],
