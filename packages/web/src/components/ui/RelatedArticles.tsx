@@ -16,11 +16,15 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
       <h2 className="text-2xl font-bold text-[#f1f5f9] mb-6 font-mono">
         <span className="text-[#6366f1]">#</span> Похожие статьи
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
         {articles.map((article) => {
           const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover);
           return (
-            <Link key={article.documentId} href={`/articles/${article.slug}`} className="group block">
+            <Link
+              key={article.documentId}
+              href={`/articles/${article.slug}`}
+              className="group block break-inside-avoid mb-4"
+            >
               <div className="glass rounded-2xl overflow-hidden hover:border-[#06b6d4]/40 transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-32 bg-[#12121a]">
                   {cover ? (
