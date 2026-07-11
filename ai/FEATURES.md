@@ -76,6 +76,24 @@
 Подробнее: [case-study-first-expert-seo.md](features/case-study-first-expert-seo.md)
 
 
+## Masonry-раскладка сеток проектов и статей (2026-07-12)
+
+Сетки карточек проектов и статей переведены с CSS Grid на CSS multi-column masonry (`columns-*` + `break-inside-avoid`), чтобы каждая карточка сохраняла собственную высоту вместо растягивания под самую высокую в строке.
+
+**Файлы:**
+- `packages/web/src/app/projects/ProjectsClient.tsx`, `packages/web/src/app/articles/ArticlesClient.tsx` — сетки страниц `/projects` и `/articles`
+- `packages/web/src/components/sections/ArticlesNews.tsx` + `packages/web/src/components/ui/ArticleCard.tsx` — блок статей/новостей на главной
+- `packages/web/src/components/articles/RelatedProjects.tsx` + `packages/web/src/components/ui/ProjectCard.tsx` — похожие проекты в статье
+- `packages/web/src/components/ui/RelatedArticles.tsx` — похожие статьи
+
+**Нетривиальные детали:**
+- Решение без JS-зависимостей: чистый CSS `columns-*`, не вызывает layout shift/CLS при гидратации.
+- В column-layout `gap` задаёт только зазор между колонками — вертикальный отступ между карточками одной колонки задан через `mb-*` на каждой карточке.
+- `break-inside-avoid` на карточках не даёт им разрываться между колонками.
+- Компромисс: карточки заполняют колонки сверху вниз по одной, а не построчно слева направо (особенность CSS multi-column masonry).
+
+Подробнее: [дизайн](../docs/superpowers/specs/2026-07-12-masonry-grids-design.md), [план](../docs/superpowers/plans/2026-07-12-masonry-grids.md)
+
 ## SEO-исправления: canonical + og-default.png (2026-07-04)
 
 **Проблемы:**
