@@ -116,14 +116,14 @@ export default function ArticlesClient({ articles, allTags, allTechs }: Props) {
       {filtered.length === 0 ? (
         <p className="text-[#94a3b8] text-center py-24">Нет статей с таким фильтром</p>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
           {filtered.map((article) => {
             const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover);
             return (
               <Link
                 key={article.documentId}
                 href={`/articles/${article.slug}`}
-                className="glass rounded-2xl overflow-hidden group hover:border-[#6366f1]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                className="glass rounded-2xl overflow-hidden group hover:border-[#6366f1]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col break-inside-avoid mb-6"
               >
                 {cover ? (
                   <div className="relative h-44 overflow-hidden">
