@@ -10,7 +10,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover);
   return (
-    <Link href={`/projects/${project.slug}`} className="group block">
+    <Link href={`/projects/${project.slug}`} className="group block break-inside-avoid mb-4">
       <div className="glass rounded-2xl overflow-hidden hover:border-[#6366f1]/40 transition-all duration-300 hover:-translate-y-1">
         <div className="relative h-48 bg-[#12121a]">
           {cover ? (

@@ -17,7 +17,7 @@ export default function RelatedProjects({ projects }: RelatedProjectsProps) {
         Проекты ниже связаны с этой статьёй по общим темам, технологиям или предметной области.
         Они показывают, где эти идеи использовались в реальной инженерной работе.
       </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="columns-1 sm:columns-2 gap-4">
         {projects.map((project) => (
           <ProjectCard key={project.documentId} project={project} />
         ))}
