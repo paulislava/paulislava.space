@@ -55,6 +55,26 @@
 - Структура главной теперь читаетcя как case-study first: сначала hero, затем кейсы, затем экспертные материалы, и только потом биографические секции.
 - CTA в hero и секции проектов синхронизированы с языком кейсов.
 
+Подробнее: [case-study-first-expert-seo.md](features/case-study-first-expert-seo.md)
+
+## Кейсы как основной SEO/AI-слой, статьи как экспертный слой (2026-07-12)
+
+Сайт усилен под поисковые системы и нейросети вокруг стратегии `case-study first`: проекты стали основным слоем доверия, а статьи начали поддерживать их как экспертные разборы.
+
+**Что изменено:**
+- `packages/web/src/lib/llms.ts` — вынесена динамическая генерация `llms.txt` и `llms-full.txt` из данных Strapi.
+- `packages/web/src/app/llms.txt/route.ts`, `packages/web/src/app/llms-full.txt/route.ts` — добавлены компактный и расширенный AI-манифесты.
+- `packages/web/src/app/projects/[slug]/page.tsx`, `packages/web/src/components/projects/ProjectCaseStudy.tsx` — страницы проектов превращены в полноценные кейсы с FAQ, контекстом, решением и технологическим блоком.
+- `packages/web/src/app/articles/[slug]/page.tsx`, `packages/web/src/components/articles/RelatedProjects.tsx` — статьи получили блоки позиционирования и связанные проекты.
+- `packages/web/src/lib/seo.ts`, `packages/web/src/app/layout.tsx` — усилены metadata и JSON-LD под инженерные кейсы и экспертные разборы.
+
+**Нетривиальные детали:**
+- `llms.txt` и `llms-full.txt` больше не статические: они собираются на базе актуальных проектов и статей.
+- Пустые и пробельные `shortDescription` из CMS нормализуются, чтобы не ломать metadata, OG и кейсовые блоки.
+- В статьях связанные проекты подбираются автоматически по пересечению тегов и технологий, чтобы поисковый и AI-контекст связывал материалы между собой.
+
+Подробнее: [case-study-first-expert-seo.md](features/case-study-first-expert-seo.md)
+
 ## SEO-исправления: canonical + og-default.png (2026-07-04)
 
 **Проблемы:**
