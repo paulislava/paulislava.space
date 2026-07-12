@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getNewsItems, getNewsBySlug, mediaUrl } from '@/lib/strapi';
+import { resolvePageCover } from '@/lib/strapi-types';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import { formatDate } from '@/lib/utils';
@@ -44,7 +45,8 @@ export default async function NewsPage({ params }: PageProps) {
   const item = await getNewsBySlug(slug);
   if (!item) notFound();
 
-  const cover = mediaUrl(item.cover, 'large') ?? mediaUrl(item.cover);
+  const pageCover = resolvePageCover(item);
+  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover);
 
   return (
     <main className="pt-20">

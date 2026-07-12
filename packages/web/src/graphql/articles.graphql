@@ -44,6 +44,10 @@ query GetArticleBySlug($slug: String!) {
   ) {
     ...ArticleCardFields
     content
+    pageCover {
+      ...MediaFields
+    }
+    showCoverOnPage
     mainContent {
       __typename
       ... on ComponentSectionsMdxSection {

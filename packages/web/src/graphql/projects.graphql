@@ -44,6 +44,10 @@ query GetProjectBySlug($slug: String!) {
   projects(filters: { slug: { eq: $slug } }, pagination: { limit: 1 }) {
     ...ProjectCardFields
     description
+    pageCover {
+      ...MediaFields
+    }
+    showCoverOnPage
     screenshots {
       ...MediaFields
     }

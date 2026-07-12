@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllProjects, getArticles, getArticleBySlug, mediaUrl } from '@/lib/strapi';
+import { resolvePageCover } from '@/lib/strapi-types';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import ArticleSections from '@/components/ui/ArticleSections';
@@ -72,7 +73,8 @@ export default async function ArticlePage({ params }: PageProps) {
   ]);
   if (!article) notFound();
 
-  const cover = mediaUrl(article.cover, 'large') ?? mediaUrl(article.cover);
+  const pageCover = resolvePageCover(article);
+  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover);
   const relatedArticles = article.relatedArticles ?? [];
   const relatedProjects = pickRelatedProjects(article, projects);
   const series = article.series ?? null;
