@@ -75,6 +75,8 @@ export interface Project {
   githubUrl: string | null;
   featured: boolean;
   cover: StrapiMedia | null;
+  pageCover: StrapiMedia | null;
+  showCoverOnPage: boolean;
   screenshots: StrapiMedia[];
   technologies: Technology[];
   tags: Tag[];
@@ -142,6 +144,8 @@ export interface Article {
   content: RichTextBlock[];
   mainContent: ArticleSection[];
   cover: StrapiMedia | null;
+  pageCover: StrapiMedia | null;
+  showCoverOnPage: boolean;
   tags: Tag[];
   technologies: Technology[];
   publishedAt: string;
@@ -158,6 +162,8 @@ export interface NewsItem {
   excerpt: string | null;
   content: RichTextBlock[];
   cover: StrapiMedia | null;
+  pageCover: StrapiMedia | null;
+  showCoverOnPage: boolean;
   tags: Tag[];
   technologies: Technology[];
   projects: Pick<Project, 'documentId' | 'title' | 'slug'>[];
@@ -172,4 +178,12 @@ export function mediaUrl(
   if (!media) return null;
   if (size && media.formats?.[size]) return media.formats[size]!.url;
   return media.url;
+}
+
+export function resolvePageCover<T extends { cover: StrapiMedia | null; pageCover: StrapiMedia | null; showCoverOnPage: boolean }>(
+  entity: T,
+): StrapiMedia | null {
+  if (entity.pageCover) return entity.pageCover;
+  if (entity.showCoverOnPage) return entity.cover;
+  return null;
 }

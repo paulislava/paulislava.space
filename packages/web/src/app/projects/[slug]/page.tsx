@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getAllProjects, getProjectBySlug, mediaUrl } from '@/lib/strapi';
+import { resolvePageCover } from '@/lib/strapi-types';
 import ProjectCaseStudy from '@/components/projects/ProjectCaseStudy';
 import { absoluteUrl, projectJsonLd } from '@/lib/seo';
 
@@ -61,7 +62,8 @@ export default async function ProjectPage({ params }: PageProps) {
   if (!project) notFound();
 
   const shortDescription = getNormalizedShortDescription(project.shortDescription);
-  const cover = mediaUrl(project.cover, 'large') ?? mediaUrl(project.cover);
+  const pageCover = resolvePageCover(project);
+  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover);
 
   return (
     <main>
