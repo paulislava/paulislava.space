@@ -20,6 +20,15 @@
       "multiple": false,
       "allowedTypes": ["images"]
     },
+    "pageCover": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "showCoverOnPage": {
+      "type": "boolean",
+      "default": false
+    },
     "screenshots": {
       "type": "media",
       "multiple": true,
