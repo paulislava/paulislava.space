@@ -95,14 +95,6 @@ export default async function ArticlePage({ params }: PageProps) {
         {article.excerpt && (
           <p className="text-[#94a3b8] text-xl mb-8 leading-relaxed max-w-2xl">{article.excerpt}</p>
         )}
-        <section className="mb-12 rounded-2xl border border-white/10 bg-white/5 p-5">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#6366f1] mb-3">Expertise</p>
-          <h2 className="text-xl font-bold text-[#f1f5f9] mb-3">О чём этот разбор</h2>
-          <p className="text-[#cbd5e1] text-sm leading-7">
-            Эта статья объясняет инженерную тему через практическую оптику: какие решения важны в продакшене,
-            на какие trade-off&apos;ы стоит смотреть и где подобные подходы применяются в реальных проектах.
-          </p>
-        </section>
         <div className="mb-12 pb-8 border-b border-white/5 space-y-3">
           {article.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
