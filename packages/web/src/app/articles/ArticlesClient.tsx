@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Article, Tag, Technology, mediaUrl } from '@/lib/strapi-types';
 import { formatDate } from '@/lib/utils';
+import { DEFAULT_ARTICLE_COVER } from '@/lib/default-covers';
 
 interface Props {
   articles: Article[];
@@ -118,26 +119,22 @@ export default function ArticlesClient({ articles, allTags, allTechs }: Props) {
       ) : (
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
           {filtered.map((article) => {
-            const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover);
+            const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover) ?? DEFAULT_ARTICLE_COVER;
             return (
               <Link
                 key={article.documentId}
                 href={`/articles/${article.slug}`}
                 className="glass rounded-2xl overflow-hidden group hover:border-[#6366f1]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col break-inside-avoid mb-6"
               >
-                {cover ? (
-                  <div className="relative h-44 overflow-hidden">
-                    <Image
-                      src={cover}
-                      alt={article.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  </div>
-                ) : (
-                  <div className="h-1.5 bg-gradient-to-r from-[#6366f1] to-[#06b6d4]" />
-                )}
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={cover}
+                    alt={article.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                </div>
                 <div className="p-5 flex flex-col flex-1">
                   <p className="text-[#6366f1] font-mono text-xs mb-2">
                     {formatDate(article.publishedAt ?? article.createdAt)}

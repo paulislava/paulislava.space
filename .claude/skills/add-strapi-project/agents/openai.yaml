@@ -1,0 +1,4 @@
+interface:
+  display_name: "Добавление проекта Strapi"
+  short_description: "Проект, контент, обложка и публикация"
+  default_prompt: "Use $add-strapi-project to add a portfolio project with content, cover, publication, and revalidation."

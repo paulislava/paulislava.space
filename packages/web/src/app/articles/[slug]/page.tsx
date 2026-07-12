@@ -13,6 +13,7 @@ import SeriesNavigation from '@/components/ui/SeriesNavigation';
 import { formatDate } from '@/lib/utils';
 import { absoluteUrl, articleJsonLd } from '@/lib/seo';
 import type { Project } from '@/lib/strapi-types';
+import { DEFAULT_ARTICLE_COVER } from '@/lib/default-covers';
 
 interface PageProps { params: Promise<{ slug: string }> }
 
@@ -58,7 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: absoluteUrl(`/articles/${article.slug}`),
       title: article.title,
       description: article.excerpt ?? 'Экспертная статья Павла Кондратова о frontend, архитектуре, platform engineering и AI.',
-      images: article.cover ? [{ url: article.cover.url }] : [],
+      images: [{ url: article.cover?.url ?? absoluteUrl(DEFAULT_ARTICLE_COVER) }],
       publishedTime: article.publishedAt,
       authors: ['Павел Кондратов'],
     },
@@ -74,7 +75,7 @@ export default async function ArticlePage({ params }: PageProps) {
   if (!article) notFound();
 
   const pageCover = resolvePageCover(article);
-  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover);
+  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover) ?? DEFAULT_ARTICLE_COVER;
   const relatedArticles = article.relatedArticles ?? [];
   const relatedProjects = pickRelatedProjects(article, projects);
   const series = article.series ?? null;
@@ -82,12 +83,10 @@ export default async function ArticlePage({ params }: PageProps) {
 
   return (
     <main className="pt-20">
-      {cover && (
-        <div className="relative h-64">
-          <Image src={cover} alt={article.title} fill className="object-cover opacity-40" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
-        </div>
-      )}
+      <div className="relative h-64">
+        <Image src={cover} alt={article.title} fill className="object-cover opacity-40" priority />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
+      </div>
       <div className="max-w-4xl mx-auto px-6 py-12">
         <Link href="/articles" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-8 flex items-center gap-1.5 font-mono w-fit">
           ← Назад к статьям

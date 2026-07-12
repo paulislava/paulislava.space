@@ -8,6 +8,7 @@ import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import { formatDate } from '@/lib/utils';
 import { absoluteUrl, newsJsonLd } from '@/lib/seo';
+import { DEFAULT_NEWS_COVER } from '@/lib/default-covers';
 
 interface PageProps { params: Promise<{ slug: string }> }
 
@@ -33,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: absoluteUrl(`/news/${item.slug}`),
       title: item.title,
       description: item.excerpt ?? undefined,
-      images: item.cover ? [{ url: item.cover.url }] : [],
+      images: [{ url: item.cover?.url ?? absoluteUrl(DEFAULT_NEWS_COVER) }],
       publishedTime: item.publishedAt,
       authors: ['Павел Кондратов'],
     },
@@ -46,16 +47,14 @@ export default async function NewsPage({ params }: PageProps) {
   if (!item) notFound();
 
   const pageCover = resolvePageCover(item);
-  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover);
+  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover) ?? DEFAULT_NEWS_COVER;
 
   return (
     <main className="pt-20">
-      {cover && (
-        <div className="relative h-64">
-          <Image src={cover} alt={item.title} fill className="object-cover opacity-40" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
-        </div>
-      )}
+      <div className="relative h-64">
+        <Image src={cover} alt={item.title} fill className="object-cover opacity-40" priority />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
+      </div>
       <div className="max-w-3xl mx-auto px-6 py-12">
         <Link href="/#articles" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-6 block font-mono">
           ← Назад к новостям

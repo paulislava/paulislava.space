@@ -2,29 +2,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Project, mediaUrl } from '@/lib/strapi-types';
 import Tag from './Tag';
+import { DEFAULT_PROJECT_COVER } from '@/lib/default-covers';
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover);
+  const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover) ?? DEFAULT_PROJECT_COVER;
   return (
     <Link href={`/projects/${project.slug}`} className="group block break-inside-avoid mb-4">
       <div className="glass rounded-2xl overflow-hidden hover:border-[#6366f1]/40 transition-all duration-300 hover:-translate-y-1">
         <div className="relative h-48 bg-[#12121a]">
-          {cover ? (
-            <Image
-              src={cover}
-              alt={project.title}
-              fill
-              className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-            />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-[#6366f1]/20 to-[#06b6d4]/20 flex items-center justify-center">
-              <span className="text-4xl font-bold gradient-text opacity-30">{project.title[0]}</span>
-            </div>
-          )}
+          <Image
+            src={cover}
+            alt={project.title}
+            fill
+            className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 to-transparent" />
         </div>
         <div className="p-5">

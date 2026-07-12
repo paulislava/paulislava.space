@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { ArticleCard, mediaUrl } from '@/lib/strapi-types';
 import Tag from './Tag';
 import { formatDate } from '@/lib/utils';
+import { DEFAULT_ARTICLE_COVER } from '@/lib/default-covers';
 
 interface RelatedArticlesProps {
   articles: ArticleCard[];
@@ -18,7 +19,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
       </h2>
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
         {articles.map((article) => {
-          const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover);
+          const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover) ?? DEFAULT_ARTICLE_COVER;
           return (
             <Link
               key={article.documentId}
@@ -27,16 +28,12 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
             >
               <div className="glass rounded-2xl overflow-hidden hover:border-[#06b6d4]/40 transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-32 bg-[#12121a]">
-                  {cover ? (
-                    <Image
-                      src={cover}
-                      alt={article.title}
-                      fill
-                      className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#06b6d4]/20 to-[#6366f1]/20" />
-                  )}
+                  <Image
+                    src={cover}
+                    alt={article.title}
+                    fill
+                    className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 to-transparent" />
                 </div>
                 <div className="p-4">

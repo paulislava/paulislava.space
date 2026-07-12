@@ -103,3 +103,49 @@
 **Что сделано:**
 - `packages/web/src/app/layout.tsx` — добавлен `alternates.canonical: 'https://paulislava.space'`
 - `packages/web/public/og-default.png` — сгенерирован (1200×630, тёмный фон, текст: имя + роли + URL)
+
+## Skill добавления проектов в Strapi (2026-07-12)
+
+Добавлен проектный skill `.claude/skills/add-strapi-project`, который фиксирует полный процесс добавления портфолио-проекта: исследование сайта, подготовку контента, выбор технологий и тегов, подбор или генерацию обложки, публикацию в Strapi, revalidate и финальную красивую ссылку на созданную сущность.
+
+## Слайдер статей на главной (2026-07-12)
+
+Блок статей/новостей на главной странице переведён с masonry-раскладки на слайдер по тому же паттерну, что и секция проектов.
+
+**Файлы:**
+- `packages/web/src/components/sections/ArticlesNews.tsx`
+
+**Нетривиальные детали:**
+- Используется уже подключённый `swiper` с модулем `A11y`, без новой зависимости.
+- Сохранены табы `Статьи / Новости`, ссылка `Все статьи` и существующие `ArticleCard`.
+- Слайдер повторяет UX проектов: full-width carousel strip, видимые соседние карточки, edge-gradient и стрелки назад/вперёд.
+- При переключении таба Swiper сбрасывается к началу и обновляет состояние стрелок.
+
+## CDN-обложки по умолчанию (2026-07-12)
+
+Сгенерированы и загружены в Strapi/S3 CDN разные fallback-обложки для проектов, статей и новостей. Код использует CDN URL, а не локальные файлы.
+
+**Файлы:**
+- `packages/web/src/lib/default-covers.ts`
+- `packages/web/src/components/ui/ArticleCard.tsx`
+- `packages/web/src/components/ui/ProjectCard.tsx`
+- `packages/web/src/components/ui/RelatedArticles.tsx`
+- `packages/web/src/components/sections/Projects.tsx`
+- `packages/web/src/app/articles/ArticlesClient.tsx`
+- `packages/web/src/app/articles/[slug]/page.tsx`
+- `packages/web/src/app/projects/ProjectsClient.tsx`
+- `packages/web/src/app/projects/[slug]/page.tsx`
+- `packages/web/src/app/news/[slug]/page.tsx`
+- `packages/web/src/app/series/page.tsx`
+- `packages/web/src/app/series/[slug]/page.tsx`
+- `packages/web/src/lib/seo.ts`
+
+**CDN:**
+- Проекты: `https://cdn.paulislava.space/project_default_cover_f2a092e620.png`
+- Статьи: `https://cdn.paulislava.space/article_default_cover_6b88526408.png`
+- Новости: `https://cdn.paulislava.space/news_default_cover_e9289eb87f.png`
+
+**Нетривиальные детали:**
+- Fallback применяется в карточках, списках, сериях, detail hero, Open Graph metadata и JSON-LD.
+- Для сущностей с реальной `cover` из CMS поведение не меняется: используется загруженная обложка.
+- Для записей без `cover` больше нет пустых hero/градиентных заглушек.

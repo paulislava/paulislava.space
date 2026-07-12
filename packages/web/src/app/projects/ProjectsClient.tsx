@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Project, Tag, Technology, mediaUrl } from '@/lib/strapi-types';
 import TagComponent from '@/components/ui/Tag';
+import { DEFAULT_PROJECT_COVER } from '@/lib/default-covers';
 
 interface Props {
   projects: Project[];
@@ -115,24 +116,22 @@ export default function ProjectsClient({ projects, allTags, allTechs }: Props) {
       ) : (
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
           {filtered.map((project) => {
-            const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover);
+            const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover) ?? DEFAULT_PROJECT_COVER;
             return (
               <Link
                 key={project.documentId}
                 href={`/projects/${project.slug}`}
                 className="glass rounded-2xl overflow-hidden group hover:border-[#6366f1]/40 transition-all duration-300 hover:-translate-y-1 flex flex-col break-inside-avoid mb-6"
               >
-                {cover && (
-                  <div className="relative h-44 overflow-hidden">
-                    <Image
-                      src={cover}
-                      alt={project.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  </div>
-                )}
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={cover}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                </div>
                 <div className="p-5 flex flex-col flex-1">
                   <h2 className="font-bold text-[#f1f5f9] text-lg mb-2 group-hover:text-[#6366f1] transition-colors">
                     {project.title}

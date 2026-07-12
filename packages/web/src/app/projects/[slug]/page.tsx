@@ -6,6 +6,7 @@ import { getAllProjects, getProjectBySlug, mediaUrl } from '@/lib/strapi';
 import { resolvePageCover } from '@/lib/strapi-types';
 import ProjectCaseStudy from '@/components/projects/ProjectCaseStudy';
 import { absoluteUrl, projectJsonLd } from '@/lib/seo';
+import { DEFAULT_PROJECT_COVER } from '@/lib/default-covers';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -48,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: absoluteUrl(`/projects/${project.slug}`),
       title: project.title,
       description: shortDescription ?? `Кейс проекта ${project.title}: контекст, решение, стек и результаты реализации.`,
-      images: project.cover ? [{ url: project.cover.url }] : [],
+      images: [{ url: project.cover?.url ?? absoluteUrl(DEFAULT_PROJECT_COVER) }],
     },
   };
 }
@@ -63,16 +64,12 @@ export default async function ProjectPage({ params }: PageProps) {
 
   const shortDescription = getNormalizedShortDescription(project.shortDescription);
   const pageCover = resolvePageCover(project);
-  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover);
+  const cover = mediaUrl(pageCover, 'large') ?? mediaUrl(pageCover) ?? DEFAULT_PROJECT_COVER;
 
   return (
     <main>
       <div className="relative">
-        {cover ? (
-          <Image src={cover} alt={project.title} fill className="object-cover opacity-50" priority />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#6366f1]/20 to-[#06b6d4]/20" />
-        )}
+        <Image src={cover} alt={project.title} fill className="object-cover opacity-50" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent" />
         <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-4">
           <Link href="/projects" className="text-sm text-[#6366f1] hover:text-[#06b6d4] transition-colors mb-3 block font-mono">

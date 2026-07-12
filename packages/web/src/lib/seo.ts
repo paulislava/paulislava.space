@@ -1,5 +1,6 @@
 import type { Article, NewsItem, Project } from '@/lib/strapi-types';
 import { mediaUrl } from '@/lib/strapi-types';
+import { DEFAULT_ARTICLE_COVER, DEFAULT_NEWS_COVER, DEFAULT_PROJECT_COVER } from '@/lib/default-covers';
 
 export const SITE_URL = 'https://paulislava.space';
 export const SITE_NAME = 'paulislava.space';
@@ -49,9 +50,9 @@ export function absoluteUrl(path: string) {
   return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
-function imageUrl(media: Article['cover'] | Project['cover'] | NewsItem['cover']) {
+function imageUrl(media: Article['cover'] | Project['cover'] | NewsItem['cover'], fallback?: string) {
   const url = mediaUrl(media, 'large') ?? mediaUrl(media);
-  return url ? absoluteUrl(url) : undefined;
+  return absoluteUrl(url ?? fallback ?? '');
 }
 
 export function articleJsonLd(article: Article) {
@@ -61,7 +62,7 @@ export function articleJsonLd(article: Article) {
     headline: article.title,
     description: article.excerpt ?? undefined,
     url: absoluteUrl(`/articles/${article.slug}`),
-    image: imageUrl(article.cover),
+    image: imageUrl(article.cover, DEFAULT_ARTICLE_COVER),
     datePublished: article.publishedAt,
     dateModified: article.publishedAt ?? article.createdAt,
     inLanguage: 'ru-RU',
@@ -87,7 +88,7 @@ export function newsJsonLd(item: NewsItem) {
     headline: item.title,
     description: item.excerpt ?? undefined,
     url: absoluteUrl(`/news/${item.slug}`),
-    image: imageUrl(item.cover),
+    image: imageUrl(item.cover, DEFAULT_NEWS_COVER),
     datePublished: item.publishedAt,
     dateModified: item.publishedAt ?? item.createdAt,
     inLanguage: 'ru-RU',
@@ -108,7 +109,7 @@ export function projectJsonLd(project: Project) {
     name: project.title,
     description: project.shortDescription ?? undefined,
     url: absoluteUrl(`/projects/${project.slug}`),
-    image: imageUrl(project.cover),
+    image: imageUrl(project.cover, DEFAULT_PROJECT_COVER),
     author: { '@id': `${SITE_URL}/#person` },
     creator: { '@id': `${SITE_URL}/#person` },
     inLanguage: 'ru-RU',

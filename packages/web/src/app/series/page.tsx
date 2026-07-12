@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllArticleSeries, mediaUrl } from '@/lib/strapi';
+import { DEFAULT_ARTICLE_COVER } from '@/lib/default-covers';
 
 export const metadata: Metadata = {
   title: 'Циклы статей',
@@ -27,7 +28,7 @@ export default async function SeriesListPage() {
           <div className="space-y-8">
             {seriesList.map((series) => {
               const firstCover = series.articles.find((a) => a.cover)?.cover;
-              const cover = mediaUrl(firstCover, 'medium') ?? mediaUrl(firstCover);
+              const cover = mediaUrl(firstCover, 'medium') ?? mediaUrl(firstCover) ?? DEFAULT_ARTICLE_COVER;
               return (
                 <Link
                   key={series.documentId}
@@ -36,16 +37,12 @@ export default async function SeriesListPage() {
                 >
                   <div className="flex items-stretch">
                     <div className="relative w-48 shrink-0 hidden sm:block bg-[#12121a]">
-                      {cover ? (
-                        <Image
-                          src={cover}
-                          alt={series.title}
-                          fill
-                          className="object-cover opacity-60 group-hover:opacity-80 transition-opacity"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#6366f1]/30 to-[#06b6d4]/20" />
-                      )}
+                      <Image
+                        src={cover}
+                        alt={series.title}
+                        fill
+                        className="object-cover opacity-60 group-hover:opacity-80 transition-opacity"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0a0a0f]/60" />
                     </div>
                     <div className="p-6 flex-1">

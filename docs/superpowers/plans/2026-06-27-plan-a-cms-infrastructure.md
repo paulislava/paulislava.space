@@ -18,7 +18,7 @@
 - CMS-контейнер: `--network host`, порт `1337`
 - PostgreSQL: системный сервис на сервере, база `paulislava_cms`, пользователь `paulislava_cms`
 - S3 bucket: `4565b9a17706-stylish-albert`, endpoint `https://s3.ru1.storage.beget.cloud`, region `ru-msk`
-- CDN public URL: `https://cdn.beznomera.space`
+- CDN public URL: `https://cdn.paulislava.space`
 - Имена docker-контейнеров: `paulislava_cms`, `paulislava_web`
 - nginx app conf: `/home/user/conf/web/paulislava.space/nginx.ssl.conf_app`
 - CMS nginx app conf: `/home/user/conf/web/cms.paulislava.space/nginx.ssl.conf_app`
@@ -217,7 +217,7 @@ S3_SECRET_ACCESS_KEY=change_me
 S3_BUCKET=4565b9a17706-stylish-albert
 S3_REGION=ru-msk
 S3_ENDPOINT=https://s3.ru1.storage.beget.cloud
-CDN_BASE_URL=https://cdn.beznomera.space
+CDN_BASE_URL=https://cdn.paulislava.space
 ```
 
 - [ ] **Step 5: Проверить запуск локально**
@@ -580,7 +580,7 @@ git commit -m "feat(cms): add content type schemas (technology, tag, work-experi
 - Create: `packages/cms/config/plugins.ts`
 
 **Interfaces:**
-- Produces: медиафайлы Strapi загружаются на `s3.ru1.storage.beget.cloud`, доступны через `cdn.beznomera.space`
+- Produces: медиафайлы Strapi загружаются на `s3.ru1.storage.beget.cloud`, доступны через `cdn.paulislava.space`
 
 - [ ] **Step 1: Установить S3 upload provider**
 
@@ -597,7 +597,7 @@ export default ({ env }) => ({
     config: {
       provider: 'aws-s3',
       providerOptions: {
-        baseUrl: env('CDN_BASE_URL', 'https://cdn.beznomera.space'),
+        baseUrl: env('CDN_BASE_URL', 'https://cdn.paulislava.space'),
         rootPath: '',
         s3Options: {
           region: env('S3_REGION', 'ru-msk'),
@@ -625,7 +625,7 @@ export default ({ env }) => ({
 
 - [ ] **Step 3: Проверить загрузку файла**
 
-Запустить `npm run develop`, зайти в Strapi Admin → Media Library → Upload. Загрузить любое изображение. Убедиться, что URL файла начинается с `https://cdn.beznomera.space/`.
+Запустить `npm run develop`, зайти в Strapi Admin → Media Library → Upload. Загрузить любое изображение. Убедиться, что URL файла начинается с `https://cdn.paulislava.space/`.
 
 - [ ] **Step 4: Commit**
 
@@ -661,14 +661,14 @@ export default [
             "'self'",
             'data:',
             'blob:',
-            'cdn.beznomera.space',
+            'cdn.paulislava.space',
             '*.storage.beget.cloud',
           ],
           'media-src': [
             "'self'",
             'data:',
             'blob:',
-            'cdn.beznomera.space',
+            'cdn.paulislava.space',
             '*.storage.beget.cloud',
           ],
           upgradeInsecureRequests: null,
@@ -884,7 +884,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   output: 'standalone',
   images: {
-    domains: ['cdn.beznomera.space'],
+    domains: ['cdn.paulislava.space'],
   },
 };
 
@@ -1238,7 +1238,7 @@ services:
       S3_BUCKET: ${S3_BUCKET:-4565b9a17706-stylish-albert}
       S3_REGION: ru-msk
       S3_ENDPOINT: https://s3.ru1.storage.beget.cloud
-      CDN_BASE_URL: https://cdn.beznomera.space
+      CDN_BASE_URL: https://cdn.paulislava.space
     volumes:
       - ./packages/cms/src:/app/src
       - ./packages/cms/config:/app/config
@@ -1720,7 +1720,7 @@ S3_SECRET_ACCESS_KEY=<ключ S3>
 S3_BUCKET=4565b9a17706-stylish-albert
 S3_REGION=ru-msk
 S3_ENDPOINT=https://s3.ru1.storage.beget.cloud
-CDN_BASE_URL=https://cdn.beznomera.space
+CDN_BASE_URL=https://cdn.paulislava.space
 ```
 
 `WEB_ENV` Variable содержит `.env` файл для Next.js:
@@ -1758,7 +1758,7 @@ git commit -m "feat: add GitHub Actions CI/CD with separate deploy and health ch
 После выполнения всех задач:
 
 - ✅ `cms.paulislava.space/admin` — Strapi Admin с 6 типами контента
-- ✅ Media Library загружает файлы на `cdn.beznomera.space`
+- ✅ Media Library загружает файлы на `cdn.paulislava.space`
 - ✅ `paulislava.space` — placeholder (заменяется в Plan B)
 - ✅ `git push → master` автоматически деплоит через CI/CD
 - ✅ Seed-скрипт заполняет технологии, теги, опыт работы и первый проект

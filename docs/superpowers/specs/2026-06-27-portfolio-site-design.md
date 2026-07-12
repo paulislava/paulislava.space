@@ -7,7 +7,7 @@
 
 ## Overview
 
-Иммерсивный сайт-визитка для Павла Кондратова (Software Engineer) с headless CMS Strapi v5, Next.js 15 фронтендом, CI/CD по аналогии с beznomera.net и CDN через S3 (cdn.beznomera.space).
+Иммерсивный сайт-визитка для Павла Кондратова (Software Engineer) с headless CMS Strapi v5, Next.js 15 фронтендом, CI/CD по аналогии с beznomera.net и CDN через S3 (cdn.paulislava.space).
 
 ---
 
@@ -225,7 +225,7 @@ build-web  ──┬────────────────────
 
 **S3/CDN:**
 - Bucket: `4565b9a17706-stylish-albert` @ `s3.ru1.storage.beget.cloud`
-- Public URL: `cdn.beznomera.space`
+- Public URL: `cdn.paulislava.space`
 - Strapi upload provider: `@strapi/provider-upload-aws-s3`
 
 **База данных:**

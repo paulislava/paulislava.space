@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getAllArticleSeries, getArticleSeriesBySlug, mediaUrl } from '@/lib/strapi';
 import { formatDate } from '@/lib/utils';
+import { DEFAULT_ARTICLE_COVER } from '@/lib/default-covers';
 
 interface PageProps { params: Promise<{ slug: string }> }
 
@@ -56,7 +57,7 @@ export default async function SeriesPage({ params }: PageProps) {
 
         <ol className="space-y-4">
           {series.articles.map((article, idx) => {
-            const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover);
+            const cover = mediaUrl(article.cover, 'medium') ?? mediaUrl(article.cover) ?? DEFAULT_ARTICLE_COVER;
             return (
               <li key={article.documentId}>
                 <Link
@@ -66,16 +67,14 @@ export default async function SeriesPage({ params }: PageProps) {
                   <span className="text-3xl font-bold text-[#6366f1]/30 font-mono w-10 text-center shrink-0 group-hover:text-[#6366f1]/60 transition-colors">
                     {idx + 1}
                   </span>
-                  {cover && (
-                    <div className="relative w-20 h-14 shrink-0 rounded-lg overflow-hidden bg-[#12121a] hidden sm:block">
-                      <Image
-                        src={cover}
-                        alt={article.title}
-                        fill
-                        className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
-                      />
-                    </div>
-                  )}
+                  <div className="relative w-20 h-14 shrink-0 rounded-lg overflow-hidden bg-[#12121a] hidden sm:block">
+                    <Image
+                      src={cover}
+                      alt={article.title}
+                      fill
+                      className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
+                    />
+                  </div>
                   <div className="flex-1 min-w-0">
                     <h2 className="font-semibold text-[#f1f5f9] group-hover:text-[#06b6d4] transition-colors line-clamp-1">
                       {article.title}

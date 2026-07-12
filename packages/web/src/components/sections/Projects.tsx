@@ -5,11 +5,13 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y } from 'swiper/modules';
+import type { Swiper as SwiperInstance } from 'swiper';
 import 'swiper/css';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Project, mediaUrl } from '@/lib/strapi-types';
 import Tag from '@/components/ui/Tag';
+import { DEFAULT_PROJECT_COVER } from '@/lib/default-covers';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +36,7 @@ const getCaseFocus = (project: Project) => {
 
 export default function Projects({ projects }: ProjectsProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperInstance | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
@@ -110,31 +112,18 @@ export default function Projects({ projects }: ProjectsProps) {
             className="!overflow-visible"
           >
             {projects.map((project) => {
-              const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover);
+              const cover = mediaUrl(project.cover, 'medium') ?? mediaUrl(project.cover) ?? DEFAULT_PROJECT_COVER;
               return (
                 <SwiperSlide key={project.documentId}>
                   <Link href={`/projects/${project.slug}`} className="group block">
                     <div className="glass rounded-2xl overflow-hidden hover:border-[#6366f1]/40 transition-all duration-300 pb-2">
                       <div className="relative h-52 bg-[#12121a]">
-                        {cover ? (
-                          <Image
-                            src={cover}
-                            alt={project.title}
-                            fill
-                            className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                          />
-                        ) : (
-                          <div className="absolute inset-0 bg-[#10141f]">
-                            <div className="absolute left-6 top-6 h-px w-20 bg-[#6366f1]/50" />
-                            <div className="absolute left-6 top-11 h-px w-32 bg-[#06b6d4]/30" />
-                            <span className="absolute bottom-6 left-6 font-mono text-xs uppercase tracking-widest text-[#94a3b8]/60">
-                              Case study
-                            </span>
-                            <span className="absolute right-6 bottom-5 text-6xl font-bold text-[#6366f1]/10">
-                              {project.title[0]}
-                            </span>
-                          </div>
-                        )}
+                        <Image
+                          src={cover}
+                          alt={project.title}
+                          fill
+                          className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                        />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
                       </div>
                       <div className="p-5">
