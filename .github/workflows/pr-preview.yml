@@ -74,13 +74,13 @@ jobs:
             docker stop $BACKEND_NAME 2>/dev/null || true
             docker rm -f $BACKEND_NAME 2>/dev/null || true
 
-            printf '%s' "$CONFIG_B64" | base64 -d > /tmp/config-backend-pr-${PR_NUMBER}.yaml
+            printf '%s' "$CONFIG_B64" | base64 -d > /home/user/web/beznomera.net/config-backend-pr-${PR_NUMBER}.yaml
 
             docker run --name $BACKEND_NAME -d \
               --network host \
               -e APP_PORT=${BACKEND_PORT} \
               --env-file /home/user/web/beznomera.net/web.env \
-              -v /tmp/config-backend-pr-${PR_NUMBER}.yaml:/config.yaml \
+              -v /home/user/web/beznomera.net/config-backend-pr-${PR_NUMBER}.yaml:/config.yaml \
               -v /home/user/web/beznomera.net/ip-location-data:/app/node_modules/ip-location-api/data \
               ghcr.io/paulislava/beznomera:backend-${IMAGE_TAG}
 
@@ -313,7 +313,7 @@ jobs:
             docker stop beznomera_backend_pr_${PR_NUMBER} beznomera_web_pr_${PR_NUMBER} 2>/dev/null || true
             docker rm -f beznomera_backend_pr_${PR_NUMBER} beznomera_web_pr_${PR_NUMBER} 2>/dev/null || true
             docker image rm ghcr.io/paulislava/beznomera:web-pr-${PR_NUMBER}-* 2>/dev/null || true
-            rm -f /tmp/config-backend-pr-${PR_NUMBER}.yaml
+            rm -f /home/user/web/beznomera.net/config-backend-pr-${PR_NUMBER}.yaml
             rm -f /etc/nginx/conf.d/pr-${PR_NUMBER}.beznomera.net.conf
             nginx -t && systemctl reload nginx || true
 

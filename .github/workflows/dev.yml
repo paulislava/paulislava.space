@@ -112,10 +112,10 @@ jobs:
             docker pull ghcr.io/paulislava/beznomera:backend-$IMAGE_TAG
             docker stop beznomera_backend || true
             docker rm -f beznomera_backend || true
-            echo "$CONFIG_B64" | base64 -d > /tmp/config-backend.yaml
+            echo "$CONFIG_B64" | base64 -d > /home/user/web/beznomera.net/config-backend.yaml
             docker run --name beznomera_backend -d --network host \
               --env-file /home/user/web/beznomera.net/web.env \
-              -v /tmp/config-backend.yaml:/config.yaml \
+              -v /home/user/web/beznomera.net/config-backend.yaml:/config.yaml \
               -v /home/user/web/beznomera.net/ip-location-data:/app/node_modules/ip-location-api/data \
               ghcr.io/paulislava/beznomera:backend-$IMAGE_TAG
 
