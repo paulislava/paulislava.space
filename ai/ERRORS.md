@@ -9,3 +9,15 @@
 **Решение:** блок удалён из шаблона статьи; индивидуальный смысл материала остаётся в `excerpt`, тегах и основном контенте.
 
 **Файл:** `packages/web/src/app/articles/[slug]/page.tsx`
+
+## Сайт и CMS не поднялись после перезагрузки сервера (2026-08-19)
+
+**Симптом:** `paulislava.space` и `cms.paulislava.space` отдавали 502. Контейнеров `paulislava_web` и `paulislava_cms` не было в `docker ps -a` вообще — не остановлены, а отсутствовали.
+
+**Причина:** двойная. Во-первых, в `ci.yml` оба контейнера запускались через `docker run` без `--restart`, поэтому после перезагрузки сервера 18 августа в 12:22 UTC остались в состоянии Exited. Во-вторых, job `clean` (и такой же шаг в CI соседнего проекта beznomera на том же сервере) выполнял `docker container prune -f`, который сносит любые остановленные контейнеры: `paulislava_cms` был уничтожен в 12:35 UTC, через 13 минут после ребута, деплоем чужого проекта.
+
+**Дополнительно:** ручной перезапуск деплоя тоже упал — job `build-web` собирается раньше, чем `deploy-cms` поднимает CMS, а prerender страницы `/articles` ходит в `https://cms.paulislava.space/graphql`. При холодном старте GraphQL отвечал 502 и Next.js падал с `Error occurred prerendering page "/articles"`.
+
+**Решение:** контейнеры подняты перезапуском пайплайна `CI/CD` (env для web и cms генерируются в CI из `vars.WEB_ENV` / `vars.CMS_ENV` и удаляются с диска, поэтому вручную их корректно не запустить). В `ci.yml`: добавлен `--restart unless-stopped` обоим контейнерам, `build-web` получил `needs: deploy-cms` с `if: always() && (success || skipped)` ради сборки на PR, из job `clean` убран `docker container prune -f`.
+
+**Файл:** `.github/workflows/ci.yml`
