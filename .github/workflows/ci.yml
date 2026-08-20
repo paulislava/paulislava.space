@@ -270,3 +270,27 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             docker image prune -f
+
+            # Свои сборки никто не удалял: docker image prune трогает только
+            # dangling-образы, а каждый деплой оставляет ещё один cms-тег на
+            # 1.24 ГБ и web-тег на 193 МБ. Держим последние KEEP сборок каждого.
+            # Образы, занятые контейнерами, пропускаем — иначе под удаление
+            # попал бы работающий сервис, который давно не передеплоивали.
+            KEEP=3
+            REPO=ghcr.io/paulislava/paulislava.space
+            IN_USE=$(docker ps -a --format '{{.Image}}' | sort -u)
+            for prefix in cms web; do
+              docker images "$REPO" --format '{{.CreatedAt}}|{{.Repository}}:{{.Tag}}' \
+                | grep "|$REPO:$prefix-" | grep -v ":$prefix-latest$" \
+                | sort -r | tail -n +$((KEEP + 1)) | cut -d'|' -f2 | while read -r img; do
+                    if echo "$IN_USE" | grep -qxF "$img"; then
+                      echo "пропускаю, образ занят контейнером: $img"
+                      continue
+                    fi
+                    if docker rmi "$img" >/dev/null 2>&1; then
+                      echo "удалён старый образ: $img"
+                    else
+                      echo "не удалось удалить: $img"
+                    fi
+                  done
+            done
