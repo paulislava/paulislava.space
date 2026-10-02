@@ -3,9 +3,10 @@
   'use strict';
   const script = document.currentScript;
   if (!script) return;
-  const host = document.createElement('span');
+  const previous = script.previousElementSibling;
+  const host = previous && previous.hasAttribute('data-paulislava-banner') ? previous : document.createElement('span');
   host.style.cssText = 'display:inline-block;width:300px;max-width:100%;height:44px;vertical-align:middle';
-  script.before(host);
+  if (host !== previous) script.before(host);
   const source = new URL(script.src);
   const key = source.searchParams.get('banner');
   const site = source.searchParams.get('site');

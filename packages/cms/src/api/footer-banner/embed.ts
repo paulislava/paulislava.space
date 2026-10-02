@@ -20,7 +20,16 @@ export function prepareBanner(data: Record<string, unknown>, previous: Record<st
   const target = new URL('https://paulislava.space/zakazat-sait-avtomatizaciyu');
   target.search = new URLSearchParams({ utm_source: url.hostname, utm_medium: 'footer_banner', utm_campaign: 'made_by_paulislava', utm_content: key }).toString();
   const params = new URLSearchParams({ banner: key, site: url.origin });
-  data.embedHtml = `<script src="https://paulislava.space/banner.js?${escape(params.toString())}" defer></script>\n<noscript>\n  <a href="${escape(target.href)}">\n    <img src="https://paulislava.space/api/banners/${key}/image?site=${escape(encodeURIComponent(url.origin))}" alt="Создано PaulIsLava — заказать автоматизацию, сайт, чат-бот или разработку" width="300" height="44" loading="lazy" decoding="async" style="max-width:100%;height:auto;border:0;vertical-align:middle">\n  </a>\n</noscript>`;
+  data.embedHtml = `<span data-paulislava-banner="${key}" style="display:inline-block;width:300px;max-width:100%;height:44px;vertical-align:middle">
+  <a href="${escape(target.href)}" title="PaulIsLava — сайты, автоматизация и чат-боты" style="display:inline-flex;align-items:center;justify-content:center;width:100%;height:44px;border-radius:10px;background:#12121a;color:#f1f5f9;text-decoration:none;font:600 14px system-ui">
+    <span class="paulislava-banner-text">Создано PaulIsLava</span>
+    <noscript>
+      <style>.paulislava-banner-text{display:none}</style>
+      <img src="https://paulislava.space/api/banners/${key}/image?site=${escape(encodeURIComponent(url.origin))}" alt="Создано PaulIsLava — сайты, автоматизация и чат-боты" width="300" height="44" loading="lazy" decoding="async" style="max-width:100%;height:auto;border:0;vertical-align:middle">
+    </noscript>
+  </a>
+</span>
+<script src="https://paulislava.space/banner.js?${escape(params.toString())}" defer></script>`;
   return data;
 }
 
