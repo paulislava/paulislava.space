@@ -21,3 +21,13 @@
 **Решение:** контейнеры подняты перезапуском пайплайна `CI/CD` (env для web и cms генерируются в CI из `vars.WEB_ENV` / `vars.CMS_ENV` и удаляются с диска, поэтому вручную их корректно не запустить). В `ci.yml`: добавлен `--restart unless-stopped` обоим контейнерам, `build-web` получил `needs: deploy-cms` с `if: always() && (success || skipped)` ради сборки на PR, из job `clean` убран `docker container prune -f`.
 
 **Файл:** `.github/workflows/ci.yml`
+
+## Content Manager зависал при успешных API-запросах (2026-10-02)
+
+**Симптом:** Content Manager бесконечно загружался, хотя init/settings отвечали 200.
+
+**Причина:** `@strapi/plugin-graphql` с диапазоном `^5.49.0` при Docker-сборке подтянул 5.53.0 и второй `@strapi/admin`, тогда как core оставался 5.49.0. Две версии admin создали несовместимые экземпляры RTK adminApi.
+
+**Решение:** GraphQL закреплён на 5.49.0; `scripts/check-strapi-versions.cjs` проверяет единый набор версий при Docker-сборке. После деплоя Content Manager и создание баннеров открываются. Проверка на старом контейнере выявила смешанные версии; на новом — единые 5.49.0.
+
+**Файлы:** `packages/cms/package.json`, `package-lock.json`, `packages/cms/Dockerfile`, `packages/cms/scripts/check-strapi-versions.cjs`.

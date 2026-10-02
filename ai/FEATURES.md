@@ -166,3 +166,7 @@
 ## Sortable Entries (2026-10-02)
 
 Установлен `strapi-plugin-sortable-entries` 1.4.0 в workspace CMS и включён в `packages/cms/config/plugins.ts`. Обновлён lockfile. Сборка Strapi и админки прошла. Для включения сортировки коллекции требуется integer-поле `sortOrder` и default sort по нему ASC; схема коллекций пока не изменена. Изменения локальные.
+
+## Баннеры партнёрских сайтов (2026-10-02)
+
+Встраиваемый JS-баннер, GIF/noscript, коллекция Strapi с генерацией HTML и GIF по настройкам, UTM и цель Метрики. Подробнее: [partner-footer-banners.md](features/partner-footer-banners.md).
