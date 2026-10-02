@@ -25,6 +25,16 @@ export default function YandexMetrika() {
             accurateTrackBounce: true,
             trackLinks: true
           });
+
+          var partnerParams = new URLSearchParams(window.location.search);
+          if (partnerParams.get('utm_medium') === 'footer_banner' && partnerParams.get('utm_source')) {
+            ym(${YANDEX_METRIKA_ID}, 'reachGoal', 'partner_banner_visit', {
+              partner_site: partnerParams.get('utm_source'),
+              banner: partnerParams.get('utm_content') || 'default',
+              campaign: partnerParams.get('utm_campaign') || 'made_by_paulislava'
+            });
+          }
+
         `}
       </Script>
       <noscript>
