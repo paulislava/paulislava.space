@@ -1,4 +1,7 @@
 export default ({ env }) => ({
+  'sortable-entries': {
+    enabled: true,
+  },
   upload: {
     config: {
       provider: 'aws-s3',

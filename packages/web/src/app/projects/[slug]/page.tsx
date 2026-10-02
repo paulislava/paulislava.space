@@ -77,7 +77,7 @@ export default async function ProjectPage({ params }: PageProps) {
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold text-[#f1f5f9] mb-3">{project.title}</h1>
           {shortDescription && (
-            <p className="text-[#94a3b8] text-lg">{shortDescription}</p>
+            <p className="max-w-[50em] text-[#94a3b8] text-lg">{shortDescription}</p>
           )}
         </div>
       </div>

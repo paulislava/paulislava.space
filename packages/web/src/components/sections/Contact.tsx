@@ -29,7 +29,6 @@ export default function Contact() {
     <section id="contact" className="pt-24 pb-12 px-6">
       <div className="max-w-2xl mx-auto">
         <div className="mb-12 text-center">
-          <p className="text-[#6366f1] font-mono text-sm uppercase tracking-widest mb-2">Контакт</p>
           <h2 className="text-3xl md:text-4xl font-bold text-[#f1f5f9] mb-4">Напишите мне</h2>
           <p className="text-[#94a3b8]">Открыт к интересным проектам и предложениям о сотрудничестве</p>
         </div>

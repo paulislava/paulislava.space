@@ -39,7 +39,7 @@ export default function Experience({ workExperiences }: ExperienceProps) {
           <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-[#6366f1] via-[#06b6d4] to-transparent" />
 
           <div className="space-y-8 pl-12">
-            {workExperiences.map((exp) => {
+            {workExperiences.filter((exp) => !['beznomera', 'kursoved.pro', 'kursoved'].includes(exp.company.trim().toLowerCase())).map((exp) => {
               const logo = mediaUrl(exp.logo, 'thumbnail') ?? mediaUrl(exp.logo);
               return (
                 <div key={exp.documentId} className="exp-item relative">
