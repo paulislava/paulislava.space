@@ -9,7 +9,7 @@ RUN npm install
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN node scripts/check-strapi-versions.cjs && npm run build
 
 FROM base AS runner
 ENV NODE_ENV=production
