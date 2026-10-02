@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "footer_banners",
+  "info": {"singularName":"footer-banner","pluralName":"footer-banners","displayName":"Баннеры сайтов"},
+  "options": {"draftAndPublish":true},
+  "attributes": {
+    "name":{"type":"string","required":true},
+    "websiteUrl":{"type":"string","required":true},
+    "bannerKey":{"type":"string","unique":true,"configurable":false,"pluginOptions":{"content-manager":{"visible":true,"editable":false}}},
+    "enabled":{"type":"boolean","default":true},
+    "brandText":{"type":"string","default":"PaulIsLava","maxLength":40},
+    "brandColor":{"type":"string","default":"#a5b4fc"},
+    "automationColor":{"type":"string","default":"#67e8f9"},
+    "siteColor":{"type":"string","default":"#86efac"},
+    "chatbotColor":{"type":"string","default":"#fcd34d"},
+    "developmentColor":{"type":"string","default":"#f9a8d4"},
+    "backgroundColor":{"type":"string","default":"#12121a"},
+    "textColor":{"type":"string","default":"#f1f5f9"},
+    "borderColor":{"type":"string","default":"#343441"},
+    "gif":{"type":"media","multiple":false,"allowedTypes":["images"]},
+    "embedHtml":{"type":"text","configurable":false,"pluginOptions":{"content-manager":{"editable":false}}}
+  }
+}

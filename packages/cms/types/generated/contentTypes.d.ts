@@ -501,6 +501,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       ['sections.mdx-section', 'sections.faq-section']
     >;
     orderInSeries: Schema.Attribute.Integer;
+    pageCover: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
     relatedArticles: Schema.Attribute.Relation<
       'manyToMany',
@@ -510,6 +511,8 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::article-series.article-series'
     >;
+    showCoverOnPage: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     technologies: Schema.Attribute.Relation<
@@ -520,6 +523,70 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFooterBannerFooterBanner
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'footer_banners';
+  info: {
+    displayName: '\u0411\u0430\u043D\u043D\u0435\u0440\u044B \u0441\u0430\u0439\u0442\u043E\u0432';
+    pluralName: 'footer-banners';
+    singularName: 'footer-banner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    automationColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#67e8f9'>;
+    backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#12121a'>;
+    bannerKey: Schema.Attribute.String &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetPluginOptions<{
+        'content-manager': {
+          editable: false;
+          visible: true;
+        };
+      }>;
+    borderColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#343441'>;
+    brandColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#a5b4fc'>;
+    brandText: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 40;
+      }> &
+      Schema.Attribute.DefaultTo<'PaulIsLava'>;
+    chatbotColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#fcd34d'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    developmentColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#f9a8d4'>;
+    embedHtml: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        'content-manager': {
+          editable: false;
+        };
+      }>;
+    enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    gif: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::footer-banner.footer-banner'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    siteColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#86efac'>;
+    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#f1f5f9'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    websiteUrl: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -544,8 +611,11 @@ export interface ApiNewsNews extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::news.news'> &
       Schema.Attribute.Private;
+    pageCover: Schema.Attribute.Media<'images'>;
     projects: Schema.Attribute.Relation<'manyToMany', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
+    showCoverOnPage: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     technologies: Schema.Attribute.Relation<
@@ -585,9 +655,12 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     news: Schema.Attribute.Relation<'manyToMany', 'api::news.news'>;
+    pageCover: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
     screenshots: Schema.Attribute.Media<'images', true>;
     shortDescription: Schema.Attribute.String;
+    showCoverOnPage: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
     tags: Schema.Attribute.Relation<'manyToMany', 'api::tag.tag'>;
     technologies: Schema.Attribute.Relation<
@@ -1231,6 +1304,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::article-series.article-series': ApiArticleSeriesArticleSeries;
       'api::article.article': ApiArticleArticle;
+      'api::footer-banner.footer-banner': ApiFooterBannerFooterBanner;
       'api::news.news': ApiNewsNews;
       'api::project.project': ApiProjectProject;
       'api::tag.tag': ApiTagTag;
