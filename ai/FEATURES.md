@@ -182,3 +182,7 @@
 ## MDX-редактор для секции статьи (2026-10-06)
 
 В CMS подключён опубликованный `@paulislava/strapi-mdx-editor@0.0.10` с `@paulislava/mdx-editor@0.1.15`. Существующая `MdxSection` получила поле `Content` с custom field `plugin::mdx.mdx` и `anchorId` для HTML-якоря. Имя `id` запрещено схемой Strapi, поэтому использовано `anchorId`. GraphQL-запрос, типы и вывод секции на сайте обновлены. Локальные сборки CMS и web, генерация типов и проверка GraphQL-схемы прошли.
+
+## Прозрачные футерные баннеры (2026-10-06)
+
+Убраны фон и рамка JS/GIF/нового embedHtml. Проверены прозрачность каждого кадра и чёрный текст; production и CI успешны. Настройки фона скрыты, скилл обновлён. Подробнее: [partner-footer-banners.md](features/partner-footer-banners.md).
