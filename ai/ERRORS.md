@@ -31,3 +31,7 @@
 **Решение:** GraphQL закреплён на 5.49.0; `scripts/check-strapi-versions.cjs` проверяет единый набор версий при Docker-сборке. После деплоя Content Manager и создание баннеров открываются. Проверка на старом контейнере выявила смешанные версии; на новом — единые 5.49.0.
 
 **Файлы:** `packages/cms/package.json`, `package-lock.json`, `packages/cms/Dockerfile`, `packages/cms/scripts/check-strapi-versions.cjs`.
+
+## Публичная конфигурация баннера возвращала 503 (2026-10-06)
+
+Причина: STRAPI_URL=http://host.docker.internal:1337 в web bridge-контейнере недоступен, CMS работает в host network. Публичный HTTPS CMS из контейнера отвечает 200. Исправлено STRAPI_URL=https://cms.paulislava.space в текущем web-контейнере и GitHub WEB_ENV. Предыдущий контейнер сохранён остановленным для rollback. Проверены конфигурация и автоматический GIF по опубликованной записи. Изменения исходного кода не требуются.

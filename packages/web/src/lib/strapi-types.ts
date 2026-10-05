@@ -84,8 +84,8 @@ export interface Project {
 
 export interface MdxSection {
   __typename: 'ComponentSectionsMdxSection';
-  title: string | null;
-  content: string;
+  anchorId: string | null;
+  Content: string | null;
 }
 
 export interface FaqItem {
