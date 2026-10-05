@@ -11,9 +11,8 @@ frames, durations = [], []
 elapsed = 0
 def add(prefix, word, color, duration):
     global elapsed
-    im = Image.new('RGB', (600, 88), '#12121a')
+    im = Image.new('RGBA', (600, 88), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
-    d.rounded_rectangle((1, 1, 598, 86), radius=19, outline='#343441', width=2)
     width = d.textlength(prefix + word, font=font) + 12
     x = (600 - width) / 2
     d.text((x, 44), prefix, font=font, fill='#f1f5f9', anchor='lm')
@@ -25,7 +24,13 @@ def add(prefix, word, color, duration):
         frame = im.copy()
         if (elapsed // 550) % 2 == 0:
             ImageDraw.Draw(frame).line((x + 5, 29, x + 5, 57), fill='#94a3b8', width=2)
-        frames.append(frame); durations.append(interval)
+        pal = frame.convert("RGB").quantize(colors=255)
+        pal = pal.point(lambda n: n + 1)
+        palette = [0, 0, 0] + frame.convert("RGB").quantize(colors=255).getpalette()[:765]
+        pal.putpalette(palette)
+        alpha = frame.getchannel("A")
+        pal.paste(0, mask=alpha.point(lambda a: 255 if a < 128 else 0))
+        frames.append(pal); durations.append(interval)
         elapsed += interval
         duration -= interval
 for i, (prefix, word, color) in enumerate(phrases):
@@ -39,5 +44,5 @@ for i, (prefix, word, color) in enumerate(phrases):
     for n in range(1, len(new) + 1):
         # The fixed prefix retains its neutral color while typing services.
         add(np if same else new[:n][:len(np)], new[:n] if same else new[:n][len(np):], nc, 90)
-frames[0].save(ROOT / 'packages/web/public/banner.gif', save_all=True, append_images=frames[1:], duration=durations, loop=0, optimize=True)
+frames[0].save(ROOT / 'packages/web/public/banner.gif', save_all=True, append_images=frames[1:], duration=durations, loop=0, optimize=False, transparency=0, disposal=2)
 print(f'GIF: {len(frames)} frames')

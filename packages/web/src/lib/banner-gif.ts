@@ -12,7 +12,7 @@ let renderQueue: Promise<unknown> = Promise.resolve();
 const defaults = {
   brandText: 'PaulIsLava', brandColor: '#a5b4fc', automationColor: '#67e8f9',
   siteColor: '#86efac', chatbotColor: '#fcd34d', developmentColor: '#f9a8d4',
-  backgroundColor: '#12121a', textColor: '#f1f5f9', borderColor: '#343441',
+  textColor: '#f1f5f9',
 };
 type Settings = typeof defaults;
 export function getBannerGif(config: Record<string, unknown>): Promise<Buffer> {
@@ -63,7 +63,7 @@ async function render(settings: Settings): Promise<Buffer> {
     const x = (width - total - 12) / 2;
     const first = textPath(prefix, x, size);
     const second = textPath(word, x + first.width, size);
-    const base = `<rect width="600" height="88" fill="${settings.backgroundColor}"/><rect x="1" y="1" width="598" height="86" rx="19" fill="none" stroke="${settings.borderColor}" stroke-width="2"/><path d="${first.path}" fill="${settings.textColor}"/><path d="${second.path}" fill="${color}"/>`;
+    const base = `<path d="${first.path}" fill="${settings.textColor}"/><path d="${second.path}" fill="${color}"/>`;
     const rendered = new Map<boolean, { index: Uint8Array; palette: number[][] }>();
     while (duration > 0) {
       const interval = Math.min(duration, 550 - elapsed % 550);
@@ -73,11 +73,15 @@ async function render(settings: Settings): Promise<Buffer> {
         const line = cursor ? `<path d="M${x + total + 5} 29v28" stroke="#94a3b8" stroke-width="2"/>` : '';
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="88">${base}${line}</svg>`;
         const rgba = await sharp(Buffer.from(svg)).ensureAlpha().raw().toBuffer();
-        const palette = quantize(rgba, 64);
-        frame = { index: applyPalette(rgba, palette), palette };
+        const palette = [[0, 0, 0], ...quantize(rgba, 63)];
+        const index = applyPalette(rgba, palette);
+        for (let pixel = 0; pixel < index.length; pixel++) {
+          if (rgba[pixel * 4 + 3] < 128) index[pixel] = 0;
+        }
+        frame = { index, palette };
         rendered.set(cursor, frame);
       }
-      gif.writeFrame(frame.index, width, height, {palette:frame.palette,delay:interval,repeat:0});
+      gif.writeFrame(frame.index, width, height, {palette:frame.palette,delay:interval,repeat:0,transparent:true,transparentIndex:0,dispose:2});
       duration -= interval;
       elapsed += interval;
     }

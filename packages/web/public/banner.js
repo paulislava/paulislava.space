@@ -13,8 +13,8 @@
   const root = host.attachShadow({ mode: 'open' });
   root.innerHTML = `<style>
     :host{color-scheme:dark}
-    a{box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:100%;height:44px;padding:0 12px;border:1px solid #343441;border-radius:10px;background:#12121a;color:#f1f5f9;text-decoration:none;font:600 14px/1.2 system-ui,-apple-system,sans-serif;white-space:nowrap;transition:border-color .2s}
-    a:hover{border-color:#a5b4fc}a:focus-visible{outline:2px solid #a5b4fc;outline-offset:3px}
+    a{box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:100%;height:44px;padding:0 12px;border:0;background:transparent;color:#f1f5f9;text-decoration:none;font:600 14px/1.2 system-ui,-apple-system,sans-serif;white-space:nowrap;transition:border-color .2s}
+    a:hover{opacity:.85}a:focus-visible{outline:2px solid #a5b4fc;outline-offset:3px}
     .word{color:#a5b4fc}.cursor{color:#94a3b8;margin-left:2px}
   </style><a href="https://paulislava.space/zakazat-sait-avtomatizaciyu" aria-label="Создано PaulIsLava — заказать автоматизацию, сайт, чат-бот или разработку"><span aria-hidden="true"><span class="prefix">Создано </span><span class="word">PaulIsLava</span><span class="cursor">▏</span></span></a>`;
   const link = root.querySelector('a');
@@ -107,7 +107,7 @@
         const fields = ['brandColor','automationColor','siteColor','chatbotColor','developmentColor'];
         fields.forEach((field, i) => { if (/^#[a-f0-9]{6}$/i.test(config[field])) phrases[i][2] = config[field]; });
         if (typeof config.brandText === 'string' && config.brandText.trim()) phrases[0][1] = config.brandText.slice(0,40);
-        for (const [field, property] of [['backgroundColor','background'],['textColor','color'],['borderColor','borderColor']]) {
+        for (const [field, property] of [['textColor','color']]) {
           if (/^#[a-f0-9]{6}$/i.test(config[field])) link.style[property] = config[field];
         }
         if (phase === 'hold') { word.textContent = phrases[index][1]; word.style.color = phrases[index][2]; }
