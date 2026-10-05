@@ -13,7 +13,7 @@
   const root = host.attachShadow({ mode: 'open' });
   root.innerHTML = `<style>
     :host{color-scheme:dark}
-    a{box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:100%;height:44px;padding:0 12px;border:0;background:transparent;color:#f1f5f9;text-decoration:none;font:600 14px/1.2 system-ui,-apple-system,sans-serif;white-space:nowrap;transition:border-color .2s}
+    a{box-sizing:border-box;display:flex;align-items:center;justify-content:flex-start;width:100%;height:44px;padding:0;border:0;background:transparent;color:#f1f5f9;text-decoration:none;font:600 14px/1.2 system-ui,-apple-system,sans-serif;white-space:nowrap;transition:border-color .2s}
     a:hover{opacity:.85}a:focus-visible{outline:2px solid #a5b4fc;outline-offset:3px}
     .word{color:#a5b4fc}.cursor{color:#94a3b8;margin-left:2px}
   </style><a href="https://paulislava.space/zakazat-sait-avtomatizaciyu" aria-label="Создано PaulIsLava — заказать автоматизацию, сайт, чат-бот или разработку"><span aria-hidden="true"><span class="prefix">Создано </span><span class="word">PaulIsLava</span><span class="cursor">▏</span></span></a>`;

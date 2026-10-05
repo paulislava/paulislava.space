@@ -14,7 +14,7 @@ def add(prefix, word, color, duration):
     im = Image.new('RGBA', (600, 88), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     width = d.textlength(prefix + word, font=font) + 12
-    x = (600 - width) / 2
+    x = 0
     d.text((x, 44), prefix, font=font, fill='#f1f5f9', anchor='lm')
     x += d.textlength(prefix, font=font)
     d.text((x, 44), word, font=font, fill=color, anchor='lm')

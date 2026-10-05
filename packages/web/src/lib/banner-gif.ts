@@ -60,7 +60,7 @@ async function render(settings: Settings): Promise<Buffer> {
     const natural = font.getAdvanceWidth(prefix + word, 28);
     const size = Math.min(28, 28 * 560 / Math.max(natural, 1));
     const total = font.getAdvanceWidth(prefix + word, size);
-    const x = (width - total - 12) / 2;
+    const x = 0;
     const first = textPath(prefix, x, size);
     const second = textPath(word, x + first.width, size);
     const base = `<path d="${first.path}" fill="${settings.textColor}"/><path d="${second.path}" fill="${color}"/>`;

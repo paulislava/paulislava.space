@@ -21,7 +21,7 @@ export function prepareBanner(data: Record<string, unknown>, previous: Record<st
   target.search = new URLSearchParams({ utm_source: url.hostname, utm_medium: 'footer_banner', utm_campaign: 'made_by_paulislava', utm_content: key }).toString();
   const params = new URLSearchParams({ banner: key, site: url.origin });
   data.embedHtml = `<span data-paulislava-banner="${key}" style="display:inline-block;width:300px;max-width:100%;height:44px;vertical-align:middle">
-  <a href="${escape(target.href)}" title="PaulIsLava — сайты, автоматизация и чат-боты" style="display:inline-flex;align-items:center;justify-content:center;width:100%;height:44px;border:0;background:transparent;color:#f1f5f9;text-decoration:none;font:600 14px system-ui">
+  <a href="${escape(target.href)}" title="PaulIsLava — сайты, автоматизация и чат-боты" style="display:inline-flex;align-items:center;justify-content:flex-start;width:100%;height:44px;border:0;background:transparent;color:#f1f5f9;text-decoration:none;font:600 14px system-ui">
     <span class="paulislava-banner-text">Создано PaulIsLava</span>
     <noscript>
       <style>.paulislava-banner-text{display:none}</style>
