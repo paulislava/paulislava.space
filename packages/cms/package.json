@@ -12,11 +12,16 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-html": "^6.4.12",
+    "@paulislava/strapi-mdx-editor": "^0.0.10",
     "@strapi/plugin-graphql": "5.49.0",
     "@strapi/plugin-users-permissions": "5.49.0",
     "@strapi/provider-upload-aws-s3": "5.49.0",
     "@strapi/strapi": "5.49.0",
+    "@uiw/react-codemirror": "^4.25.12",
     "better-sqlite3": "8.6.0",
+    "node-fetch": "^2.7.0",
     "pg": "^8.13.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

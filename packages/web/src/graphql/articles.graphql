@@ -51,8 +51,8 @@ query GetArticleBySlug($slug: String!) {
     mainContent {
       __typename
       ... on ComponentSectionsMdxSection {
-        title
-        content
+        anchorId
+        Content
       }
       ... on ComponentSectionsFaqSection {
         title
