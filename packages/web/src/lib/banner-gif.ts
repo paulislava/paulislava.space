@@ -73,10 +73,11 @@ async function render(settings: Settings): Promise<Buffer> {
         const line = cursor ? `<path d="M${x + total + 5} 29v28" stroke="#94a3b8" stroke-width="2"/>` : '';
         const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="88">${base}${line}</svg>`;
         const rgba = await sharp(Buffer.from(svg)).ensureAlpha().raw().toBuffer();
-        const palette = [[0, 0, 0], ...quantize(rgba, 63)];
-        const index = applyPalette(rgba, palette);
+        const opaquePalette = quantize(rgba, 63);
+        const palette = [[0, 0, 0], ...opaquePalette];
+        const index = applyPalette(rgba, opaquePalette);
         for (let pixel = 0; pixel < index.length; pixel++) {
-          if (rgba[pixel * 4 + 3] < 128) index[pixel] = 0;
+          index[pixel] = rgba[pixel * 4 + 3] < 128 ? 0 : index[pixel] + 1;
         }
         frame = { index, palette };
         rendered.set(cursor, frame);
