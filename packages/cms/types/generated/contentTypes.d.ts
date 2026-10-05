@@ -930,50 +930,6 @@ export interface PluginI18NLocale extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface PluginMdxFragment extends Struct.CollectionTypeSchema {
-  collectionName: 'fragment';
-  info: {
-    description: 'MDX fragments';
-    displayName: 'MDX-Fragment';
-    pluralName: 'fragments';
-    singularName: 'fragment';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: true;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    Content: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Description: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'plugin::mdx.fragment'
-    > &
-      Schema.Attribute.Private;
-    Preview: Schema.Attribute.Media<'images'>;
-    publishedAt: Schema.Attribute.DateTime;
-    Title: Schema.Attribute.String & Schema.Attribute.Required;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    Weight: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<0>;
-  };
-}
-
 export interface PluginReviewWorkflowsWorkflow
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_workflows';
@@ -1357,7 +1313,6 @@ declare module '@strapi/strapi' {
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
-      'plugin::mdx.fragment': PluginMdxFragment;
       'plugin::review-workflows.workflow': PluginReviewWorkflowsWorkflow;
       'plugin::review-workflows.workflow-stage': PluginReviewWorkflowsWorkflowStage;
       'plugin::upload.file': PluginUploadFile;

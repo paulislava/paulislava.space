@@ -2,9 +2,12 @@ import type { ArticleSection, MdxSection, FaqSection } from '@/lib/strapi-types'
 
 function MdxSectionView({ section }: { section: MdxSection }) {
   return (
-    <div id={section.anchorId || undefined} className="my-8">
+    <div className="my-8">
+      {section.title && (
+        <h2 className="text-2xl font-bold text-[#f1f5f9] mb-4">{section.title}</h2>
+      )}
       <pre className="bg-[#0f172a] border border-[#1e293b] rounded-xl p-6 text-[#94a3b8] text-sm font-mono whitespace-pre-wrap overflow-x-auto">
-        {section.Content}
+        {section.content}
       </pre>
     </div>
   );

@@ -1,18 +1,18 @@
 {
   "collectionName": "components_sections_mdx_sections",
   "info": {
-    "displayName": "ComponentMdx",
+    "displayName": "MdxSection",
     "icon": "code",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "anchorId": {
+    "title": {
       "type": "string"
     },
-    "Content": {
-      "type": "customField",
-      "customField": "plugin::mdx.mdx"
+    "content": {
+      "type": "text",
+      "required": true
     }
   }
 }

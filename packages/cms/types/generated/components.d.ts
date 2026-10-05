@@ -30,13 +30,12 @@ export interface SectionsMdxSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_mdx_sections';
   info: {
     description: '';
-    displayName: 'ComponentMdx';
+    displayName: 'MdxSection';
     icon: 'code';
   };
   attributes: {
-    anchorId: Schema.Attribute.String;
-    Content: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String;
   };
 }
 

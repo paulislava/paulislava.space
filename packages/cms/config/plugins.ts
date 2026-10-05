@@ -1,7 +1,4 @@
 export default ({ env }) => ({
-  mdx: {
-    enabled: true,
-  },
   'sortable-entries': {
     enabled: true,
   },
