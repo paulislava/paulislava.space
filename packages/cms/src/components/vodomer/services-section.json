@@ -18,9 +18,6 @@
     "intro": {
       "type": "text"
     },
-    "items": {
-      "type": "json"
-    },
     "mdx": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"

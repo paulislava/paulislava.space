@@ -18,9 +18,6 @@
     "text": {
       "type": "text"
     },
-    "points": {
-      "type": "json"
-    },
     "mdx": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"

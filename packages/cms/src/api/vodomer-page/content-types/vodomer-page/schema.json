@@ -27,100 +27,15 @@
     "email": {
       "type": "email"
     },
-    "trustStrip": {
-      "type": "json"
-    },
-    "eyebrow": {
-      "type": "string"
-    },
-    "heroTitle": {
-      "type": "string"
-    },
-    "heroText": {
-      "type": "text"
-    },
-    "heroNote": {
-      "type": "string"
-    },
-    "servicesTitle": {
-      "type": "string"
-    },
-    "servicesIntro": {
-      "type": "text"
-    },
-    "services": {
-      "type": "json"
-    },
-    "processTitle": {
-      "type": "string"
-    },
-    "process": {
-      "type": "json"
-    },
-    "trustTitle": {
-      "type": "string"
-    },
-    "trustText": {
-      "type": "text"
-    },
-    "trustPoints": {
-      "type": "json"
-    },
-    "faqTitle": {
-      "type": "string"
-    },
-    "faqs": {
-      "type": "json"
-    },
-    "contactTitle": {
-      "type": "string"
-    },
-    "contactText": {
-      "type": "text"
-    },
     "metaTitle": {
       "type": "string"
     },
     "metaDescription": {
       "type": "text"
     },
-    "promoEnabled": {
-      "type": "boolean",
-      "default": true
-    },
-    "promoTitle": {
-      "type": "string"
-    },
-    "promoText": {
-      "type": "text"
-    },
-    "promoDiscountRub": {
-      "type": "integer",
-      "min": 0
-    },
-    "promoTimingMode": {
-      "type": "enumeration",
-      "enum": [
-        "rolling",
-        "fixed"
-      ],
-      "default": "rolling"
-    },
-    "promoResetDays": {
-      "type": "integer",
-      "min": 1,
-      "default": 2
-    },
-    "promoAnchorAt": {
-      "type": "datetime"
-    },
-    "promoEndsAt": {
-      "type": "datetime"
-    },
     "Sections": {
       "type": "dynamiczone",
       "components": [
-        "vodomer.header-section",
         "vodomer.hero-section",
         "vodomer.promotion-section",
         "vodomer.trust-strip-section",
@@ -128,8 +43,6 @@
         "vodomer.process-section",
         "vodomer.reassurance-section",
         "vodomer.faq-section",
-        "vodomer.contact-section",
-        "vodomer.footer-section",
         "sections.mdx-section",
         "vodomer.form-section"
       ]

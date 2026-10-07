@@ -12,9 +12,6 @@
       "repeatable": false,
       "component": "vodomer.section-config"
     },
-    "items": {
-      "type": "json"
-    },
     "mdx": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"

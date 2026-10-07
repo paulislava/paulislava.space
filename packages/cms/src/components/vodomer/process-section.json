@@ -15,9 +15,6 @@
     "title": {
       "type": "string"
     },
-    "steps": {
-      "type": "json"
-    },
     "mdx": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"
