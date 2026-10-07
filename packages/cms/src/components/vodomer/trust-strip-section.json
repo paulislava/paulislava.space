@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_vodomer_trust_strip_section",
+  "info": {
+    "displayName": "Преимущества в строке",
+    "icon": "layer-group",
+    "description": "Секция страницы Водомер Урал"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "items": {
+      "type": "json"
+    },
+    "mdx": {
+      "type": "customField",
+      "customField": "plugin::mdx.mdx"
+    }
+  }
+}

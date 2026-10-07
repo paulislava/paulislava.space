@@ -1,0 +1,53 @@
+{
+  "collectionName": "components_vodomer_promotion_section",
+  "info": {
+    "displayName": "Акция",
+    "icon": "layer-group",
+    "description": "Секция страницы Водомер Урал"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "discountRub": {
+      "type": "integer",
+      "min": 0
+    },
+    "timingMode": {
+      "type": "enumeration",
+      "enum": [
+        "rolling",
+        "fixed"
+      ],
+      "default": "rolling"
+    },
+    "resetDays": {
+      "type": "integer",
+      "min": 1,
+      "default": 2
+    },
+    "anchorAt": {
+      "type": "datetime"
+    },
+    "endsAt": {
+      "type": "datetime"
+    },
+    "mdx": {
+      "type": "customField",
+      "customField": "plugin::mdx.mdx"
+    }
+  }
+}

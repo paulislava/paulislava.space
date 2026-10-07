@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_vodomer_services_section",
+  "info": {
+    "displayName": "Услуги",
+    "icon": "layer-group",
+    "description": "Секция страницы Водомер Урал"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "title": {
+      "type": "string"
+    },
+    "intro": {
+      "type": "text"
+    },
+    "items": {
+      "type": "json"
+    },
+    "mdx": {
+      "type": "customField",
+      "customField": "plugin::mdx.mdx"
+    }
+  }
+}

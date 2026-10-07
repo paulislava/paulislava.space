@@ -820,6 +820,21 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
     promoTitle: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     region: Schema.Attribute.String;
+    Sections: Schema.Attribute.DynamicZone<
+      [
+        'vodomer.header-section',
+        'vodomer.hero-section',
+        'vodomer.promotion-section',
+        'vodomer.trust-strip-section',
+        'vodomer.services-section',
+        'vodomer.process-section',
+        'vodomer.reassurance-section',
+        'vodomer.faq-section',
+        'vodomer.contact-section',
+        'vodomer.footer-section',
+        'sections.mdx-section',
+      ]
+    >;
     services: Schema.Attribute.JSON;
     servicesIntro: Schema.Attribute.Text;
     servicesTitle: Schema.Attribute.String;

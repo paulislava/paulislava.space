@@ -35,7 +35,199 @@ export interface SectionsMdxSection extends Struct.ComponentSchema {
   };
   attributes: {
     anchorId: Schema.Attribute.String;
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
     Content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+  };
+}
+
+export interface VodomerContactSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_contact_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B \u0438 \u0437\u0430\u044F\u0432\u043A\u0430';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    text: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerFaqSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_faq_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u0427\u0430\u0441\u0442\u044B\u0435 \u0432\u043E\u043F\u0440\u043E\u0441\u044B';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    items: Schema.Attribute.JSON;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerFooterSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_footer_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u041F\u043E\u0434\u0432\u0430\u043B \u0441\u0430\u0439\u0442\u0430';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+  };
+}
+
+export interface VodomerHeaderSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_header_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u0428\u0430\u043F\u043A\u0430 \u0441\u0430\u0439\u0442\u0430';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+  };
+}
+
+export interface VodomerHeroSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_hero_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u044D\u043A\u0440\u0430\u043D';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    eyebrow: Schema.Attribute.String;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    note: Schema.Attribute.String;
+    text: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerProcessSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_process_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u041F\u043E\u0440\u044F\u0434\u043E\u043A \u0440\u0430\u0431\u043E\u0442\u044B';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    steps: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerPromotionSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_promotion_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u0410\u043A\u0446\u0438\u044F';
+    icon: 'layer-group';
+  };
+  attributes: {
+    anchorAt: Schema.Attribute.DateTime;
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    discountRub: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    enabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    endsAt: Schema.Attribute.DateTime;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    resetDays: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<2>;
+    text: Schema.Attribute.Text;
+    timingMode: Schema.Attribute.Enumeration<['rolling', 'fixed']> &
+      Schema.Attribute.DefaultTo<'rolling'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerReassuranceSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_reassurance_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u041E \u043F\u043E\u0434\u0445\u043E\u0434\u0435';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    points: Schema.Attribute.JSON;
+    text: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerSectionConfig extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_section_config';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: 'Config';
+    icon: 'layer-group';
+  };
+  attributes: {
+    hideSection: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+  };
+}
+
+export interface VodomerServicesSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_services_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u0423\u0441\u043B\u0443\u0433\u0438';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    intro: Schema.Attribute.Text;
+    items: Schema.Attribute.JSON;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerTrustStripSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_trust_strip_section';
+  info: {
+    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
+    displayName: '\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430 \u0432 \u0441\u0442\u0440\u043E\u043A\u0435';
+    icon: 'layer-group';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    items: Schema.Attribute.JSON;
+    mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
   };
 }
@@ -46,6 +238,17 @@ declare module '@strapi/strapi' {
       'sections.faq-item': SectionsFaqItem;
       'sections.faq-section': SectionsFaqSection;
       'sections.mdx-section': SectionsMdxSection;
+      'vodomer.contact-section': VodomerContactSection;
+      'vodomer.faq-section': VodomerFaqSection;
+      'vodomer.footer-section': VodomerFooterSection;
+      'vodomer.header-section': VodomerHeaderSection;
+      'vodomer.hero-section': VodomerHeroSection;
+      'vodomer.process-section': VodomerProcessSection;
+      'vodomer.promotion-section': VodomerPromotionSection;
+      'vodomer.reassurance-section': VodomerReassuranceSection;
+      'vodomer.section-config': VodomerSectionConfig;
+      'vodomer.services-section': VodomerServicesSection;
+      'vodomer.trust-strip-section': VodomerTrustStripSection;
     }
   }
 }

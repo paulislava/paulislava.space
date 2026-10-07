@@ -116,6 +116,22 @@
     },
     "promoEndsAt": {
       "type": "datetime"
+    },
+    "Sections": {
+      "type": "dynamiczone",
+      "components": [
+        "vodomer.header-section",
+        "vodomer.hero-section",
+        "vodomer.promotion-section",
+        "vodomer.trust-strip-section",
+        "vodomer.services-section",
+        "vodomer.process-section",
+        "vodomer.reassurance-section",
+        "vodomer.faq-section",
+        "vodomer.contact-section",
+        "vodomer.footer-section",
+        "sections.mdx-section"
+      ]
     }
   }
 }

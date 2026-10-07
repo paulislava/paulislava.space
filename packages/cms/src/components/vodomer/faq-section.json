@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_vodomer_faq_section",
+  "info": {
+    "displayName": "Частые вопросы",
+    "icon": "layer-group",
+    "description": "Секция страницы Водомер Урал"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "json"
+    },
+    "mdx": {
+      "type": "customField",
+      "customField": "plugin::mdx.mdx"
+    }
+  }
+}

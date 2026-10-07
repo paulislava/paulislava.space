@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_vodomer_header_section",
+  "info": {
+    "displayName": "Шапка сайта",
+    "icon": "layer-group",
+    "description": "Секция страницы Водомер Урал"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "mdx": {
+      "type": "customField",
+      "customField": "plugin::mdx.mdx"
+    }
+  }
+}

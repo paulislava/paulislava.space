@@ -13,6 +13,11 @@
     "Content": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"
+    },
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
     }
   }
 }

@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_vodomer_process_section",
+  "info": {
+    "displayName": "Порядок работы",
+    "icon": "layer-group",
+    "description": "Секция страницы Водомер Урал"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "title": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "json"
+    },
+    "mdx": {
+      "type": "customField",
+      "customField": "plugin::mdx.mdx"
+    }
+  }
+}

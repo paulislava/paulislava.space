@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_vodomer_hero_section",
+  "info": {
+    "displayName": "Главный экран",
+    "icon": "layer-group",
+    "description": "Секция страницы Водомер Урал"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "note": {
+      "type": "string"
+    },
+    "mdx": {
+      "type": "customField",
+      "customField": "plugin::mdx.mdx"
+    }
+  }
+}
