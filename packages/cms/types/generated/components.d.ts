@@ -41,19 +41,14 @@ export interface SectionsMdxSection extends Struct.ComponentSchema {
   };
 }
 
-export interface VodomerContactSection extends Struct.ComponentSchema {
-  collectionName: 'components_vodomer_contact_section';
+export interface VodomerFaqItem extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_faq_item';
   info: {
-    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
-    displayName: '\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B \u0438 \u0437\u0430\u044F\u0432\u043A\u0430';
-    icon: 'layer-group';
+    displayName: '\u0412\u043E\u043F\u0440\u043E\u0441 \u0438 \u043E\u0442\u0432\u0435\u0442';
   };
   attributes: {
-    config: Schema.Attribute.Component<'vodomer.section-config', false>;
-    mdx: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
-    text: Schema.Attribute.Text;
-    title: Schema.Attribute.String;
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -66,24 +61,10 @@ export interface VodomerFaqSection extends Struct.ComponentSchema {
   };
   attributes: {
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
-    items: Schema.Attribute.JSON;
+    entries: Schema.Attribute.Component<'vodomer.faq-item', true>;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
     title: Schema.Attribute.String;
-  };
-}
-
-export interface VodomerFooterSection extends Struct.ComponentSchema {
-  collectionName: 'components_vodomer_footer_section';
-  info: {
-    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
-    displayName: '\u041F\u043E\u0434\u0432\u0430\u043B \u0441\u0430\u0439\u0442\u0430';
-    icon: 'layer-group';
-  };
-  attributes: {
-    config: Schema.Attribute.Component<'vodomer.section-config', false>;
-    mdx: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
   };
 }
 
@@ -138,20 +119,6 @@ export interface VodomerFormSection extends Struct.ComponentSchema {
   };
 }
 
-export interface VodomerHeaderSection extends Struct.ComponentSchema {
-  collectionName: 'components_vodomer_header_section';
-  info: {
-    description: '\u0421\u0435\u043A\u0446\u0438\u044F \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B \u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B';
-    displayName: '\u0428\u0430\u043F\u043A\u0430 \u0441\u0430\u0439\u0442\u0430';
-    icon: 'layer-group';
-  };
-  attributes: {
-    config: Schema.Attribute.Component<'vodomer.section-config', false>;
-    mdx: Schema.Attribute.RichText &
-      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
-  };
-}
-
 export interface VodomerHeroSection extends Struct.ComponentSchema {
   collectionName: 'components_vodomer_hero_section';
   info: {
@@ -179,10 +146,21 @@ export interface VodomerProcessSection extends Struct.ComponentSchema {
   };
   attributes: {
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    entries: Schema.Attribute.Component<'vodomer.process-step', true>;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
-    steps: Schema.Attribute.JSON;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerProcessStep extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_process_step';
+  info: {
+    displayName: '\u0428\u0430\u0433 \u0440\u0430\u0431\u043E\u0442\u044B';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -222,6 +200,16 @@ export interface VodomerPromotionSection extends Struct.ComponentSchema {
   };
 }
 
+export interface VodomerReassurancePoint extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_reassurance_point';
+  info: {
+    displayName: '\u041F\u0443\u043D\u043A\u0442 \u043E \u043F\u043E\u0434\u0445\u043E\u0434\u0435';
+  };
+  attributes: {
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface VodomerReassuranceSection extends Struct.ComponentSchema {
   collectionName: 'components_vodomer_reassurance_section';
   info: {
@@ -231,9 +219,9 @@ export interface VodomerReassuranceSection extends Struct.ComponentSchema {
   };
   attributes: {
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    entries: Schema.Attribute.Component<'vodomer.reassurance-point', true>;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
-    points: Schema.Attribute.JSON;
     text: Schema.Attribute.Text;
     title: Schema.Attribute.String;
   };
@@ -251,6 +239,27 @@ export interface VodomerSectionConfig extends Struct.ComponentSchema {
   };
 }
 
+export interface VodomerServiceItem extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_service_item';
+  info: {
+    displayName: '\u0423\u0441\u043B\u0443\u0433\u0430';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.Enumeration<['check', 'refresh', 'plus', 'gauge']> &
+      Schema.Attribute.DefaultTo<'gauge'>;
+    note: Schema.Attribute.String;
+    price: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface VodomerServicesSection extends Struct.ComponentSchema {
   collectionName: 'components_vodomer_services_section';
   info: {
@@ -260,11 +269,21 @@ export interface VodomerServicesSection extends Struct.ComponentSchema {
   };
   attributes: {
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    entries: Schema.Attribute.Component<'vodomer.service-item', true>;
     intro: Schema.Attribute.Text;
-    items: Schema.Attribute.JSON;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerTrustItem extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_trust_item';
+  info: {
+    displayName: '\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u043E';
+  };
+  attributes: {
+    text: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -277,7 +296,7 @@ export interface VodomerTrustStripSection extends Struct.ComponentSchema {
   };
   attributes: {
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
-    items: Schema.Attribute.JSON;
+    entries: Schema.Attribute.Component<'vodomer.trust-item', true>;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
   };
@@ -289,18 +308,20 @@ declare module '@strapi/strapi' {
       'sections.faq-item': SectionsFaqItem;
       'sections.faq-section': SectionsFaqSection;
       'sections.mdx-section': SectionsMdxSection;
-      'vodomer.contact-section': VodomerContactSection;
+      'vodomer.faq-item': VodomerFaqItem;
       'vodomer.faq-section': VodomerFaqSection;
-      'vodomer.footer-section': VodomerFooterSection;
       'vodomer.form-field': VodomerFormField;
       'vodomer.form-section': VodomerFormSection;
-      'vodomer.header-section': VodomerHeaderSection;
       'vodomer.hero-section': VodomerHeroSection;
       'vodomer.process-section': VodomerProcessSection;
+      'vodomer.process-step': VodomerProcessStep;
       'vodomer.promotion-section': VodomerPromotionSection;
+      'vodomer.reassurance-point': VodomerReassurancePoint;
       'vodomer.reassurance-section': VodomerReassuranceSection;
       'vodomer.section-config': VodomerSectionConfig;
+      'vodomer.service-item': VodomerServiceItem;
       'vodomer.services-section': VodomerServicesSection;
+      'vodomer.trust-item': VodomerTrustItem;
       'vodomer.trust-strip-section': VodomerTrustStripSection;
     }
   }

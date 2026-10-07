@@ -807,18 +807,10 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
   };
   attributes: {
     companyName: Schema.Attribute.String;
-    contactText: Schema.Attribute.Text;
-    contactTitle: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     email: Schema.Attribute.Email;
-    eyebrow: Schema.Attribute.String;
-    faqs: Schema.Attribute.JSON;
-    faqTitle: Schema.Attribute.String;
-    heroNote: Schema.Attribute.String;
-    heroText: Schema.Attribute.Text;
-    heroTitle: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -829,35 +821,10 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
     metaTitle: Schema.Attribute.String;
     phoneLandline: Schema.Attribute.String;
     phoneMobile: Schema.Attribute.String;
-    process: Schema.Attribute.JSON;
-    processTitle: Schema.Attribute.String;
-    promoAnchorAt: Schema.Attribute.DateTime;
-    promoDiscountRub: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      >;
-    promoEnabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    promoEndsAt: Schema.Attribute.DateTime;
-    promoResetDays: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<2>;
-    promoText: Schema.Attribute.Text;
-    promoTimingMode: Schema.Attribute.Enumeration<['rolling', 'fixed']> &
-      Schema.Attribute.DefaultTo<'rolling'>;
-    promoTitle: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     region: Schema.Attribute.String;
     Sections: Schema.Attribute.DynamicZone<
       [
-        'vodomer.header-section',
         'vodomer.hero-section',
         'vodomer.promotion-section',
         'vodomer.trust-strip-section',
@@ -865,19 +832,10 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
         'vodomer.process-section',
         'vodomer.reassurance-section',
         'vodomer.faq-section',
-        'vodomer.contact-section',
-        'vodomer.footer-section',
         'sections.mdx-section',
         'vodomer.form-section',
       ]
     >;
-    services: Schema.Attribute.JSON;
-    servicesIntro: Schema.Attribute.Text;
-    servicesTitle: Schema.Attribute.String;
-    trustPoints: Schema.Attribute.JSON;
-    trustStrip: Schema.Attribute.JSON;
-    trustText: Schema.Attribute.Text;
-    trustTitle: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
