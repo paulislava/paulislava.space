@@ -4,6 +4,7 @@ import './globals.css';
 import NavBar from '@/components/ui/NavBar';
 import Contact from '@/components/sections/Contact';
 import YandexMetrika from '@/components/analytics/YandexMetrika';
+import AdminToolbar from '@/components/admin/AdminToolbar';
 import { personJsonLd, websiteJsonLd } from '@/lib/seo';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NavBar />
         {children}
         <Contact />
+        <AdminToolbar />
       </body>
     </html>
   );

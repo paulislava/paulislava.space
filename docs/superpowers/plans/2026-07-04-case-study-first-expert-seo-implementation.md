@@ -462,7 +462,7 @@ git commit -m "feat: strengthen seo for case study strategy"
 **Файлы:**
 - Изменить: `ai/FEATURES.md`
 - Создать: `ai/features/case-study-first-expert-seo.md`
-- Создать: `/Users/pkondratov/Desktop/Projects/Projects/Codex/Features/paulislava-space/case-study-first-expert-seo.md`
+- Создать: `/Users/pkondratov/Yandex.Disk.localized/Projects/Codex/Features/paulislava-space/case-study-first-expert-seo.md`
 - Тест: ручная проверка содержимого файлов
 
 **Интерфейсы:**
@@ -499,7 +499,7 @@ tags: [features]
 - [ ] **Шаг 4: Коммит**
 
 ```bash
-git add ai/FEATURES.md ai/features/case-study-first-expert-seo.md /Users/pkondratov/Desktop/Projects/Projects/Codex/Features/paulislava-space/case-study-first-expert-seo.md
+git add ai/FEATURES.md ai/features/case-study-first-expert-seo.md /Users/pkondratov/Yandex.Disk.localized/Projects/Codex/Features/paulislava-space/case-study-first-expert-seo.md
 git commit -m "docs: record case study first seo feature"
 ```
 
