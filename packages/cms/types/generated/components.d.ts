@@ -87,6 +87,57 @@ export interface VodomerFooterSection extends Struct.ComponentSchema {
   };
 }
 
+export interface VodomerFormField extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_form_fields';
+  info: {
+    displayName: '\u041F\u043E\u043B\u0435 \u0444\u043E\u0440\u043C\u044B';
+    icon: 'pencil';
+  };
+  attributes: {
+    autocomplete: Schema.Attribute.String;
+    defaultValue: Schema.Attribute.String;
+    helpText: Schema.Attribute.Text;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    options: Schema.Attribute.JSON;
+    placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    type: Schema.Attribute.Enumeration<
+      [
+        'text',
+        'tel',
+        'email',
+        'select',
+        'textarea',
+        'date',
+        'time',
+        'datetime',
+        'checkbox',
+      ]
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
+export interface VodomerFormSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_form_sections';
+  info: {
+    displayName: '\u0424\u043E\u0440\u043C\u0430 \u0441 \u0442\u0435\u043A\u0441\u0442\u043E\u043C';
+    icon: 'envelop';
+  };
+  attributes: {
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    form: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::vodomer-form.vodomer-form'
+    >;
+    leftMdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    phonePrimary: Schema.Attribute.String;
+    phoneSecondary: Schema.Attribute.String;
+  };
+}
+
 export interface VodomerHeaderSection extends Struct.ComponentSchema {
   collectionName: 'components_vodomer_header_section';
   info: {
@@ -241,6 +292,8 @@ declare module '@strapi/strapi' {
       'vodomer.contact-section': VodomerContactSection;
       'vodomer.faq-section': VodomerFaqSection;
       'vodomer.footer-section': VodomerFooterSection;
+      'vodomer.form-field': VodomerFormField;
+      'vodomer.form-section': VodomerFormSection;
       'vodomer.header-section': VodomerHeaderSection;
       'vodomer.hero-section': VodomerHeroSection;
       'vodomer.process-section': VodomerProcessSection;

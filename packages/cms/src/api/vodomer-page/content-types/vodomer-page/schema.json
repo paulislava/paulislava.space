@@ -130,7 +130,8 @@
         "vodomer.faq-section",
         "vodomer.contact-section",
         "vodomer.footer-section",
-        "sections.mdx-section"
+        "sections.mdx-section",
+        "vodomer.form-section"
       ]
     }
   }

@@ -759,6 +759,41 @@ export interface ApiTechnologyTechnology extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiVodomerFormVodomerForm extends Struct.CollectionTypeSchema {
+  collectionName: 'vodomer_forms';
+  info: {
+    description: '\u041D\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u043C\u044B\u0435 \u0444\u043E\u0440\u043C\u044B \u0437\u0430\u044F\u0432\u043E\u043A \u0441\u0430\u0439\u0442\u0430';
+    displayName: '\u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B \u2014 \u0444\u043E\u0440\u043C\u0430';
+    pluralName: 'vodomer-forms';
+    singularName: 'vodomer-form';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    fields: Schema.Attribute.Component<'vodomer.form-field', true>;
+    intro: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::vodomer-form.vodomer-form'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    submitLabel: Schema.Attribute.String;
+    successMessage: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
   collectionName: 'vodomer_pages';
   info: {
@@ -833,6 +868,7 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
         'vodomer.contact-section',
         'vodomer.footer-section',
         'sections.mdx-section',
+        'vodomer.form-section',
       ]
     >;
     services: Schema.Attribute.JSON;
@@ -1452,6 +1488,7 @@ declare module '@strapi/strapi' {
       'api::project.project': ApiProjectProject;
       'api::tag.tag': ApiTagTag;
       'api::technology.technology': ApiTechnologyTechnology;
+      'api::vodomer-form.vodomer-form': ApiVodomerFormVodomerForm;
       'api::vodomer-page.vodomer-page': ApiVodomerPageVodomerPage;
       'api::work-experience.work-experience': ApiWorkExperienceWorkExperience;
       'plugin::content-releases.release': PluginContentReleasesRelease;
