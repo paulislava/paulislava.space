@@ -796,6 +796,28 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
     phoneMobile: Schema.Attribute.String;
     process: Schema.Attribute.JSON;
     processTitle: Schema.Attribute.String;
+    promoAnchorAt: Schema.Attribute.DateTime;
+    promoDiscountRub: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    promoEnabled: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    promoEndsAt: Schema.Attribute.DateTime;
+    promoResetDays: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<2>;
+    promoText: Schema.Attribute.Text;
+    promoTimingMode: Schema.Attribute.Enumeration<['rolling', 'fixed']> &
+      Schema.Attribute.DefaultTo<'rolling'>;
+    promoTitle: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     region: Schema.Attribute.String;
     services: Schema.Attribute.JSON;

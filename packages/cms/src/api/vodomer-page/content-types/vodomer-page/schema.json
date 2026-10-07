@@ -83,6 +83,39 @@
     },
     "metaDescription": {
       "type": "text"
+    },
+    "promoEnabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "promoTitle": {
+      "type": "string"
+    },
+    "promoText": {
+      "type": "text"
+    },
+    "promoDiscountRub": {
+      "type": "integer",
+      "min": 0
+    },
+    "promoTimingMode": {
+      "type": "enumeration",
+      "enum": [
+        "rolling",
+        "fixed"
+      ],
+      "default": "rolling"
+    },
+    "promoResetDays": {
+      "type": "integer",
+      "min": 1,
+      "default": 2
+    },
+    "promoAnchorAt": {
+      "type": "datetime"
+    },
+    "promoEndsAt": {
+      "type": "datetime"
     }
   }
 }
