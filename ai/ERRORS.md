@@ -35,3 +35,13 @@
 ## Публичная конфигурация баннера возвращала 503 (2026-10-06)
 
 Причина: STRAPI_URL=http://host.docker.internal:1337 в web bridge-контейнере недоступен, CMS работает в host network. Публичный HTTPS CMS из контейнера отвечает 200. Исправлено STRAPI_URL=https://cms.paulislava.space в текущем web-контейнере и GitHub WEB_ENV. Предыдущий контейнер сохранён остановленным для rollback. Проверены конфигурация и автоматический GIF по опубликованной записи. Изменения исходного кода не требуются.
+
+## Страница «Водомер» падала при открытии MDX-поля (2026-10-08)
+
+**Симптом:** Content Manager показывал `Unrecognized extension value in extension set` на странице `vodomer-page`.
+
+**Причина:** в production-контейнере у CMS был `@codemirror/state` 6.7.6, а `@strapi/design-system` загружал собственный экземпляр 6.7.1. Расширения MDX-редактора не проходили проверку `instanceof` между экземплярами CodeMirror.
+
+**Решение:** в Vite-конфигурации админки включён `resolve.dedupe` для `@codemirror/state` и `@codemirror/view` с сохранением стандартного списка Strapi. Сборка CMS прошла, после деплоя документ «Водомер» и раскрытое MDX-поле открылись без ошибки. Локальная CMS запущена на `http://localhost:1337` с отдельной PostgreSQL-базой на `127.0.0.1:5444`, заполненной снимком production; вход требует учётных данных администратора CMS.
+
+**Файл:** `packages/cms/src/admin/vite.config.ts`.
