@@ -1,27 +1,88 @@
 {
   "kind": "singleType",
   "collectionName": "vodomer_pages",
-  "info": { "singularName": "vodomer-page", "pluralName": "vodomer-pages", "displayName": "Водомер Урал — главная", "description": "Контент главной страницы vodomer-ural.ru" },
-  "options": { "draftAndPublish": true },
+  "info": {
+    "singularName": "vodomer-page",
+    "pluralName": "vodomer-pages",
+    "displayName": "Водомер Урал — главная",
+    "description": "Контент главной страницы vodomer-ural.ru"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
   "pluginOptions": {},
   "attributes": {
-    "eyebrow": { "type": "string" },
-    "heroTitle": { "type": "string" },
-    "heroText": { "type": "text" },
-    "heroNote": { "type": "string" },
-    "servicesTitle": { "type": "string" },
-    "servicesIntro": { "type": "text" },
-    "services": { "type": "json" },
-    "processTitle": { "type": "string" },
-    "process": { "type": "json" },
-    "trustTitle": { "type": "string" },
-    "trustText": { "type": "text" },
-    "trustPoints": { "type": "json" },
-    "faqTitle": { "type": "string" },
-    "faqs": { "type": "json" },
-    "contactTitle": { "type": "string" },
-    "contactText": { "type": "text" },
-    "metaTitle": { "type": "string" },
-    "metaDescription": { "type": "text" }
+    "companyName": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "phoneMobile": {
+      "type": "string"
+    },
+    "phoneLandline": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "trustStrip": {
+      "type": "json"
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "heroTitle": {
+      "type": "string"
+    },
+    "heroText": {
+      "type": "text"
+    },
+    "heroNote": {
+      "type": "string"
+    },
+    "servicesTitle": {
+      "type": "string"
+    },
+    "servicesIntro": {
+      "type": "text"
+    },
+    "services": {
+      "type": "json"
+    },
+    "processTitle": {
+      "type": "string"
+    },
+    "process": {
+      "type": "json"
+    },
+    "trustTitle": {
+      "type": "string"
+    },
+    "trustText": {
+      "type": "text"
+    },
+    "trustPoints": {
+      "type": "json"
+    },
+    "faqTitle": {
+      "type": "string"
+    },
+    "faqs": {
+      "type": "json"
+    },
+    "contactTitle": {
+      "type": "string"
+    },
+    "contactText": {
+      "type": "text"
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "text"
+    }
   }
 }

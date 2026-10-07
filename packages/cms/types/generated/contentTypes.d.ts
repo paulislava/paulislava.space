@@ -771,11 +771,13 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    companyName: Schema.Attribute.String;
     contactText: Schema.Attribute.Text;
     contactTitle: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
     eyebrow: Schema.Attribute.String;
     faqs: Schema.Attribute.JSON;
     faqTitle: Schema.Attribute.String;
@@ -790,13 +792,17 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     metaDescription: Schema.Attribute.Text;
     metaTitle: Schema.Attribute.String;
+    phoneLandline: Schema.Attribute.String;
+    phoneMobile: Schema.Attribute.String;
     process: Schema.Attribute.JSON;
     processTitle: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    region: Schema.Attribute.String;
     services: Schema.Attribute.JSON;
     servicesIntro: Schema.Attribute.Text;
     servicesTitle: Schema.Attribute.String;
     trustPoints: Schema.Attribute.JSON;
+    trustStrip: Schema.Attribute.JSON;
     trustText: Schema.Attribute.Text;
     trustTitle: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
