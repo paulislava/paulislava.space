@@ -541,6 +541,11 @@ export interface ApiFooterBannerFooterBanner
     automationColor: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'#67e8f9'>;
     backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        'content-manager': {
+          visible: false;
+        };
+      }> &
       Schema.Attribute.DefaultTo<'#12121a'>;
     bannerKey: Schema.Attribute.String &
       Schema.Attribute.Unique &
@@ -551,6 +556,11 @@ export interface ApiFooterBannerFooterBanner
         };
       }>;
     borderColor: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        'content-manager': {
+          visible: false;
+        };
+      }> &
       Schema.Attribute.DefaultTo<'#343441'>;
     brandColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#a5b4fc'>;
     brandText: Schema.Attribute.String &
@@ -746,6 +756,52 @@ export interface ApiTechnologyTechnology extends Struct.CollectionTypeSchema {
       'manyToMany',
       'api::work-experience.work-experience'
     >;
+  };
+}
+
+export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
+  collectionName: 'vodomer_pages';
+  info: {
+    description: '\u041A\u043E\u043D\u0442\u0435\u043D\u0442 \u0433\u043B\u0430\u0432\u043D\u043E\u0439 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u044B vodomer-ural.ru';
+    displayName: '\u0412\u043E\u0434\u043E\u043C\u0435\u0440 \u0423\u0440\u0430\u043B \u2014 \u0433\u043B\u0430\u0432\u043D\u0430\u044F';
+    pluralName: 'vodomer-pages';
+    singularName: 'vodomer-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    contactText: Schema.Attribute.Text;
+    contactTitle: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eyebrow: Schema.Attribute.String;
+    faqs: Schema.Attribute.JSON;
+    faqTitle: Schema.Attribute.String;
+    heroNote: Schema.Attribute.String;
+    heroText: Schema.Attribute.Text;
+    heroTitle: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::vodomer-page.vodomer-page'
+    > &
+      Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.Text;
+    metaTitle: Schema.Attribute.String;
+    process: Schema.Attribute.JSON;
+    processTitle: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    services: Schema.Attribute.JSON;
+    servicesIntro: Schema.Attribute.Text;
+    servicesTitle: Schema.Attribute.String;
+    trustPoints: Schema.Attribute.JSON;
+    trustText: Schema.Attribute.Text;
+    trustTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1353,6 +1409,7 @@ declare module '@strapi/strapi' {
       'api::project.project': ApiProjectProject;
       'api::tag.tag': ApiTagTag;
       'api::technology.technology': ApiTechnologyTechnology;
+      'api::vodomer-page.vodomer-page': ApiVodomerPageVodomerPage;
       'api::work-experience.work-experience': ApiWorkExperienceWorkExperience;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
