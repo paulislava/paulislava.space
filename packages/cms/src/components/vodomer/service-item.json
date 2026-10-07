@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_vodomer_service_item",
+  "info": {
+    "displayName": "Услуга"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "note": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "check",
+        "refresh",
+        "plus",
+        "gauge"
+      ],
+      "default": "gauge"
+    },
+    "price": {
+      "type": "integer",
+      "min": 0
+    }
+  }
+}

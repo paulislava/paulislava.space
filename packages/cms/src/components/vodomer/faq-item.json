@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_vodomer_faq_item",
+  "info": {
+    "displayName": "Вопрос и ответ"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string",
+      "required": true
+    },
+    "answer": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

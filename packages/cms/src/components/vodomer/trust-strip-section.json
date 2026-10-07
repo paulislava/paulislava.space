@@ -18,6 +18,11 @@
     "mdx": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"
+    },
+    "entries": {
+      "type": "component",
+      "repeatable": true,
+      "component": "vodomer.trust-item"
     }
   }
 }

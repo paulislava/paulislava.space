@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_vodomer_reassurance_point",
+  "info": {
+    "displayName": "Пункт о подходе"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

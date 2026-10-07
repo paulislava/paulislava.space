@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_vodomer_trust_item",
+  "info": {
+    "displayName": "Преимущество"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
