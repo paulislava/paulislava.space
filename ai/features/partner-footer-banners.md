@@ -16,7 +16,7 @@ JS начинает первую смену после двух секунд н�
 
 В исходном HTML всегда присутствует обычная ссылка с текстом и описанием услуг для поисковых роботов и парсеров. `noscript` показывает GIF с alt внутри той же ссылки. Индексация ссылки сама по себе не гарантирует рост позиций.
 
-Переход: `/zakazat-sait-avtomatizaciyu`, временный 307 на главную с сохранением query. UTM: `utm_source=<hostname сайта>`, `utm_medium=footer_banner`, `utm_campaign=made_by_paulislava`, `utm_content=<bannerKey>`.
+Переход: `/zakazat-sait-avtomatizaciyu` — отдельный [лендинг для компаний](business-landing.md), с 2026-10-09 без перенаправления на главную. Query сохраняется. UTM: `utm_source=<hostname сайта>`, `utm_medium=footer_banner`, `utm_campaign=made_by_paulislava`, `utm_content=<bannerKey>`.
 
 ## Генерация GIF
 
