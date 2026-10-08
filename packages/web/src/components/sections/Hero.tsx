@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
@@ -106,8 +107,10 @@ export default function Hero() {
     } else if (deleting && displayed.length > 0) {
       timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
     } else if (deleting && displayed.length === 0) {
-      setDeleting(false);
-      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+      timeout = setTimeout(() => {
+        setDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % ROLES.length);
+      }, 0);
     }
 
     return () => clearTimeout(timeout);
@@ -154,9 +157,15 @@ export default function Hero() {
         </p>
 
         <div ref={ctaRef} className="flex gap-4 justify-center flex-wrap">
+          <Link
+            href="/zakazat-sait-avtomatizaciyu"
+            className="px-6 py-3 rounded-xl font-semibold text-sm bg-[#6366f1] text-white hover:bg-[#4f46e5] transition-colors duration-200"
+          >
+            Заказать разработку
+          </Link>
           <a
             href="#projects"
-            className="px-6 py-3 rounded-xl font-semibold text-sm bg-[#6366f1] text-white hover:bg-[#4f46e5] transition-colors duration-200"
+            className="px-6 py-3 rounded-xl font-semibold text-sm glass text-[#f1f5f9] hover:border-[#6366f1]/50 transition-colors duration-200"
           >
             Кейсы
           </a>

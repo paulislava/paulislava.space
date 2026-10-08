@@ -12,6 +12,7 @@ const links = [
   { href: '/articles', label: 'Статьи' },
   { href: '/series', label: 'Циклы' },
   { href: '/#contact', label: 'Контакт' },
+  { href: '/zakazat-sait-avtomatizaciyu', label: 'Заказать разработку' },
 ];
 
 export default function NavBar() {

@@ -37,8 +37,8 @@ export default function Skills({ technologies, tags, appearance = 'dark' }: Skil
     // Constrain radius by both width and height to prevent clipping
     const radius = Math.min(
       720,
-      Math.floor(container.offsetWidth * (light ? 0.44 : 0.62)),
-      Math.floor(container.offsetHeight * (light ? 0.44 : 0.62)),
+      Math.floor(container.offsetWidth * 0.62),
+      Math.floor(container.offsetHeight * 0.62),
     );
     const fontSize = radius < 200 ? '12px' : radius < 350 ? '14px' : '16px';
 
@@ -127,7 +127,7 @@ export default function Skills({ technologies, tags, appearance = 'dark' }: Skil
           ref={containerRef}
           className="relative w-full"
           style={{
-            height: light ? 'min(65vh, 560px)' : '80vh',
+            height: '80vh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'

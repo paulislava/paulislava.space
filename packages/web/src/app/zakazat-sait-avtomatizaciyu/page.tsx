@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getAllProjects, getProjectBySlug, getTechnologies, getProjectTags, mediaUrl } from '@/lib/strapi';
 import Skills from '@/components/sections/Skills';
 import LandingMotion from '@/components/business/LandingMotion';
-import LeadFlow, { LeadButton } from '@/components/business/LeadFlow';
+import LeadFlow, { LeadButton, LeadInlineForm } from '@/components/business/LeadFlow';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -46,7 +46,7 @@ export default async function BusinessLandingPage() {
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}>Разработка для бизнеса</p>
         <h1>Сайт привлекает.<br />Сервис делает остальное.</h1>
-        <p className={styles.heroDescription}>Создаю сайты, приложения и автоматизацию.<br />От первого впечатления до ежедневной работы.</p>
+        <p className={styles.heroDescription}>Создаю сайты, приложения и автоматизации.<br />От первого впечатления до ежедневной работы.</p>
         <LeadButton className={styles.button}>Обсудить проект</LeadButton>
         <p className={styles.heroSignature}>Павел Кондратов. На связи лично.</p>
       </div>
@@ -99,6 +99,7 @@ export default async function BusinessLandingPage() {
       <p className={styles.eyebrow}>Следующий проект может быть вашим</p><h2>Давайте сделаем.</h2><p>Новый сайт, собственный сервис или меньше ручной работы?<br />Оставьте контакт — обсудим, с чего начать.</p><LeadButton className={styles.button}>Обсудить мой проект</LeadButton><a className={styles.directContact} href="mailto:i@paulislava.space">Или напишите: i@paulislava.space</a>
     </section>
     <Skills technologies={technologies} tags={tags} appearance="light" />
+    <LeadInlineForm />
     <footer className={styles.footer}><Link href="/">Павел Кондратов</Link><p>Сайты, сервисы и автоматизация</p><Link href="/projects">Портфолио</Link></footer>
   </main></LandingMotion></LeadFlow>;
 }

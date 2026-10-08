@@ -5,11 +5,60 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { reachMetrikaGoal } from '@/lib/metrika';
 import styles from './LeadFlow.module.css';
 
-const LeadContext = createContext<() => void>(() => {});
+type LeadContextValue = { open: () => void; submitContact: (contact: string) => Promise<void> };
+const LeadContext = createContext<LeadContextValue>({ open: () => {}, submitContact: async () => {} });
+
+async function sendLead(contact: string) {
+  const response = await fetch('/api/contact', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ intent: 'lead', contact }),
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error || 'Не удалось отправить. Попробуйте ещё раз.');
+  return result.token as string;
+}
 
 export function LeadButton({ children = 'Обсудить проект', className }: { children?: ReactNode; className?: string }) {
-  const open = useContext(LeadContext);
+  const { open } = useContext(LeadContext);
   return <button type="button" className={className} onClick={open}>{children}</button>;
+}
+
+export function LeadInlineForm() {
+  const { submitContact } = useContext(LeadContext);
+  const [contact, setContact] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+
+  async function submitInline(event: FormEvent) {
+    event.preventDefault();
+    if (busy) return;
+    setBusy(true);
+    setError('');
+    try {
+      await submitContact(contact);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : 'Не удалось отправить. Попробуйте ещё раз.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return <section className={styles.inlineLead} aria-labelledby="inline-lead-heading">
+    <div className={styles.inlineLeadInner}>
+      <div className={styles.inlineLeadCopy}>
+        <p>Обсудим вашу задачу</p>
+        <h2 id="inline-lead-heading">Есть идея?<br />Давайте начнём.</h2>
+        <span>Оставьте удобный контакт. Я отвечу лично и предложу, с чего начать проект.</span>
+      </div>
+      <form className={styles.inlineLeadForm} onSubmit={submitInline}>
+        <label htmlFor="inline-lead-contact">Контакт</label>
+        <input id="inline-lead-contact" required type="text" autoComplete="off" maxLength={160} placeholder="Телефон, @telegram или email" value={contact} onChange={(event) => setContact(event.target.value)} aria-describedby="inline-lead-hint" />
+        <p id="inline-lead-hint">Одного способа связи достаточно.</p>
+        {error && <p role="alert" className={styles.error}>{error}</p>}
+        <button type="submit" disabled={busy}>{busy ? 'Отправляю…' : 'Обсудить проект'} <span aria-hidden="true">↗</span></button>
+      </form>
+    </div>
+  </section>;
 }
 
 export default function LeadFlow({ children }: { children: ReactNode }) {
@@ -47,6 +96,16 @@ export default function LeadFlow({ children }: { children: ReactNode }) {
     setOpen(true);
   }
 
+  async function submitContact(value: string) {
+    const leadToken = await sendLead(value);
+    trigger.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setContact(value);
+    setToken(leadToken);
+    setStep('details');
+    setOpen(true);
+    reachMetrikaGoal('contact_form_success', { source: 'business_landing' });
+  }
+
   async function submit(event: FormEvent) {
     event.preventDefault();
     if (inFlight.current) return;
@@ -55,17 +114,15 @@ export default function LeadFlow({ children }: { children: ReactNode }) {
     setError('');
     const isContact = step === 'contact';
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(isContact ? { intent: 'lead', contact } : { intent: 'details', token, ...details }),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Не удалось отправить. Попробуйте ещё раз.');
       if (isContact) {
-        setToken(result.token);
-        setStep('details');
-        reachMetrikaGoal('contact_form_success', { source: 'business_landing' });
+        await submitContact(contact);
       } else {
+        const response = await fetch('/api/contact', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ intent: 'details', token, ...details }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Не удалось отправить. Попробуйте ещё раз.');
         setStep('done');
         reachMetrikaGoal('business_lead_details');
       }
@@ -77,7 +134,7 @@ export default function LeadFlow({ children }: { children: ReactNode }) {
     }
   }
 
-  return <LeadContext.Provider value={openModal}>
+  return <LeadContext.Provider value={{ open: openModal, submitContact }}>
     {children}
     <dialog ref={dialog} className={styles.dialog} aria-labelledby="lead-heading" onCancel={(event) => { event.preventDefault(); setOpen(false); }} onClick={(event) => { if (event.target === dialog.current) setOpen(false); }}>
       <motion.div className={styles.panel} initial={false} animate={{ opacity: open ? 1 : 0, scale: open || reduced ? 1 : .97, y: open || reduced ? 0 : 12 }} transition={{ type: 'spring', bounce: 0, duration: reduced ? .1 : .3 }} onAnimationComplete={() => { if (!open) { dialog.current?.close(); trigger.current?.focus({ preventScroll: true }); } }}>
