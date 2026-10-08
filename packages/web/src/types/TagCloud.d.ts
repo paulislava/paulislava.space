@@ -8,6 +8,8 @@ declare module 'TagCloud' {
   }
   interface TagCloudInstance {
     destroy(): void;
+    pause(): void;
+    resume(): void;
   }
   function TagCloud(
     container: HTMLElement | string,

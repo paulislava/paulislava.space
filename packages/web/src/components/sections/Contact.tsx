@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { usePathname } from 'next/navigation';
 import { reachMetrikaGoal } from '@/lib/metrika';
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const pathname = usePathname();
+  const [form, setForm] = useState({ name: '', contact: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
 
   const handleSubmit = async (e: FormEvent) => {
@@ -18,12 +20,14 @@ export default function Contact() {
       });
       if (!res.ok) throw new Error();
       setStatus('ok');
-      setForm({ name: '', email: '', message: '' });
+      setForm({ name: '', contact: '', message: '' });
       reachMetrikaGoal('contact_form_success');
     } catch {
       setStatus('error');
     }
   };
+
+  if (pathname === '/zakazat-sait-avtomatizaciyu') return null;
 
   return (
     <section id="contact" className="pt-24 pb-12 px-6">
@@ -63,14 +67,14 @@ export default function Contact() {
                 />
               </div>
               <div>
-                <label htmlFor="contact-email" className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Email</label>
+                <label htmlFor="contact-value" className="block text-xs text-[#94a3b8] mb-1.5 font-mono uppercase tracking-wide">Контакт</label>
                 <input
-                  id="contact-email"
-                  type="email"
+                  id="contact-value"
+                  type="text"
                   required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="your@email.com"
+                  value={form.contact}
+                  onChange={(e) => setForm({ ...form, contact: e.target.value })}
+                  placeholder="Телефон, @telegram или email"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-[#f1f5f9] text-sm placeholder:text-[#94a3b8]/50 outline-none focus-visible:border-[#6366f1]/70 focus-visible:ring-2 focus-visible:ring-[#6366f1]/30 transition-colors"
                 />
               </div>

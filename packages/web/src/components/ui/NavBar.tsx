@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const links = [
@@ -14,6 +15,8 @@ const links = [
 ];
 
 export default function NavBar() {
+  const business = usePathname() === '/zakazat-sait-avtomatizaciyu';
+  const navLinks = business ? [{ href: '#work', label: 'Работы' }, { href: '#services', label: 'Возможности' }, { href: '#contact', label: 'Обсудить проект' }] : links;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -37,22 +40,22 @@ export default function NavBar() {
       aria-label="Основная навигация"
       className="fixed px-6 top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: hasBg ? 'rgba(10,10,15,0.9)' : 'transparent',
-        backdropFilter: hasBg ? 'blur(12px)' : 'none',
+        background: business ? 'rgba(255,255,255,0.88)' : hasBg ? 'rgba(10,10,15,0.9)' : 'transparent',
+        backdropFilter: business || hasBg ? 'blur(12px)' : 'none',
         borderBottom: hasBg ? '1px solid rgba(255,255,255,0.08)' : 'none',
       }}
     >
       <div className="max-w-6xl mx-auto py-4 flex items-center justify-between">
-        <Link href="/" className="font-mono text-sm font-bold gradient-text">
-          Pavel Kondratov | @paulislava
+        <Link href="/" className={business ? 'text-base font-semibold text-[#1d1d1f] tracking-tight' : 'font-mono text-sm font-bold gradient-text'}>
+          {business ? 'Павел Кондратов' : 'Pavel Kondratov | @paulislava'}
         </Link>
 
         <ul className="hidden md:flex gap-6">
-          {links.map((l) => (
+          {navLinks.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="text-sm text-[#94a3b8] hover:text-[#f1f5f9] transition-colors duration-200"
+                className={business ? 'text-sm text-[#424245] hover:text-[#0066cc] transition-colors' : 'text-sm text-[#94a3b8] hover:text-[#f1f5f9] transition-colors duration-200'}
               >
                 {l.label}
               </Link>
@@ -68,20 +71,20 @@ export default function NavBar() {
           onClick={() => setMobileOpen((v) => !v)}
           className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
         >
-          <span className={`block w-5 h-px bg-[#f1f5f9] transition-all duration-200 origin-center ${mobileOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
-          <span className={`block w-5 h-px bg-[#f1f5f9] transition-all duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-5 h-px bg-[#f1f5f9] transition-all duration-200 origin-center ${mobileOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
+          <span className={`block w-5 h-px ${business ? 'bg-[#1d1d1f]' : 'bg-[#f1f5f9]'} transition-all duration-200 origin-center ${mobileOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
+          <span className={`block w-5 h-px ${business ? 'bg-[#1d1d1f]' : 'bg-[#f1f5f9]'} transition-all duration-200 ${mobileOpen ? 'opacity-0' : ''}`} />
+          <span className={`block w-5 h-px ${business ? 'bg-[#1d1d1f]' : 'bg-[#f1f5f9]'} transition-all duration-200 origin-center ${mobileOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
         </button>
       </div>
 
       {mobileOpen && (
         <ul id="mobile-nav-menu" className="md:hidden pb-4 flex flex-col">
-          {links.map((l) => (
+          {navLinks.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
                 onClick={() => setMobileOpen(false)}
-                className="block px-2 py-3 text-sm text-[#94a3b8] hover:text-[#f1f5f9] transition-colors duration-200"
+                className={business ? 'block px-2 py-3 text-sm text-[#424245] hover:text-[#0066cc]' : 'block px-2 py-3 text-sm text-[#94a3b8] hover:text-[#f1f5f9] transition-colors duration-200'}
               >
                 {l.label}
               </Link>
