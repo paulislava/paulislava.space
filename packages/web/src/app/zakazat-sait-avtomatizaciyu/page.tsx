@@ -32,6 +32,7 @@ export default async function BusinessLandingPage() {
   const bySlug = new Map(projects.map((project) => [project.slug, project]));
   const imageFor = (slug: string) => mediaUrl(bySlug.get(slug)?.cover);
   const urfu = imageFor('urfu-100');
+  const umnoc = imageFor('umnoc');
   const careerImage = mediaUrl(career?.screenshots?.[0]) ?? imageFor('vremya-karery');
   const coursesImage = mediaUrl(courses?.screenshots?.[1]) ?? imageFor('kursoved-pro');
   const story = [
@@ -51,9 +52,9 @@ export default async function BusinessLandingPage() {
         <p className={styles.heroSignature}>Павел Кондратов. На связи лично.</p>
       </div>
       <div className={styles.heroGallery} aria-label="Примеры разработанных проектов">
-        {careerImage && <div className={`${styles.heroScreen} ${styles.screenLeft}`}><Image src={careerImage} alt="Карьерный портал «Время карьеры»" fill sizes="(max-width: 700px) 60vw, 40vw" className={styles.cover} /></div>}
-        {urfu && <Link href="/projects/urfu-100" className={`${styles.heroScreen} ${styles.screenMain}`}><Image src={urfu} alt="Интерактивный сайт к 100-летию УрФУ" fill priority sizes="(max-width: 700px) 86vw, 64vw" className={styles.cover} /></Link>}
-        {coursesImage && <div className={`${styles.heroScreen} ${styles.screenRight}`}><Image src={coursesImage} alt="Платформа обучения «Курсовед»" fill sizes="(max-width: 700px) 60vw, 40vw" className={styles.cover} /></div>}
+        {urfu && <Link href="/projects/urfu-100" className={`${styles.heroScreen} ${styles.screenLeft}`}><Image src={urfu} alt="Интерактивный сайт к 100-летию УрФУ" fill sizes="(max-width: 700px) 60vw, 40vw" className={styles.cover} /></Link>}
+        {careerImage && <Link href="/projects/vremya-karery" className={`${styles.heroScreen} ${styles.screenMain}`}><Image src={careerImage} alt="Карьерный портал «Время карьеры»" fill priority sizes="(max-width: 700px) 86vw, 64vw" className={styles.cover} /></Link>}
+        {umnoc && <Link href="/projects/umnoc" className={`${styles.heroScreen} ${styles.screenRight}`}><Image src={umnoc} alt="Сайт УМНОЦ" fill sizes="(max-width: 700px) 60vw, 40vw" className={styles.cover} /></Link>}
       </div>
       <p className={styles.galleryCaption}>Сайты и платформы из моего портфолио.</p>
     </section>
