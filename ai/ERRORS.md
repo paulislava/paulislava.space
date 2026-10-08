@@ -75,3 +75,7 @@
 **Решение:** подпись поднята в двух исходных кадрах без изменения остального интерфейса; исправленные PNG загружены в Strapi и заменили первый и обзорный скриншоты проекта. Теги кеша `projects` и `project-vremya-karery` обновлены; лендинг и публичная страница кейса показывают новые файлы.
 
 **Файлы:** `packages/web/public/images/vremya-karery-home-fixed.png`, `packages/web/public/images/vremya-karery-overview-fixed.png`.
+
+**Дополнение:** по просьбе Павла значение поля города заменено на «Москва» в обоих кадрах, а с главного кадра удалена кнопка «Профиль». Остальные элементы сохранены. Новые изображения опубликованы в Strapi, кеш проекта обновлён; лендинг и страница кейса проверены после успешного деплоя.
+
+**Новые файлы:** `packages/web/public/images/vremya-karery-home-moscow.png`, `packages/web/public/images/vremya-karery-overview-moscow.png`.
