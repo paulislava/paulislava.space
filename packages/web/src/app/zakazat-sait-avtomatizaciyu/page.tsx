@@ -41,7 +41,7 @@ export default async function BusinessLandingPage() {
   ];
   const moreWork = ['developers-sber-ru', 'giga-chat', 'bim-sebestoimost', 'nosmoke'].flatMap((slug) => { const project = bySlug.get(slug); return project ? [project] : []; });
 
-  return <LeadFlow><LandingMotion><main className={styles.landing}>
+  return <LeadFlow><LandingMotion><main className={styles.landing} data-business-landing>
     <section className={styles.hero} data-hero>
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}>Разработка для бизнеса</p>

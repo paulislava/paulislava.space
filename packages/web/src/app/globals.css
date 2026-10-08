@@ -26,6 +26,12 @@ body {
   overflow-x: hidden;
 }
 
+html:has([data-business-landing]),
+body:has([data-business-landing]) {
+  background-color: #fff;
+  color: #1d1d1f;
+}
+
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
@@ -52,3 +58,4 @@ section {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #0a0a0f; }
 ::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 3px; }
+html:has([data-business-landing])::-webkit-scrollbar-track { background: #fff; }

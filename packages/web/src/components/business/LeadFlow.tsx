@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { reachMetrikaGoal } from '@/lib/metrika';
 import styles from './LeadFlow.module.css';
@@ -91,10 +91,15 @@ export default function LeadFlow({ children }: { children: ReactNode }) {
     }
   }, [step, open]);
 
-  function openModal() {
+  const openModal = useCallback(() => {
     trigger.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setOpen(true);
-  }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('business-lead-open', openModal);
+    return () => window.removeEventListener('business-lead-open', openModal);
+  }, [openModal]);
 
   async function submitContact(value: string) {
     const leadToken = await sendLead(value);
