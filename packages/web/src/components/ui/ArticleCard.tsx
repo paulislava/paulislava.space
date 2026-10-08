@@ -21,6 +21,7 @@ export default function ArticleCard({ item, type }: ArticleCardProps) {
             src={cover}
             alt={item.title}
             fill
+            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 67vw, 40vw"
             className="object-cover opacity-70 group-hover:opacity-90 transition-opacity"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 to-transparent" />

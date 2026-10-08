@@ -18,6 +18,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             src={cover}
             alt={project.title}
             fill
+            sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
             className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/80 to-transparent" />

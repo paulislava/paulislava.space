@@ -11,6 +11,7 @@ function ParticleCanvas() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (window.matchMedia('(max-width: 639px), (prefers-reduced-motion: reduce)').matches) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -33,8 +34,19 @@ function ParticleCanvas() {
     }
 
     let animId: number;
+    let lastFrame = 0;
     function draw() {
       if (!ctx || !canvas) return;
+      if (document.hidden) {
+        animId = requestAnimationFrame(draw);
+        return;
+      }
+      const now = performance.now();
+      if (now - lastFrame < 33) {
+        animId = requestAnimationFrame(draw);
+        return;
+      }
+      lastFrame = now;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (const p of particles) {
         p.x += p.vx;
@@ -117,8 +129,8 @@ export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-[#0a0a0f]">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6366f1]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#06b6d4]/10 rounded-full blur-[120px]" />
+        <div className="hidden sm:block absolute top-1/4 left-1/4 w-96 h-96 bg-[#6366f1]/10 rounded-full blur-[120px]" />
+        <div className="hidden sm:block absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#06b6d4]/10 rounded-full blur-[120px]" />
       </div>
 
       <ParticleCanvas />
