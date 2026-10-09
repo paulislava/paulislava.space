@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import NavBar from '@/components/ui/NavBar';
+import LeadFlow from '@/components/business/LeadFlow';
 import Contact from '@/components/sections/Contact';
 import YandexMetrika from '@/components/analytics/YandexMetrika';
 import AdminToolbar from '@/components/admin/AdminToolbar';
@@ -74,9 +75,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <YandexMetrika />
-        <NavBar />
-        {children}
-        <Contact />
+        <LeadFlow>
+          <NavBar />
+          {children}
+          <Contact />
+        </LeadFlow>
         <AdminToolbar />
       </body>
     </html>

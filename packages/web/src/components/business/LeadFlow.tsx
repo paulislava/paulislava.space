@@ -11,7 +11,7 @@ const LeadContext = createContext<LeadContextValue>({ open: () => {}, submitCont
 async function sendLead(contact: string) {
   const response = await fetch('/api/contact', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ intent: 'lead', contact }),
+    body: JSON.stringify({ intent: 'lead', contact, source: window.location.pathname }),
   });
   const result = await response.json();
   if (!response.ok) throw new Error(result.error || 'Не удалось отправить. Попробуйте ещё раз.');
@@ -93,8 +93,15 @@ export default function LeadFlow({ children }: { children: ReactNode }) {
 
   const openModal = useCallback(() => {
     trigger.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    if (step === 'done') {
+      setStep('contact');
+      setContact('');
+      setToken('');
+      setDetails({ name: '', company: '', message: '', timing: '' });
+    }
+    setError('');
     setOpen(true);
-  }, []);
+  }, [step]);
 
   useEffect(() => {
     window.addEventListener('business-lead-open', openModal);
@@ -108,7 +115,7 @@ export default function LeadFlow({ children }: { children: ReactNode }) {
     setToken(leadToken);
     setStep('details');
     setOpen(true);
-    reachMetrikaGoal('contact_form_success', { source: 'business_landing' });
+    reachMetrikaGoal('contact_form_success', { source: window.location.pathname === '/' ? 'homepage' : 'business_landing' });
   }
 
   async function submit(event: FormEvent) {

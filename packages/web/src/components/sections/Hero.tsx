@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { LeadButton } from '@/components/business/LeadFlow';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
@@ -157,23 +157,16 @@ export default function Hero() {
         </p>
 
         <div ref={ctaRef} className="flex gap-4 justify-center flex-wrap">
-          <Link
-            href="/zakazat-sait-avtomatizaciyu"
+          <LeadButton
             className="px-6 py-3 rounded-xl font-semibold text-sm bg-[#6366f1] text-white hover:bg-[#4f46e5] transition-colors duration-200"
           >
-            Заказать разработку
-          </Link>
+            Обсудить проект
+          </LeadButton>
           <a
             href="#projects"
             className="px-6 py-3 rounded-xl font-semibold text-sm glass text-[#f1f5f9] hover:border-[#6366f1]/50 transition-colors duration-200"
           >
             Кейсы
-          </a>
-          <a
-            href="#contact"
-            className="px-6 py-3 rounded-xl font-semibold text-sm glass text-[#f1f5f9] hover:border-[#6366f1]/50 transition-colors duration-200"
-          >
-            Связаться
           </a>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { getAllProjects, getProjectBySlug, getTechnologies, getProjectTags, mediaUrl } from '@/lib/strapi';
 import Skills from '@/components/sections/Skills';
 import LandingMotion from '@/components/business/LandingMotion';
-import LeadFlow, { LeadButton, LeadInlineForm } from '@/components/business/LeadFlow';
+import { LeadButton, LeadInlineForm } from '@/components/business/LeadFlow';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default async function BusinessLandingPage() {
   ];
   const moreWork = ['developers-sber-ru', 'giga-chat', 'bim-sebestoimost', 'nosmoke'].flatMap((slug) => { const project = bySlug.get(slug); return project ? [project] : []; });
 
-  return <LeadFlow><LandingMotion><main className={styles.landing} data-business-landing>
+  return <LandingMotion><main className={styles.landing} data-business-landing>
     <section className={styles.hero} data-hero>
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}>Разработка для бизнеса</p>
@@ -102,5 +102,5 @@ export default async function BusinessLandingPage() {
     <Skills technologies={technologies} tags={tags} appearance="light" />
     <LeadInlineForm />
     <footer className={styles.footer}><Link href="/">Павел Кондратов</Link><p>Сайты, сервисы и автоматизация</p><Link href="/projects">Портфолио</Link></footer>
-  </main></LandingMotion></LeadFlow>;
+  </main></LandingMotion>;
 }

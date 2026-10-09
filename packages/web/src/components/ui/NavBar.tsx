@@ -11,12 +11,10 @@ const links = [
   { href: '/projects', label: 'Проекты' },
   { href: '/articles', label: 'Статьи' },
   { href: '/series', label: 'Циклы' },
-  { href: '/#contact', label: 'Контакт' },
-  { href: '/zakazat-sait-avtomatizaciyu', label: 'Заказать разработку' },
 ];
 
-function LeadIcon() {
-  return <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="w-4 h-4"><path d="M4.5 15.5 15 5M6 5h9v9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
+function PhoneIcon() {
+  return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" className="w-5 h-5"><path d="M4.5 3.5h3.2l1.5 4.2-1.8 1.5a16 16 0 0 0 7.4 7.4l1.5-1.8 4.2 1.5v3.2c0 .8-.7 1.5-1.5 1.5A16.5 16.5 0 0 1 3 5c0-.8.7-1.5 1.5-1.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 }
 
 export default function NavBar() {
@@ -57,7 +55,7 @@ export default function NavBar() {
     >
       <div className="max-w-6xl mx-auto py-4 flex items-center justify-between">
         <Link href="/" className={business ? 'text-base font-semibold text-[#1d1d1f] tracking-tight' : 'font-mono text-sm font-bold gradient-text'}>
-          {business ? 'Павел Кондратов' : 'Pavel Kondratov | @paulislava'}
+          {business ? 'Павел Кондратов' : <><span>Pavel Kondratov</span><span className="hidden md:inline"> | @paulislava</span></>}
         </Link>
 
         <div className="flex items-center gap-4">
@@ -73,8 +71,8 @@ export default function NavBar() {
               </li>
             ))}
           </ul>
-          {business && <button type="button" onClick={openBusinessLead} className="hidden md:inline-flex items-center gap-2 rounded-full bg-[#0071e3] px-4 py-2 text-sm font-medium text-white hover:bg-[#0077ed] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]">Обсудить проект <LeadIcon /></button>}
-          {business && <button type="button" onClick={openBusinessLead} aria-label="Обсудить проект" className="md:hidden grid place-items-center rounded-full bg-[#0071e3] size-9 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]"><LeadIcon /></button>}
+          <button type="button" onClick={openBusinessLead} className={business ? 'hidden md:inline-flex items-center rounded-full bg-[#0071e3] px-4 py-2 text-sm font-medium text-white hover:bg-[#0077ed] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]' : 'hidden md:inline-flex items-center rounded-full bg-[#6366f1] px-4 py-2 text-sm font-medium text-white hover:bg-[#4f46e5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6366f1]'}>Обсудить проект</button>
+          <button type="button" onClick={openBusinessLead} aria-label="Обсудить проект" className={business ? 'md:hidden grid place-items-center rounded-full bg-[#0071e3] size-9 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]' : 'md:hidden grid place-items-center rounded-full bg-[#6366f1] size-9 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6366f1]'}><PhoneIcon /></button>
           <button
             type="button"
             aria-label={mobileOpen ? 'Закрыть меню' : 'Открыть меню'}

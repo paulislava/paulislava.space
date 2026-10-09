@@ -28,6 +28,23 @@ function readToken(token: string): { id: string; contact: string } | null {
   } catch { return null; }
 }
 
+async function sendToSupportBot({ id, contact, text, name }: { id: string; contact: string; text: string; name?: string }) {
+  const key = process.env.SUPPORT_SERVICE_KEY;
+  if (!key) throw new Error('Support bot key is missing');
+  const userId = createHmac('sha256', key).update(contact.toLowerCase()).digest('hex');
+  const response = await fetch('https://tv.paulislava.space/support-bot/v1/messages', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${key}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      service: 'PaulIsLavaSpace', userId, channel: 'app', requestId: id,
+      text, name, info: { 'Контакт': contact, 'Источник': 'paulislava.space' },
+      ...(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) ? { email: contact } : {}),
+    }),
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) throw new Error(`Support bot returned ${response.status}`);
+}
+
 export async function POST(req: NextRequest) {
   let body: Record<string, unknown>;
   try {
@@ -39,7 +56,7 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'Не удалось прочитать заявку.' }, { status: 400 });
   }
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.SUPPORT_SERVICE_KEY) {
     return NextResponse.json({ error: 'Отправка временно недоступна. Напишите на i@paulislava.space.' }, { status: 503 });
   }
 
@@ -47,6 +64,8 @@ export async function POST(req: NextRequest) {
   let subject: string;
   let text: string;
   let token: string | undefined;
+  let supportId: string;
+  let supportName: string | undefined;
   if (body.intent === 'details') {
     const lead = readToken(field(body.token, 2000));
     if (!lead) return NextResponse.json({ error: 'Срок добавления подробностей истёк. Контакт уже отправлен — расскажите о задаче при общении.' }, { status: 400 });
@@ -58,6 +77,8 @@ export async function POST(req: NextRequest) {
     if (![name, company, message, timing].some(Boolean)) return NextResponse.json({ error: 'Добавьте хотя бы одну подробность.' }, { status: 400 });
     subject = `[paulislava.space] Подробности проекта ${lead.id}`;
     text = `Заявка: ${lead.id}\nКонтакт: ${contact}\nИмя: ${name || '—'}\nКомпания: ${company || '—'}\nСрок и бюджет: ${timing || '—'}\n\n${message}`;
+    supportId = `${lead.id}:details`;
+    supportName = name || undefined;
   } else {
     if (!validContact(contact)) return NextResponse.json({ error: 'Укажите телефон, Telegram (@username) или email.' }, { status: 400 });
     if (body.intent === 'lead') {
@@ -65,13 +86,17 @@ export async function POST(req: NextRequest) {
       const payload = Buffer.from(JSON.stringify({ id, contact, time: Date.now() })).toString('base64url');
       token = `${payload}.${sign(payload)}`;
       subject = `[paulislava.space] Новый проект ${id}`;
-      text = `Заявка с лендинга для компаний\nЗаявка: ${id}\nКонтакт: ${contact}\n\nПосетитель просит связаться для обсуждения проекта. Подробности могут прийти отдельным письмом с тем же номером.`;
+      const source = body.source === '/' ? 'главной страницы' : 'страницы разработки для компаний';
+      text = `Заявка с ${source}\nЗаявка: ${id}\nКонтакт: ${contact}\n\nПосетитель просит связаться для обсуждения проекта. Подробности могут прийти отдельным письмом с тем же номером.`;
+      supportId = id;
     } else {
       const name = field(body.name, 100);
       const message = field(body.message, 5000);
       if (!name || !message) return NextResponse.json({ error: 'Укажите имя и сообщение.' }, { status: 400 });
       subject = '[paulislava.space] Новое сообщение';
       text = `Имя: ${name}\nКонтакт: ${contact}\n\n${message}`;
+      supportId = randomUUID();
+      supportName = name;
     }
   }
   const transporter = nodemailer.createTransport({
@@ -91,6 +116,12 @@ export async function POST(req: NextRequest) {
   } catch {
     console.error('Contact email delivery failed');
     return NextResponse.json({ error: 'Не удалось отправить. Попробуйте ещё раз или напишите на i@paulislava.space.' }, { status: 502 });
+  }
+  try {
+    await sendToSupportBot({ id: supportId, contact, text, name: supportName });
+  } catch (error) {
+    console.error('Support bot delivery failed', error instanceof Error ? error.message : 'unknown error');
+    return NextResponse.json({ error: 'Письмо отправлено, но уведомление в поддержку не доставлено. Попробуйте ещё раз.' }, { status: 502 });
   }
   return NextResponse.json({ ok: true, ...(token ? { token } : {}) });
 }
