@@ -1,5 +1,11 @@
 # Features
 
+## Единая форма заявок и support-bot (2026-10-10)
+
+Кнопки «Обсудить проект» на главной и в шапке открывают общую модальную форму. Заявки и подробности отправляются на почту и в `@paulislava/support-bot`.
+
+Подробнее: [homepage-lead-support-bot.md](features/homepage-lead-support-bot.md)
+
 ## RSS-лента (2026-06-29)
 
 Три RSS 2.0 фида через Next.js Route Handlers:
