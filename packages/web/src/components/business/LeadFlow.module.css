@@ -1,4 +1,5 @@
-.dialog { padding: 0; border: 0; background: transparent; color: #1d1d1f; width: min(590px, calc(100% - 32px)); max-height: calc(100dvh - 40px); margin: auto; border-radius: 28px; overflow-y: auto; overscroll-behavior: contain; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.dialog { padding: 0; border: 0; background: transparent; color: #1d1d1f; width: min(590px, calc(100% - 32px)); max-height: calc(100dvh - 40px); margin: auto; border-radius: 28px; overflow-y: auto; scrollbar-width: none; overscroll-behavior: contain; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.dialog::-webkit-scrollbar { display: none; }
 .dialog::backdrop { background: #10141b66; backdrop-filter: blur(12px); }
 .panel { position: relative; background: #fff; padding: 48px; border-radius: 28px; }
 .close { position: absolute; right: 17px; top: 17px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #e8e8ed; color: #55555c; font-size: 25px; line-height: 1; cursor: pointer; }

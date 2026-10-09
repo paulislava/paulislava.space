@@ -1,0 +1,17 @@
+.page { min-height: 100dvh; padding: 148px 24px 32px; display: flex; flex-direction: column; justify-content: center; background: #0a0a0f; color: #f1f5f9; }
+.inner { width: min(1120px, 100%); margin: auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 440px); align-items: center; gap: clamp(44px, 8vw, 128px); }
+.copy { min-width: 0; }
+.kicker { display: flex; align-items: center; gap: 10px; color: #a5a7bc; font: 500 12px/1.4 var(--font-geist-mono), monospace; letter-spacing: .16em; text-transform: uppercase; }
+.kicker span { width: 7px; height: 7px; border-radius: 50%; background: #6366f1; box-shadow: 0 0 16px #6366f1; }
+.number { margin: 12px 0 -22px -8px; color: transparent; font-size: clamp(120px, 16vw, 220px); font-weight: 750; letter-spacing: -.115em; line-height: 1; -webkit-text-stroke: 1px #6366f16b; user-select: none; }
+.copy h1 { position: relative; font-size: clamp(38px, 4.5vw, 62px); line-height: 1.04; letter-spacing: -.055em; font-weight: 650; }
+.description { max-width: 490px; margin-top: 22px; color: #a5a7bc; font-size: clamp(16px, 1.45vw, 18px); line-height: 1.65; }
+.links { display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; margin-top: 34px; }
+.links a { color: #f1f5f9; font-size: 14px; font-weight: 600; text-decoration: none; }
+.links a:first-child { display: inline-flex; gap: 16px; align-items: center; border-bottom: 1px solid #6366f1; padding-bottom: 9px; }
+.links a:last-child { color: #a5a7bc; }
+.links a:hover, .links a:focus-visible { color: #a5a7ff; }
+.footer { display: flex; justify-content: space-between; gap: 20px; width: min(1120px, 100%); margin: 66px auto 0; color: #6f7282; font: 12px/1.5 var(--font-geist-mono), monospace; }
+:global(body:has([data-not-found]) #contact) { display: none; }
+@media (max-width: 800px) { .page { padding-top: 118px; } .inner { grid-template-columns: 1fr; gap: 52px; max-width: 580px; } .number { font-size: clamp(114px, 29vw, 190px); } .footer { max-width: 580px; margin-top: 48px; } }
+@media (max-width: 480px) { .page { padding: 104px 20px 24px; } .number { margin-bottom: -12px; } .copy h1 { font-size: 42px; } .description { margin-top: 18px; } .links { margin-top: 28px; } .footer span { display: none; } }

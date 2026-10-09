@@ -86,8 +86,8 @@ export async function POST(req: NextRequest) {
       const payload = Buffer.from(JSON.stringify({ id, contact, time: Date.now() })).toString('base64url');
       token = `${payload}.${sign(payload)}`;
       subject = `[paulislava.space] Новый проект ${id}`;
-      const source = body.source === '/' ? 'главной страницы' : 'страницы разработки для компаний';
-      text = `Заявка с ${source}\nЗаявка: ${id}\nКонтакт: ${contact}\n\nПосетитель просит связаться для обсуждения проекта. Подробности могут прийти отдельным письмом с тем же номером.`;
+      const source = body.source === '/' ? 'с главной страницы' : body.source === '/zakazat-sait-avtomatizaciyu' ? 'со страницы разработки для компаний' : 'со страницы сайта';
+      text = `Заявка ${source}\nЗаявка: ${id}\nКонтакт: ${contact}\n\nПосетитель просит связаться для обсуждения проекта. Подробности могут прийти отдельным письмом с тем же номером.`;
       supportId = id;
     } else {
       const name = field(body.name, 100);

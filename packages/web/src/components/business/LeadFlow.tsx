@@ -8,6 +8,10 @@ import styles from './LeadFlow.module.css';
 type LeadContextValue = { open: () => void; submitContact: (contact: string) => Promise<void> };
 const LeadContext = createContext<LeadContextValue>({ open: () => {}, submitContact: async () => {} });
 
+export function useLeadContact() {
+  return useContext(LeadContext).submitContact;
+}
+
 async function sendLead(contact: string) {
   const response = await fetch('/api/contact', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
