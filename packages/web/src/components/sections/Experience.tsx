@@ -36,7 +36,10 @@ export default function Experience({ workExperiences }: ExperienceProps) {
         </div>
 
         <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-[#6366f1] via-[#06b6d4] to-transparent" />
+          <div
+            className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-[#6366f1] via-[#06b6d4] to-transparent"
+            style={{ WebkitMaskImage: 'linear-gradient(to bottom, transparent 0px, black 72px)', maskImage: 'linear-gradient(to bottom, transparent 0px, black 72px)' }}
+          />
 
           <div className="space-y-8 pl-12">
             {workExperiences.filter((exp) => !['beznomera', 'kursoved.pro', 'kursoved'].includes(exp.company.trim().toLowerCase())).map((exp) => {
