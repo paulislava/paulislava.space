@@ -152,8 +152,8 @@ export default function Hero() {
         </p>
 
         <p className="text-[#94a3b8] text-base max-w-xl mx-auto mb-10">
-          Инженерные кейсы, frontend-архитектура, Next.js/React, backend/platform work и AI-агенты.<br />
-          Показываю, как решаю сложные задачи и довожу их до результата.
+          Архитектура платформ и сервисов, мобильные приложения, быстрые сайты на Next.JS и AI-автоматизации.<br />
+          Показываю, как решаю сложные задачи и их результаты.
         </p>
 
         <div ref={ctaRef} className="flex gap-4 justify-center flex-wrap">
