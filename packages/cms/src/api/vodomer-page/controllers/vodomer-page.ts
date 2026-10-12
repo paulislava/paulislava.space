@@ -6,6 +6,7 @@ export default factories.createCoreController('api::vodomer-page.vodomer-page', 
       status: 'published',
       populate: { Sections: { on: {
         'vodomer.hero-section': { populate: ['config', 'labels'] },
+        'vodomer.map-section': { populate: ['config'] },
         'vodomer.promotion-section': { populate: ['config'] },
         'vodomer.pricing-section': { populate: { config: true, cards: { populate: ['rows'] } } },
         'vodomer.services-section': { populate: { config: true, entries: { populate: ['image'] } } },

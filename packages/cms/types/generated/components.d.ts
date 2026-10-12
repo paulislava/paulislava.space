@@ -142,12 +142,53 @@ export interface VodomerHeroSection extends Struct.ComponentSchema {
   attributes: {
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
     eyebrow: Schema.Attribute.String;
+    eyebrowAnchor: Schema.Attribute.String;
     labels: Schema.Attribute.Component<'vodomer.category-label', true>;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
     note: Schema.Attribute.String;
     text: Schema.Attribute.Text;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerMapSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_map_section';
+  info: {
+    displayName: '\u041C\u044B \u043D\u0430 \u043A\u0430\u0440\u0442\u0435';
+  };
+  attributes: {
+    address: Schema.Attribute.String;
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    latitude: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 90;
+          min: -90;
+        },
+        number
+      >;
+    linkLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 \u042F\u043D\u0434\u0435\u043A\u0441 \u041A\u0430\u0440\u0442\u0430\u0445'>;
+    longitude: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 180;
+          min: -180;
+        },
+        number
+      >;
+    title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'\u041C\u044B \u043D\u0430 \u043A\u0430\u0440\u0442\u0435'>;
+    zoom: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 19;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<16>;
   };
 }
 
@@ -384,6 +425,7 @@ declare module '@strapi/strapi' {
       'vodomer.form-field': VodomerFormField;
       'vodomer.form-section': VodomerFormSection;
       'vodomer.hero-section': VodomerHeroSection;
+      'vodomer.map-section': VodomerMapSection;
       'vodomer.price-card': VodomerPriceCard;
       'vodomer.price-row': VodomerPriceRow;
       'vodomer.pricing-section': VodomerPricingSection;

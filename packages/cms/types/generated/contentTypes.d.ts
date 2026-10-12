@@ -835,6 +835,7 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
         'sections.mdx-section',
         'vodomer.form-section',
         'vodomer.pricing-section',
+        'vodomer.map-section',
       ]
     >;
     updatedAt: Schema.Attribute.DateTime;

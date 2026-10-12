@@ -32,6 +32,9 @@
       "type": "component",
       "repeatable": true,
       "component": "vodomer.category-label"
+    },
+    "eyebrowAnchor": {
+      "type": "string"
     }
   }
 }

@@ -45,7 +45,8 @@
         "vodomer.faq-section",
         "sections.mdx-section",
         "vodomer.form-section",
-        "vodomer.pricing-section"
+        "vodomer.pricing-section",
+        "vodomer.map-section"
       ]
     }
   }
