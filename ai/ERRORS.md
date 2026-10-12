@@ -99,3 +99,7 @@
 **Решение:** полоса скрыта стилями Firefox и WebKit, сама прокрутка сохранена. На production проверены открытие окна, `overflow-y: auto` и `scrollbar-width: none`.
 
 **Файл:** `packages/web/src/components/business/LeadFlow.module.css`.
+
+## Округление координат карты (2026-10-13)
+
+Strapi decimal создавал decimal(10,2), округляя координаты до 56.84/60.57 и смещая отметку дома. Поля latitude/longitude компонента vodomer.map-section заменены на float (double в БД); точные координаты опубликованы повторно. Production API и карта проверены после штатного деплоя CMS. Файлы CMS: packages/cms/src/components/vodomer/map-section.json и types/generated/components.d.ts; сайт: src/lib/location.ts.

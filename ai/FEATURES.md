@@ -228,3 +228,7 @@ JS, GIF и embedHtml выравниваются влево без внутрен
 ## Водомер: вода и тепло (2026-10-13)
 
 В Sections главной добавлена pricing-section (config + повторяемые price-card/price-row); hero получил category-label, акция — regularPrice и ссылку на тепло, service-item — редактируемое изображение. Публичный vodomer-page-render заполняет вложенные cards.rows и entries.image. Типы сгенерированы, сборка CMS и CI/CD 38296150509 успешны. Контент опубликован через Document Service с резервной копией /root/vodomer-content-backups. Полная документация и миграционный CLI: репозиторий vodomer, ai/features/water-heat-pricing.md и scripts/publish-water-heat.cjs.
+
+## Карта Водомер Урал (2026-10-13)
+
+Добавлен vodomer.map-section с config, адресом, координатами float, zoom и подписью ссылки; подключён в Sections и публичный populate. Hero получил eyebrowAnchor. Опубликован адрес Екатеринбург, ул. Мельникова, 3; CI 38303242135 успешен.
