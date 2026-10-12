@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_vodomer_category_label",
+  "info": {
+    "displayName": "Категория: вода / тепло"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "tone": {
+      "type": "enumeration",
+      "enum": [
+        "water",
+        "heat"
+      ],
+      "default": "water"
+    },
+    "anchorId": {
+      "type": "string"
+    }
+  }
+}

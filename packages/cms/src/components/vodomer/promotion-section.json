@@ -48,6 +48,17 @@
     "mdx": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"
+    },
+    "regularPrice": {
+      "type": "integer",
+      "min": 0,
+      "default": 750
+    },
+    "secondaryLinkLabel": {
+      "type": "string"
+    },
+    "secondaryLinkAnchor": {
+      "type": "string"
     }
   }
 }

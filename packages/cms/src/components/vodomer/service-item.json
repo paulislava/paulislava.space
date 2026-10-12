@@ -28,6 +28,13 @@
     "price": {
       "type": "integer",
       "min": 0
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

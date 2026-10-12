@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_vodomer_price_card",
+  "info": {
+    "displayName": "Карточка цен"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "tone": {
+      "type": "enumeration",
+      "enum": [
+        "water",
+        "heat"
+      ],
+      "default": "water"
+    },
+    "anchorId": {
+      "type": "string"
+    },
+    "actionLabel": {
+      "type": "string"
+    },
+    "service": {
+      "type": "string"
+    },
+    "rows": {
+      "type": "component",
+      "repeatable": true,
+      "component": "vodomer.price-row"
+    }
+  }
+}

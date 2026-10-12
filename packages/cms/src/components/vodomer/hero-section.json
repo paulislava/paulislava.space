@@ -27,6 +27,11 @@
     "mdx": {
       "type": "customField",
       "customField": "plugin::mdx.mdx"
+    },
+    "labels": {
+      "type": "component",
+      "repeatable": true,
+      "component": "vodomer.category-label"
     }
   }
 }

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_vodomer_pricing_section",
+  "info": {
+    "displayName": "Цены: вода и тепло"
+  },
+  "options": {},
+  "attributes": {
+    "config": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.section-config"
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "vodomer.price-card"
+    }
+  }
+}

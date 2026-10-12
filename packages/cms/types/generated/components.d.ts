@@ -41,6 +41,19 @@ export interface SectionsMdxSection extends Struct.ComponentSchema {
   };
 }
 
+export interface VodomerCategoryLabel extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_category_label';
+  info: {
+    displayName: '\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u044F: \u0432\u043E\u0434\u0430 / \u0442\u0435\u043F\u043B\u043E';
+  };
+  attributes: {
+    anchorId: Schema.Attribute.String;
+    label: Schema.Attribute.String;
+    tone: Schema.Attribute.Enumeration<['water', 'heat']> &
+      Schema.Attribute.DefaultTo<'water'>;
+  };
+}
+
 export interface VodomerFaqItem extends Struct.ComponentSchema {
   collectionName: 'components_vodomer_faq_item';
   info: {
@@ -129,11 +142,57 @@ export interface VodomerHeroSection extends Struct.ComponentSchema {
   attributes: {
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
     eyebrow: Schema.Attribute.String;
+    labels: Schema.Attribute.Component<'vodomer.category-label', true>;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
     note: Schema.Attribute.String;
     text: Schema.Attribute.Text;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface VodomerPriceCard extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_price_card';
+  info: {
+    displayName: '\u041A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u0446\u0435\u043D';
+  };
+  attributes: {
+    actionLabel: Schema.Attribute.String;
+    anchorId: Schema.Attribute.String;
+    rows: Schema.Attribute.Component<'vodomer.price-row', true>;
+    service: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    tone: Schema.Attribute.Enumeration<['water', 'heat']> &
+      Schema.Attribute.DefaultTo<'water'>;
+  };
+}
+
+export interface VodomerPriceRow extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_price_row';
+  info: {
+    displayName: '\u0421\u0442\u0440\u043E\u043A\u0430 \u043F\u0440\u0430\u0439\u0441\u0430';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    price: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    usePromotion: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+  };
+}
+
+export interface VodomerPricingSection extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_pricing_section';
+  info: {
+    displayName: '\u0426\u0435\u043D\u044B: \u0432\u043E\u0434\u0430 \u0438 \u0442\u0435\u043F\u043B\u043E';
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'vodomer.price-card', true>;
+    config: Schema.Attribute.Component<'vodomer.section-config', false>;
   };
 }
 
@@ -185,6 +244,14 @@ export interface VodomerPromotionSection extends Struct.ComponentSchema {
     endsAt: Schema.Attribute.DateTime;
     mdx: Schema.Attribute.RichText &
       Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
+    regularPrice: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<750>;
     resetDays: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
         {
@@ -193,6 +260,8 @@ export interface VodomerPromotionSection extends Struct.ComponentSchema {
         number
       > &
       Schema.Attribute.DefaultTo<2>;
+    secondaryLinkAnchor: Schema.Attribute.String;
+    secondaryLinkLabel: Schema.Attribute.String;
     text: Schema.Attribute.Text;
     timingMode: Schema.Attribute.Enumeration<['rolling', 'fixed']> &
       Schema.Attribute.DefaultTo<'rolling'>;
@@ -248,6 +317,7 @@ export interface VodomerServiceItem extends Struct.ComponentSchema {
     description: Schema.Attribute.Text;
     icon: Schema.Attribute.Enumeration<['check', 'refresh', 'plus', 'gauge']> &
       Schema.Attribute.DefaultTo<'gauge'>;
+    image: Schema.Attribute.Media<'images'>;
     note: Schema.Attribute.String;
     price: Schema.Attribute.Integer &
       Schema.Attribute.SetMinMax<
@@ -308,11 +378,15 @@ declare module '@strapi/strapi' {
       'sections.faq-item': SectionsFaqItem;
       'sections.faq-section': SectionsFaqSection;
       'sections.mdx-section': SectionsMdxSection;
+      'vodomer.category-label': VodomerCategoryLabel;
       'vodomer.faq-item': VodomerFaqItem;
       'vodomer.faq-section': VodomerFaqSection;
       'vodomer.form-field': VodomerFormField;
       'vodomer.form-section': VodomerFormSection;
       'vodomer.hero-section': VodomerHeroSection;
+      'vodomer.price-card': VodomerPriceCard;
+      'vodomer.price-row': VodomerPriceRow;
+      'vodomer.pricing-section': VodomerPricingSection;
       'vodomer.process-section': VodomerProcessSection;
       'vodomer.process-step': VodomerProcessStep;
       'vodomer.promotion-section': VodomerPromotionSection;
