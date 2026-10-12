@@ -160,7 +160,7 @@ export interface VodomerMapSection extends Struct.ComponentSchema {
   attributes: {
     address: Schema.Attribute.String;
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
-    latitude: Schema.Attribute.Decimal &
+    latitude: Schema.Attribute.Float &
       Schema.Attribute.SetMinMax<
         {
           max: 90;
@@ -170,7 +170,7 @@ export interface VodomerMapSection extends Struct.ComponentSchema {
       >;
     linkLabel: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432 \u042F\u043D\u0434\u0435\u043A\u0441 \u041A\u0430\u0440\u0442\u0430\u0445'>;
-    longitude: Schema.Attribute.Decimal &
+    longitude: Schema.Attribute.Float &
       Schema.Attribute.SetMinMax<
         {
           max: 180;
