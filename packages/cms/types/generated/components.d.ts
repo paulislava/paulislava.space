@@ -228,6 +228,8 @@ export interface VodomerPricingSection extends Struct.ComponentSchema {
   attributes: {
     cards: Schema.Attribute.Component<'vodomer.price-card', true>;
     config: Schema.Attribute.Component<'vodomer.section-config', false>;
+    mdx: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<'plugin::mdx.mdx'>;
   };
 }
 
