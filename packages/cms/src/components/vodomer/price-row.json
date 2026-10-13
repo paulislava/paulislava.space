@@ -9,8 +9,7 @@
       "type": "string"
     },
     "price": {
-      "type": "integer",
-      "min": 0
+      "type": "string"
     },
     "usePromotion": {
       "type": "boolean",

@@ -215,13 +215,7 @@ export interface VodomerPriceRow extends Struct.ComponentSchema {
   };
   attributes: {
     label: Schema.Attribute.String;
-    price: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 0;
-        },
-        number
-      >;
+    price: Schema.Attribute.String;
     usePromotion: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
   };
 }
