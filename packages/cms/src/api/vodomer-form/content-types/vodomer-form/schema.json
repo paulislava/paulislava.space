@@ -37,6 +37,12 @@
       "type": "component",
       "repeatable": true,
       "component": "vodomer.form-field"
+    },
+    "submitGoal": {
+      "type": "string"
+    },
+    "openGoal": {
+      "type": "string"
     }
   }
 }

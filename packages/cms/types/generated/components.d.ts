@@ -41,6 +41,20 @@ export interface SectionsMdxSection extends Struct.ComponentSchema {
   };
 }
 
+export interface VodomerAnalytics extends Struct.ComponentSchema {
+  collectionName: 'components_vodomer_analytics';
+  info: {
+    displayName: '\u041C\u0435\u0442\u0440\u0438\u043A\u0430 \u0438 \u0446\u0435\u043B\u0438';
+  };
+  attributes: {
+    counterId: Schema.Attribute.Integer;
+    emailClickGoal: Schema.Attribute.String;
+    mapClickGoal: Schema.Attribute.String;
+    phoneClickGoal: Schema.Attribute.String;
+    phoneMenuOpenGoal: Schema.Attribute.String;
+  };
+}
+
 export interface VodomerCategoryLabel extends Struct.ComponentSchema {
   collectionName: 'components_vodomer_category_label';
   info: {
@@ -415,6 +429,7 @@ declare module '@strapi/strapi' {
       'sections.faq-item': SectionsFaqItem;
       'sections.faq-section': SectionsFaqSection;
       'sections.mdx-section': SectionsMdxSection;
+      'vodomer.analytics': VodomerAnalytics;
       'vodomer.category-label': VodomerCategoryLabel;
       'vodomer.faq-item': VodomerFaqItem;
       'vodomer.faq-section': VodomerFaqSection;

@@ -4,7 +4,7 @@ export default factories.createCoreController('api::vodomer-page.vodomer-page', 
   async render(ctx) {
     const entries = await strapi.documents('api::vodomer-page.vodomer-page').findMany({
       status: 'published',
-      populate: { Sections: { on: {
+      populate: { analytics: true, Sections: { on: {
         'vodomer.hero-section': { populate: ['config', 'labels'] },
         'vodomer.map-section': { populate: ['config'] },
         'vodomer.promotion-section': { populate: ['config'] },

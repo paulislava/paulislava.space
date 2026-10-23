@@ -783,8 +783,10 @@ export interface ApiVodomerFormVodomerForm extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
+    openGoal: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    submitGoal: Schema.Attribute.String;
     submitLabel: Schema.Attribute.String;
     successMessage: Schema.Attribute.Text;
     title: Schema.Attribute.String;
@@ -806,6 +808,7 @@ export interface ApiVodomerPageVodomerPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    analytics: Schema.Attribute.Component<'vodomer.analytics', false>;
     companyName: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

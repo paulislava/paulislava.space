@@ -48,6 +48,11 @@
         "vodomer.pricing-section",
         "vodomer.map-section"
       ]
+    },
+    "analytics": {
+      "type": "component",
+      "repeatable": false,
+      "component": "vodomer.analytics"
     }
   }
 }

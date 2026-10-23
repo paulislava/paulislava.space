@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_vodomer_analytics",
+  "info": {
+    "displayName": "Метрика и цели"
+  },
+  "attributes": {
+    "counterId": {
+      "type": "integer"
+    },
+    "phoneMenuOpenGoal": {
+      "type": "string"
+    },
+    "phoneClickGoal": {
+      "type": "string"
+    },
+    "emailClickGoal": {
+      "type": "string"
+    },
+    "mapClickGoal": {
+      "type": "string"
+    }
+  }
+}
