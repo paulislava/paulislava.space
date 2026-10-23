@@ -1,3 +1,4 @@
+import JsonLd from '@/components/seo/JsonLd';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -5,7 +6,7 @@ import Link from 'next/link';
 import { getAllProjects, getProjectBySlug, mediaUrl } from '@/lib/strapi';
 import { resolvePageCover } from '@/lib/strapi-types';
 import ProjectCaseStudy from '@/components/projects/ProjectCaseStudy';
-import { absoluteUrl, projectJsonLd } from '@/lib/seo';
+import { absoluteUrl, projectPageJsonLd } from '@/lib/seo';
 import { DEFAULT_PROJECT_COVER } from '@/lib/default-covers';
 
 interface PageProps {
@@ -83,10 +84,7 @@ export default async function ProjectPage({ params }: PageProps) {
       </div>
 
       <ProjectCaseStudy project={project} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project)) }}
-      />
+      <JsonLd data={projectPageJsonLd(project)} />
     </main>
   );
 }

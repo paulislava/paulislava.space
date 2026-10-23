@@ -134,6 +134,7 @@ export interface ArticleCard {
   technologies: Technology[];
   publishedAt: string;
   createdAt: string;
+  updatedAt: string | null;
 }
 
 export interface Article {
@@ -150,6 +151,7 @@ export interface Article {
   technologies: Technology[];
   publishedAt: string;
   createdAt: string;
+  updatedAt: string | null;
   relatedArticles: ArticleCard[];
   series: ArticleSeries | null;
   orderInSeries: number | null;
@@ -169,6 +171,7 @@ export interface NewsItem {
   projects: Pick<Project, 'documentId' | 'title' | 'slug'>[];
   publishedAt: string;
   createdAt: string;
+  updatedAt: string | null;
 }
 
 export function mediaUrl(

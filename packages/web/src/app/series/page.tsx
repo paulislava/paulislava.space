@@ -1,3 +1,5 @@
+import JsonLd from '@/components/seo/JsonLd';
+import { collectionPageJsonLd } from '@/lib/seo';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -6,6 +8,7 @@ import { DEFAULT_ARTICLE_COVER } from '@/lib/default-covers';
 
 export const metadata: Metadata = {
   title: 'Циклы статей',
+  alternates: { canonical: '/series' },
   description: 'Серии статей, объединённые по темам',
 };
 
@@ -16,6 +19,7 @@ export default async function SeriesListPage() {
 
   return (
     <main className="pt-28 pb-20">
+      <JsonLd data={collectionPageJsonLd('/series', 'Циклы статей', seriesList.map(series => ({ name: series.title, url: `/series/${series.slug}` })))} />
       <div className="max-w-4xl mx-auto px-6">
         <h1 className="text-4xl md:text-5xl font-bold text-[#f1f5f9] mb-4">
           <span className="text-[#6366f1]">#</span> Циклы статей

@@ -1,3 +1,4 @@
+import JsonLd from '@/components/seo/JsonLd';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -11,7 +12,7 @@ import RelatedArticles from '@/components/ui/RelatedArticles';
 import RelatedProjects from '@/components/articles/RelatedProjects';
 import SeriesNavigation from '@/components/ui/SeriesNavigation';
 import { formatDate } from '@/lib/utils';
-import { absoluteUrl, articleJsonLd } from '@/lib/seo';
+import { absoluteUrl, articlePageJsonLd } from '@/lib/seo';
 import type { Project } from '@/lib/strapi-types';
 import { DEFAULT_ARTICLE_COVER } from '@/lib/default-covers';
 
@@ -61,6 +62,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: article.excerpt ?? 'Экспертная статья Павла Кондратова о frontend, архитектуре, platform engineering и AI.',
       images: [{ url: article.cover?.url ?? absoluteUrl(DEFAULT_ARTICLE_COVER) }],
       publishedTime: article.publishedAt,
+      modifiedTime: article.updatedAt ?? undefined,
       authors: ['Павел Кондратов'],
     },
   };
@@ -130,10 +132,7 @@ export default async function ArticlePage({ params }: PageProps) {
         <RelatedProjects projects={relatedProjects} />
         <RelatedArticles articles={relatedArticles} />
       </div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(article)) }}
-      />
+      <JsonLd data={articlePageJsonLd(article)} />
     </main>
   );
 }

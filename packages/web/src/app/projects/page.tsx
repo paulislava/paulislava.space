@@ -7,6 +7,7 @@ import ProjectsClient from './ProjectsClient';
 
 export const metadata: Metadata = {
   title: 'Проекты',
+  alternates: { canonical: '/projects' },
   description: 'Все проекты Павла Кондратова',
 };
 
@@ -20,7 +21,12 @@ function uniqueBy<T>(arr: T[], key: keyof T): T[] {
   });
 }
 
-export default async function ProjectsPage() {
+export default async function ProjectsPage({ searchParams }: {
+  searchParams: Promise<{ tag?: string | string[]; tech?: string | string[] }>;
+}) {
+  const filters = await searchParams;
+  const activeTag = (Array.isArray(filters.tag) ? filters.tag[0] : filters.tag) ?? null;
+  const activeTech = (Array.isArray(filters.tech) ? filters.tech[0] : filters.tech) ?? null;
   const projects = await getAllProjects();
 
   const allTags: Tag[] = uniqueBy(
@@ -46,7 +52,7 @@ export default async function ProjectsPage() {
         </div>
 
         <Suspense fallback={<div className="text-[#94a3b8]">Загрузка...</div>}>
-          <ProjectsClient projects={projects} allTags={allTags} allTechs={allTechs} />
+          <ProjectsClient projects={projects} allTags={allTags} allTechs={allTechs} activeTag={activeTag} activeTech={activeTech} />
         </Suspense>
       </div>
     </main>

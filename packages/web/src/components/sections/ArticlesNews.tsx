@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import JsonLd from '@/components/seo/JsonLd';
+import { itemListJsonLd } from '@/lib/seo';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y } from 'swiper/modules';
@@ -37,6 +39,7 @@ export default function ArticlesNews({ articles, news }: ArticlesNewsProps) {
 
   return (
     <section id="articles" className="py-24 overflow-hidden">
+      <JsonLd data={{ '@context': 'https://schema.org', ...itemListJsonLd('/', activeType === 'article' ? 'Статьи' : 'Новости', activeItems.map(item => ({ name: item.title, url: `/${activeType === 'article' ? 'articles' : 'news'}/${item.slug}` })), 'publications') }} />
       <div className="max-w-6xl px-6 mx-auto">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-3xl">

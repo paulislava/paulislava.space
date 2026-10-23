@@ -1,3 +1,5 @@
+import JsonLd from '@/components/seo/JsonLd';
+import { absoluteUrl, seriesPageJsonLd } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -23,6 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!series) return {};
   return {
     title: series.title,
+    alternates: { canonical: absoluteUrl(`/series/${series.slug}`) },
     description: series.description ?? `Цикл статей: ${series.title}`,
   };
 }
@@ -36,6 +39,7 @@ export default async function SeriesPage({ params }: PageProps) {
 
   return (
     <main className="pt-28 pb-20">
+      <JsonLd data={seriesPageJsonLd(series)} />
       <div className="max-w-4xl mx-auto px-6">
         <Link
           href="/series"

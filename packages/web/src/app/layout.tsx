@@ -7,6 +7,7 @@ import Contact from '@/components/sections/Contact';
 import YandexMetrika from '@/components/analytics/YandexMetrika';
 import AdminToolbar from '@/components/admin/AdminToolbar';
 import { personJsonLd, websiteJsonLd } from '@/lib/seo';
+import JsonLd from '@/components/seo/JsonLd';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
@@ -68,10 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru" className={`${geistSans.variable} ${geistMono.variable}`}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify([personJsonLd, websiteJsonLd]) }}
-        />
+        <JsonLd data={{ '@context': 'https://schema.org', '@graph': [personJsonLd, websiteJsonLd] }} />
       </head>
       <body>
         <YandexMetrika />

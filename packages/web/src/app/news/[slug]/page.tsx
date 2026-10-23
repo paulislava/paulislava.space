@@ -1,3 +1,4 @@
+import JsonLd from '@/components/seo/JsonLd';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -7,7 +8,7 @@ import { resolvePageCover } from '@/lib/strapi-types';
 import RichText from '@/components/ui/RichText';
 import Tag from '@/components/ui/Tag';
 import { formatDate } from '@/lib/utils';
-import { absoluteUrl, newsJsonLd } from '@/lib/seo';
+import { absoluteUrl, newsPageJsonLd } from '@/lib/seo';
 import { DEFAULT_NEWS_COVER } from '@/lib/default-covers';
 
 interface PageProps { params: Promise<{ slug: string }> }
@@ -35,7 +36,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: item.title,
       description: item.excerpt ?? undefined,
       images: [{ url: item.cover?.url ?? absoluteUrl(DEFAULT_NEWS_COVER) }],
-      publishedTime: item.publishedAt,
+      publishedTime: item.createdAt ?? item.publishedAt,
+      modifiedTime: item.updatedAt ?? undefined,
       authors: ['Павел Кондратов'],
     },
   };
@@ -87,10 +89,7 @@ export default async function NewsPage({ params }: PageProps) {
           <RichText blocks={item.content} />
         </div>
       </div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsJsonLd(item)) }}
-      />
+      <JsonLd data={newsPageJsonLd(item)} />
     </main>
   );
 }

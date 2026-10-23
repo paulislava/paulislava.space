@@ -1,3 +1,5 @@
+import JsonLd from '@/components/seo/JsonLd';
+import { homePageJsonLd } from '@/lib/seo';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Experience from '@/components/sections/Experience';
@@ -25,6 +27,7 @@ export default async function HomePage() {
 
   return (
     <main>
+      <JsonLd data={homePageJsonLd(featuredProjects)} />
       <Hero />
       <Projects projects={featuredProjects} />
       <ArticlesNews articles={articles} news={news} />

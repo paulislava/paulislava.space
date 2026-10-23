@@ -7,6 +7,7 @@ import ArticlesClient from './ArticlesClient';
 
 export const metadata: Metadata = {
   title: 'Статьи',
+  alternates: { canonical: '/articles' },
   description: 'Все статьи Павла Кондратова о разработке, архитектуре и технологиях',
 };
 
@@ -20,7 +21,12 @@ function uniqueBy<T>(arr: T[], key: keyof T): T[] {
   });
 }
 
-export default async function ArticlesPage() {
+export default async function ArticlesPage({ searchParams }: {
+  searchParams: Promise<{ tag?: string | string[]; tech?: string | string[] }>;
+}) {
+  const filters = await searchParams;
+  const activeTag = (Array.isArray(filters.tag) ? filters.tag[0] : filters.tag) ?? null;
+  const activeTech = (Array.isArray(filters.tech) ? filters.tech[0] : filters.tech) ?? null;
   const articles = await getAllArticles();
 
   const allTags: Tag[] = uniqueBy(
@@ -46,7 +52,7 @@ export default async function ArticlesPage() {
         </div>
 
         <Suspense fallback={<div className="text-[#94a3b8]">Загрузка...</div>}>
-          <ArticlesClient articles={articles} allTags={allTags} allTechs={allTechs} />
+          <ArticlesClient articles={articles} allTags={allTags} allTechs={allTechs} activeTag={activeTag} activeTech={activeTech} />
         </Suspense>
       </div>
     </main>

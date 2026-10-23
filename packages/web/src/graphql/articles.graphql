@@ -4,6 +4,7 @@ fragment ArticleCardFields on Article {
   slug
   excerpt
   createdAt
+  updatedAt
   publishedAt
   cover {
     ...MediaFields

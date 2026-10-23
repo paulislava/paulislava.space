@@ -1,5 +1,7 @@
 'use client';
 
+import JsonLd from '@/components/seo/JsonLd';
+import { collectionPageJsonLd, filterContent } from '@/lib/seo';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import Image from 'next/image';
@@ -12,14 +14,13 @@ interface Props {
   articles: Article[];
   allTags: Tag[];
   allTechs: Technology[];
+  activeTag: string | null;
+  activeTech: string | null;
 }
 
-export default function ArticlesClient({ articles, allTags, allTechs }: Props) {
+export default function ArticlesClient({ articles, allTags, allTechs, activeTag, activeTech }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  const activeTag = searchParams.get('tag');
-  const activeTech = searchParams.get('tech');
 
   const setFilter = useCallback(
     (key: 'tag' | 'tech', slug: string | null) => {
@@ -35,14 +36,11 @@ export default function ArticlesClient({ articles, allTags, allTechs }: Props) {
     [router, searchParams],
   );
 
-  const filtered = articles.filter((a) => {
-    if (activeTag && !a.tags.some((t) => t.slug === activeTag)) return false;
-    if (activeTech && !a.technologies.some((t) => t.slug === activeTech)) return false;
-    return true;
-  });
+  const filtered = filterContent(articles, activeTag, activeTech);
 
   return (
     <>
+      <JsonLd data={collectionPageJsonLd('/articles', 'Все статьи', filtered.map(item => ({ name: item.title, url: `/articles/${item.slug}` })))} />
       {/* Tag filters */}
       {allTags.length > 0 && (
         <div className="mb-4">

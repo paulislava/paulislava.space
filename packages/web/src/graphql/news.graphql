@@ -4,6 +4,7 @@ fragment NewsCardFields on News {
   slug
   excerpt
   createdAt
+  updatedAt
   publishedAt
   cover {
     ...MediaFields

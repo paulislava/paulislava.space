@@ -1,3 +1,5 @@
+import JsonLd from '@/components/seo/JsonLd';
+import { BUSINESS_SERVICES, businessPageJsonLd } from '@/lib/seo';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -36,13 +38,14 @@ export default async function BusinessLandingPage() {
   const careerImage = mediaUrl(career?.screenshots?.[0]) ?? imageFor('vremya-karery');
   const coursesImage = mediaUrl(courses?.screenshots?.[1]) ?? imageFor('kursoved-pro');
   const story = [
-    { title: 'Выделяться.\nЗапоминаться.', label: 'Сайты и лендинги', text: 'Покажите, чем сильна ваша компания. Помогу представить продукт, объяснить сложное и привести посетителя к обращению.', project: '100 лет УрФУ', slug: 'urfu-100', image: urfu, note: 'Интерактивный сайт с анимацией и историей университета.' },
-    { title: 'Больше,\nчем страница.', label: 'Сервисы и платформы', text: 'Поиск, личные кабинеты, роли и работа с данными. Когда бизнесу нужен собственный инструмент, разработаю его под ваших клиентов и команду.', project: 'Время карьеры', slug: 'vremya-karery', image: careerImage, note: 'Карьерный портал для студентов, выпускников и работодателей.' },
-    { title: 'Меньше рутины.\nБольше дела.', label: 'Автоматизация и интеграции', text: 'Заявки, документы, уведомления и передача данных между сервисами. Повторяющиеся операции можно поручить системе.', project: 'Курсовед', slug: 'kursoved-pro', image: coursesImage, note: 'Программы, роли, документы и контроль обучения в одной платформе.' },
+    { title: 'Выделяться.\nЗапоминаться.', label: BUSINESS_SERVICES[0].name, text: BUSINESS_SERVICES[0].description, project: '100 лет УрФУ', slug: 'urfu-100', image: urfu, note: 'Интерактивный сайт с анимацией и историей университета.' },
+    { title: 'Больше,\nчем страница.', label: BUSINESS_SERVICES[1].name, text: BUSINESS_SERVICES[1].description, project: 'Время карьеры', slug: 'vremya-karery', image: careerImage, note: 'Карьерный портал для студентов, выпускников и работодателей.' },
+    { title: 'Меньше рутины.\nБольше дела.', label: BUSINESS_SERVICES[2].name, text: BUSINESS_SERVICES[2].description, project: 'Курсовед', slug: 'kursoved-pro', image: coursesImage, note: 'Программы, роли, документы и контроль обучения в одной платформе.' },
   ];
   const moreWork = ['developers-sber-ru', 'giga-chat', 'bim-sebestoimost', 'nosmoke'].flatMap((slug) => { const project = bySlug.get(slug); return project ? [project] : []; });
 
   return <LandingMotion><main className={styles.landing} data-business-landing>
+    <JsonLd data={businessPageJsonLd()} />
     <section className={styles.hero} data-hero>
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}>Разработка для бизнеса</p>
