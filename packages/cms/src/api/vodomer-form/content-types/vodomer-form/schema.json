@@ -43,6 +43,9 @@
     },
     "openGoal": {
       "type": "string"
+    },
+    "recipientEmail": {
+      "type": "email"
     }
   }
 }

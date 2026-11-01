@@ -785,6 +785,7 @@ export interface ApiVodomerFormVodomerForm extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     openGoal: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    recipientEmail: Schema.Attribute.Email;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     submitGoal: Schema.Attribute.String;
     submitLabel: Schema.Attribute.String;
