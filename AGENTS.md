@@ -37,3 +37,9 @@ CMS использует отдельную ограниченную S3-роль
 Глобальный MCP `aws-s3` подключён в Codex и Claude на Mac и ПК. Код Mac: `~/.local/share/paulislava-s3-mcp`; ПК: `E:\Services\PaulislavaS3\mcp`. Mac использует HTTPS/FRP, ПК — loopback; wrapper `launch.mjs --local` выбирает LAN, `--pc` — loopback. По явной просьбе Павла MCP использует административный ключ. Файлы доступа: Mac `~/.config/paulislava-s3/access.json` (0600), ПК `E:\Services\PaulislavaS3\config\admin-access.json` (закрытый ACL). Значения не выводить и не коммитить; в MCP-конфигах хранить только путь к wrapper/файлу.
 
 Описание, проверки и управление: [ai/features/s3-windows-reserve.md](ai/features/s3-windows-reserve.md). Скрипты: `scripts/s3-reserve/`. Бэкапы CMS и остановленного S3 сохраняются на E, не удалять без разрешения.
+
+## Сайт в РЕЗЕРВЕ (2026-11-17)
+
+`paulislava.space` работает на ПК: `PaulislavaWeb` и `PaulislavaWebFRP`, WSL2 и данные в `E:\Services\PaulislavaWeb`, локальный порт 13000, FRP loopback VPN-сервера 24008. `/proff/` обслуживают отдельные `PaulislavaProff` и `PaulislavaProffFRP`, данные в `E:\Services\PaulislavaProff`, локальный порт 13001, FRP 24009. Публичный TLS и SNI завершаются на VPN-сервере. Автодеплой на ПК не настроен; старый deploy Web допускается только при `WEB_DEPLOY_TARGET=legacy`. Перед push проверять новый дамп CMS. Исходную резервную копию не изменять.
+
+Оригиналы старого S3 и таблица `user_proff.accounts` в доступной копии не найдены: изображения главной временно обслуживаются восстановленным Next image cache, вход в Proff недоступен. Не считать кеш резервом оригиналов. Подробнее: [ai/features/web-windows-reserve.md](ai/features/web-windows-reserve.md).

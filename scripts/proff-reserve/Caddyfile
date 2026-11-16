@@ -1,0 +1,38 @@
+{
+    admin off
+    auto_https off
+    persist_config off
+}
+http://:13001 {
+    bind 127.0.0.1
+    root * E:/Services/PaulislavaProff/site
+    @landing path /proff /proff/
+    redir @landing /proff/login.php 302
+    handle /healthz {
+        respond "ok" 200
+    }
+    @data path /proff/Proff.exe /proff/db.mdb /proff/program.php
+    handle @data {
+        root * E:/Services/PaulislavaProff/data
+        header X-Content-Type-Options nosniff
+        header Cache-Control no-store
+        file_server
+    }
+    @application path /proff/login.php /proff/uploadupdate.php /proff/loaddb.php /proff/frezers.txt /proff/beta/Proff.exe
+    handle @application {
+        header X-Content-Type-Options nosniff
+        header Cache-Control no-store
+        php_fastcgi 127.0.0.1:13002 {
+            try_files {path}
+        }
+        file_server
+    }
+    @images path_regexp images ^/proff/frezers/[\p{L}0-9_.-]+\.png$
+    handle @images {
+        header X-Content-Type-Options nosniff
+        file_server
+    }
+    handle {
+        respond "Not found" 404
+    }
+}
