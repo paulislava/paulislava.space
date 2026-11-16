@@ -254,3 +254,8 @@ JS, GIF и embedHtml выравниваются влево без внутрен
 ## Почта форм Водомер Урал (2026-11-02)
 
 [Получатель каждой формы](features/vodomer-form-recipients.md): поле email, подпись в редакторе, публикация и проверка.
+
+
+## CMS на Windows-ПК через FRP (2026-11-17)
+
+Strapi восстановлена из `E:\backup` в отдельной Windows-службе; WSL и Docker находятся на E, база — в основном PostgreSQL ПК. HTTPS опубликован через VPN-сервер и персональный FRP-мост. [Устройство и проверки](features/cms-windows-reserve.md).

@@ -91,7 +91,8 @@ jobs:
   deploy-cms:
     runs-on: ubuntu-latest
     needs: build-cms
-    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy == 'true')
+    # CMS production runs on the Windows reserve; legacy VPS deploy is opt-in.
+    if: vars.CMS_DEPLOY_TARGET == 'legacy' && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.deploy == 'true'))
     steps:
       - name: Prepare CMS env
         id: cms-env
@@ -226,33 +227,27 @@ jobs:
         id: nginx
         run: |
           echo "paulislava=$(base64 -w 0 nginx/paulislava.conf)" >> $GITHUB_OUTPUT
-          echo "cms=$(base64 -w 0 nginx/cms.conf)" >> $GITHUB_OUTPUT
 
       - name: Deploy nginx configs
         uses: appleboy/ssh-action@v1.2.0
         env:
           PAULISLAVA_CONF: ${{ steps.nginx.outputs.paulislava }}
-          CMS_CONF: ${{ steps.nginx.outputs.cms }}
         with:
           host: beznomera.net
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
-          envs: PAULISLAVA_CONF,CMS_CONF
+          envs: PAULISLAVA_CONF
           script: |
             PAULISLAVA_APP="/home/user/conf/web/paulislava.space/nginx.ssl.conf_app"
-            CMS_APP="/home/user/conf/web/cms.paulislava.space/nginx.ssl.conf_app"
             cp "$PAULISLAVA_APP" /tmp/paulislava-nginx.bak 2>/dev/null || true
-            cp "$CMS_APP" /tmp/cms-nginx.bak 2>/dev/null || true
             echo "$PAULISLAVA_CONF" | base64 -d > "$PAULISLAVA_APP"
-            echo "$CMS_CONF" | base64 -d > "$CMS_APP"
             if nginx -t; then
               systemctl restart nginx
               echo "✓ nginx reloaded"
-              rm -f /tmp/paulislava-nginx.bak /tmp/cms-nginx.bak
+              rm -f /tmp/paulislava-nginx.bak
             else
               echo "✗ nginx config invalid, rolling back"
               mv /tmp/paulislava-nginx.bak "$PAULISLAVA_APP" 2>/dev/null || true
-              mv /tmp/cms-nginx.bak "$CMS_APP" 2>/dev/null || true
               systemctl restart nginx || true
               exit 1
             fi
