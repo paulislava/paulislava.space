@@ -24,3 +24,16 @@
 Исходный резерв `E:\backup` не изменять. Рабочие дампы и результаты проверки — `E:\Services\PaulislavaCMS\backup`; перед обновлением делать новый проверенный pg_dump. Секреты остаются вне Git. Скрипты: `scripts/cms-reserve/`; проверки и восстановление: [ai/features/cms-windows-reserve.md](ai/features/cms-windows-reserve.md).
 
 Старый deploy-cms в GitHub Actions допускается только при явном `CMS_DEPLOY_TARGET=legacy`; не включать его для текущего размещения. Старый workflow больше не устанавливает nginx CMS на прежний VPS. Автоматический деплой новых образов на ПК отдельно не настроен.
+
+
+## S3/CDN в РЕЗЕРВЕ (2026-11-17)
+
+`cdn.paulislava.space` — новое S3-совместимое хранилище RustFS 1.0.6 на ПК `DESKTOP-NGNE28E`, не Amazon AWS. Корень `E:\Services\PaulislavaS3`, отдельный WSL2 `PaulislavaS3` под LocalService, Docker и данные внутри VHDX на E. Службы `PaulislavaS3` и `PaulislavaS3FRP`, FRP remote port24007 на loopback VPN-сервера.
+
+Endpoint: `https://cdn.paulislava.space`, region `us-east-1`, path-style, bucket `paulislava-media`; публичные файлы — `/paulislava-media/<key>`. LAN endpoint `http://192.168.1.125:19000` ограничен подсетью `192.168.1.0/24`, на самом ПК — `http://127.0.0.1:19000`. При смене IP ПК обновить LAN portproxy, firewall и local_endpoint в закрытых access-файлах. Старые объекты не восстанавливались: по просьбе Павла создано пустое хранилище.
+
+CMS использует отдельную ограниченную S3-роль, а не административный ключ. В GitHub публичные параметры — Variables; полный `CMS_ENV` и S3 credentials — Secrets. Не переносить секреты обратно в Variables. Для CMS закреплён `cdn.paulislava.space:13.143.194.252` в Docker extra hosts; в S3 WSL сохранён такой же hosts mapping из-за старого DNS-ответа Beget.
+
+Глобальный MCP `aws-s3` подключён в Codex и Claude на Mac и ПК. Код Mac: `~/.local/share/paulislava-s3-mcp`; ПК: `E:\Services\PaulislavaS3\mcp`. Mac использует HTTPS/FRP, ПК — loopback; wrapper `launch.mjs --local` выбирает LAN, `--pc` — loopback. По явной просьбе Павла MCP использует административный ключ. Файлы доступа: Mac `~/.config/paulislava-s3/access.json` (0600), ПК `E:\Services\PaulislavaS3\config\admin-access.json` (закрытый ACL). Значения не выводить и не коммитить; в MCP-конфигах хранить только путь к wrapper/файлу.
+
+Описание, проверки и управление: [ai/features/s3-windows-reserve.md](ai/features/s3-windows-reserve.md). Скрипты: `scripts/s3-reserve/`. Бэкапы CMS и остановленного S3 сохраняются на E, не удалять без разрешения.

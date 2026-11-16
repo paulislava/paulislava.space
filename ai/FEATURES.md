@@ -259,3 +259,8 @@ JS, GIF и embedHtml выравниваются влево без внутрен
 ## CMS на Windows-ПК через FRP (2026-11-17)
 
 Strapi восстановлена из `E:\backup` в отдельной Windows-службе; WSL и Docker находятся на E, база — в основном PostgreSQL ПК. HTTPS опубликован через VPN-сервер и персональный FRP-мост. [Устройство и проверки](features/cms-windows-reserve.md).
+
+
+## S3/CDN на ПК и административный MCP (2026-11-17)
+
+Новое хранилище RustFS на E опубликовано через персональный FRP и HTTPS; подключены CMS и GitHub Variables/Secrets. MCP на Mac и ПК поддерживает загрузку, перезапись, чтение, удаление и управление bucket. [Размещение и проверки](features/s3-windows-reserve.md).

@@ -109,3 +109,8 @@ Strapi decimal создавал decimal(10,2), округляя координа
 Прямой `JSON.stringify` заменён безопасным общим выводом с экранированием `<`. Дата обновления читается из CMS и проверяется относительно публикации; изображения-заглушки и скрытые главные обложки не выдаются за реальные изображения страницы. Регрессионные проверки и публичный HTML проверены после деплоя.
 
 Подробнее: [structured-data.md](errors/structured-data.md).
+
+
+## WSL разрешал новый CDN в старый Beget S3 (2026-11-17)
+
+S3-клиент в WSL получал TLSV1_ALERT_INTERNAL_ERROR для cdn.paulislava.space: getent возвращал старый Beget193.168.47.*, хотя Windows и Mac уже видели13.143.194.252. Проверка curl с явным resolve на VPN-сервер прошла. Для выделенного S3 WSL закреплён hosts mapping с generateHosts=false, для CMS — Docker extra host. Проверка сертификата сохранена; signed S3, multipart и Strapi uploadStream прошли. [Подробности](features/s3-windows-reserve.md).

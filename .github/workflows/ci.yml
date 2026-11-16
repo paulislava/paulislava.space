@@ -97,8 +97,11 @@ jobs:
       - name: Prepare CMS env
         id: cms-env
         env:
-          CMS_ENV: ${{ vars.CMS_ENV }}
-        run: echo "b64=$(printf '%s' "$CMS_ENV" | base64 -w 0)" >> $GITHUB_OUTPUT
+          CMS_ENV: ${{ secrets.CMS_ENV || vars.CMS_ENV }}
+        run: |
+          b64=$(printf '%s' "$CMS_ENV" | base64 -w 0)
+          echo "::add-mask::$b64"
+          echo "b64=$b64" >> "$GITHUB_OUTPUT"
 
       - name: Deploy CMS
         uses: appleboy/ssh-action@v1.2.0

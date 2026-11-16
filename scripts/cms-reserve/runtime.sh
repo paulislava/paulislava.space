@@ -17,6 +17,7 @@ PY
 docker stop -t 30 paulislava_cms >/dev/null 2>&1 || true
 docker rm paulislava_cms >/dev/null 2>&1 || true
 docker create --name paulislava_cms --restart=no --network host \
+  --add-host cdn.paulislava.space:13.143.194.252 \
   --env-file "$root/runtime.env" \
   --log-opt max-size=10m --log-opt max-file=3 \
   ghcr.io/paulislava/paulislava.space:cms-8b818ca6d6d35ebe386fc252e3ade1bdc9de1ca6 >/dev/null
