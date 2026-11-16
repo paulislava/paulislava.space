@@ -30,7 +30,7 @@
 
 `cdn.paulislava.space` — новое S3-совместимое хранилище RustFS 1.0.6 на ПК `DESKTOP-NGNE28E`, не Amazon AWS. Корень `E:\Services\PaulislavaS3`, отдельный WSL2 `PaulislavaS3` под LocalService, Docker и данные внутри VHDX на E. Службы `PaulislavaS3` и `PaulislavaS3FRP`, FRP remote port24007 на loopback VPN-сервера.
 
-Endpoint: `https://cdn.paulislava.space`, region `us-east-1`, path-style, bucket `paulislava-media`; публичные файлы — `/paulislava-media/<key>`. LAN endpoint `http://192.168.1.125:19000` ограничен подсетью `192.168.1.0/24`, на самом ПК — `http://127.0.0.1:19000`. При смене IP ПК обновить LAN portproxy, firewall и local_endpoint в закрытых access-файлах. Старые объекты не восстанавливались: по просьбе Павла создано пустое хранилище.
+Endpoint: `https://cdn.paulislava.space`, region `us-east-1`, path-style, bucket `paulislava-media`; публичные файлы — `/<key>`. LAN endpoint `http://192.168.1.125:19000` ограничен подсетью `192.168.1.0/24`, на самом ПК — `http://127.0.0.1:19000`. При смене IP ПК обновить LAN portproxy, firewall и local_endpoint в закрытых access-файлах. Восстановлены 18 файлов изображений Водомера; остальные старые объекты пока отсутствуют.
 
 CMS использует отдельную ограниченную S3-роль, а не административный ключ. В GitHub публичные параметры — Variables; полный `CMS_ENV` и S3 credentials — Secrets. Не переносить секреты обратно в Variables. Для CMS закреплён `cdn.paulislava.space:13.143.194.252` в Docker extra hosts; в S3 WSL сохранён такой же hosts mapping из-за старого DNS-ответа Beget.
 

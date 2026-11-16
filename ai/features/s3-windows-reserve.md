@@ -23,7 +23,9 @@
 | API на самом ПК | `http://127.0.0.1:19000` |
 | Bucket | `paulislava-media` |
 | Region | `us-east-1` |
-| Публичный файл | `https://cdn.paulislava.space/paulislava-media/<key>` |
+| Публичный файл | `https://cdn.paulislava.space/<key>` |
+
+Nginx на VPN-сервере переписывает публичный путь `/<key>` в `/paulislava-media/<key>` для S3. Пути `/paulislava-media/`, `/minio/` и `/health/` не переписываются. Strapi сохраняет публичный URL без имени bucket; S3 API продолжает использовать path-style.
 
 Используется path-style. LAN portproxy Windows слушает только `192.168.1.125:19000` и передаёт TCP на loopback19000; Windows Firewall допускает источник только `192.168.1.0/24`. IP Helper Automatic. LAN использует HTTP, удалённый вход — HTTPS с проверкой сертификата. При смене LAN IP обновить portproxy, firewall и поле local_endpoint в access-файлах.
 
@@ -37,7 +39,7 @@
 S3_ENDPOINT=https://cdn.paulislava.space
 S3_BUCKET=paulislava-media
 S3_REGION=us-east-1
-CDN_BASE_URL=https://cdn.paulislava.space/paulislava-media
+CDN_BASE_URL=https://cdn.paulislava.space
 ```
 
 Полный CMS_ENV перенесён в GitHub Secret. Variable CMS_ENV содержит только несекретные поля. Отдельные Variables: S3_ENDPOINT, S3_BUCKET, S3_REGION, CDN_BASE_URL, CMS_URL, STRAPI_URL, CMS_DEPLOY_TARGET=reserve. S3_ACCESS_KEY_ID и S3_SECRET_ACCESS_KEY обновлены как Secrets ограниченной роли CMS. Административный ключ в GitHub не записывался.

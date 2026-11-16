@@ -10,7 +10,7 @@ const p = init({baseUrl: process.env.CDN_BASE_URL,rootPath:'',s3Options:{region:
   if(streaming)f.stream=Readable.from([body]);else f.buffer=body;
   try{
    if(streaming)await p.uploadStream(f);else await p.upload(f);
-   assert.ok(f.url.startsWith('https://cdn.paulislava.space/paulislava-media/'));
+   assert.equal(f.url, `https://cdn.paulislava.space/${f.hash}${f.ext}`);
    const r=await fetch(f.url);assert.equal(r.status,200);assert.deepEqual(Buffer.from(await r.arrayBuffer()),body);
    console.log(streaming?'CMS provider uploadStream verified':'CMS provider upload buffer verified');
   }finally{await p.delete(f);}
