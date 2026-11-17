@@ -43,3 +43,23 @@ CMS использует отдельную ограниченную S3-роль
 `paulislava.space` работает на ПК: `PaulislavaWeb` и `PaulislavaWebFRP`, WSL2 и данные в `E:\Services\PaulislavaWeb`, локальный порт 13000, FRP loopback VPN-сервера 24008. `/proff/` обслуживают отдельные `PaulislavaProff` и `PaulislavaProffFRP`, данные в `E:\Services\PaulislavaProff`, локальный порт 13001, FRP 24009. Публичный TLS и SNI завершаются на VPN-сервере. Автодеплой на ПК не настроен; старый deploy Web допускается только при `WEB_DEPLOY_TARGET=legacy`. Перед push проверять новый дамп CMS. Исходную резервную копию не изменять.
 
 Оригиналы старого S3 и таблица `user_proff.accounts` в доступной копии не найдены: 58 точно сопоставленных изображений восстановлены из Next image cache в S3, другие файлы могут отсутствовать; вход в Proff недоступен. Не считать кеш резервом оригиналов. Подробнее: [ai/features/web-windows-reserve.md](ai/features/web-windows-reserve.md).
+
+
+## Docker CMS и общая сеть WSL
+
+Контейнер CMS использует host network. До первого запуска Docker задавать в
+`/etc/docker/daemon.json` `bridge: "none"`, `iptables: false`, `ip6tables: false`,
+`ip-forward: false`, сохраняя остальные параметры, включая `data-root`.
+`scripts/cms-reserve/prepare-runtime.sh` проверяет временный JSON через
+`dockerd --validate` и атомарно заменяет файл; активный daemon автоматически
+не перезапускает. Настройка применяется при явном stop/start.
+
+В этой установке CMS и Human4AI разделяют сетевое пространство WSL. CMS Docker
+не должен заменять общие цепочки Docker Human4AI. При проверке конфигурации
+запустить CMS после Human4AI и сверить filter/NAT и доступ к Telegram из
+контейнера Human4AI.
+
+Зависимые службы CMS: `PaulislavaCMSFRP`, `PaulislavaWeb`, `PaulislavaWebFRP`.
+Перед остановкой CMS записать их состояние, остановить через SCM, затем
+восстановить ранее работавшие службы. После CMS проверить `GET /_health`,
+затем вернуть сайт и FRP. PostgreSQL и другие WSL-службы не перезапускать.

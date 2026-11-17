@@ -62,3 +62,18 @@ Invoke-WebRequest https://cms.paulislava.space/_health -UseBasicParsing
 Скрипты `scripts/cms-reserve` сохраняют текущую конфигурацию служб и проверки. `prepare-runtime.sh` устанавливает Bash wrapper из `migration`, `install-services.ps1` использует закрытый `config\frp-credential.json` и существующие бинарники ПК. Секреты не включены в репозиторий.
 
 GitHub Actions больше не деплоит CMS и её nginx-конфигурацию на прежний VPS по умолчанию. Возврат к старой CMS требует явного `CMS_DEPLOY_TARGET=legacy`; для текущего размещения это значение не задавать. Автоматическое обновление CMS на ПК не настроено. Новый образ необходимо отдельно проверить, сохранить бэкап, загрузить на ПК и обновить ссылку образа в runtime wrapper.
+
+
+## Изоляция Docker firewall 2026-11-17
+
+В `/etc/docker/daemon.json` установлены `bridge: "none"`, `iptables: false`,
+`ip6tables: false`, `ip-forward: false`. Остальные параметры сохранены. Конфиг
+проверен `dockerd --validate`; такой же блок добавлен в `prepare-runtime.sh`.
+Резерв исходного файла: `/opt/cms/network-recovery-20261117/daemon.json.before`.
+
+Причина: Docker CMS с настройками по умолчанию заменял общие цепочки WSL и
+блокировал исходящие подключения контейнера Human4AI. После применения
+настройки выполнен запуск CMS при работающем Human4AI: filter/NAT не изменились,
+Telegram остался доступен. CMS вернула 204 на `GET /_health`, сайт — 200;
+контрольный вопрос Human4AI получил ответ через MCP. Зависимые Web и FRP
+службы возвращены в исходное рабочее состояние. PostgreSQL не перезапускался.
