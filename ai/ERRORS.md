@@ -110,6 +110,44 @@ Strapi decimal создавал decimal(10,2), округляя координа
 
 Подробнее: [structured-data.md](errors/structured-data.md).
 
+## 2026-10-20 — HTTP CMS возвращал 404
+
+**Симптом:** `http://cms.paulislava.space/admin` возвращал 404 при рабочем HTTPS.
+
+**Причина:** HTTP virtual host не направлял запросы в Strapi, а SSL_FORCE в Hestia не был включён.
+
+**Решение:** штатной командой Hestia `v-add-web-domain-ssl-force user cms.paulislava.space no` включено постоянное перенаправление HTTP → HTTPS; выполнены `nginx -t` и reload. Проверено: 301 сохраняет `/admin` и query string, HTTPS отвечает 200. Настройка хранится в Hestia и `nginx.forcessl.conf`.
+
+
+## Таймауты сайтов и непродление сертификата мс-гармония.рф (2026-10-22)
+
+Исправлены блокировка собственного нового IP firewall и Unicode SAN в Hestia. Оба сайта HTTPS 200, сертификат обновлён, автоматическое продление восстановлено. Проведена отдельная проверка PHP: обнаружены версии без исправлений CVE-2026-109618/109619; обновление PHP не выполнялось. [Подробности](errors/server-tls-renewal-and-php-audit.md).
+
+
+## Уязвимые PHP-runtime и 502 в Proff (2026-10-22)
+
+Системные веб-пулы переведены на исправленный PHP 8.3.36, Hestia — на 8.5.12 из официальных исходников в локальном deb-пакете. Обновлены WordPress и плагины мс-гармонии, адаптированы тема, галереи и код mentorial. Старые неиспользуемые FPM заблокированы. `/proff/` снова открывается: исправлен внутренний порт и добавлен переход к странице входа. Все затронутые основные адреса HTTPS 200; реальные веб-runtime проверены, конфигурации и состояние пакетов корректны. [Изменения, проверки и откат](errors/server-tls-renewal-and-php-audit.md).
+
+
+## Повторная блокировка nginx → Apache старым сетевым скриптом (2026-10-30)
+
+Сайты posurfu.ru, мс-гармония.рф и nosmoke.paulislava.space зависали: TLS работал, но nginx не мог подключиться к 159.194.204.161:8445. Сохранённое правило Hestia №19 отсутствовало в действующем INPUT. Проверка Apache с исходным IP 83.222.27.227 возвращала 200, с 159.194.204.161 — таймаут.
+
+Обнаружен конфликт загрузчиков: hestia-iptables.service использует актуальный /etc/iptables.rules, а /etc/network/if-pre-up.d/iptables загружал устаревший /etc/iptables/rules.v4 от 2026-06-28. В старом снимке нет разрешения нового IP. Момент выполнения старого скрипта не установлен.
+
+Восстановлено узкое разрешение source/destination 159.194.204.161/32 TCP 8080,8445. Сетевой скрипт переведён на /etc/iptables.rules с --wait=10. Снимок действующих правил и исходный скрипт сохранены в /root. Проверены sh -n, iptables-restore --test и наличие действующего разрешения. После исправления все три публичных HTTPS-адреса дважды получили HTTP 200 с Mac. Во время восстановления WordPress кратковременно возвращал 503 «Обслуживание», затем самостоятельно вернулся к 200. Перезагрузка сервера не выполнялась.
+
+
+## nginx → Apache через loopback (2026-10-30)
+
+Apache на VPS слушает только `127.0.0.1:8080` и `127.0.0.1:8445`. Публичные IP и порты nginx сохранены; nginx передаёт Host, а для HTTPS upstream — SNI. Доменные и общие nginx-конфигурации, Apache vhosts и шаблоны Hestia используют loopback для Apache. Другие upstream-порты не изменены.
+
+`/etc/apache2/conf.d/00-loopback.conf` задаёт Listen. IP-конфиги Apache больше не задают внешние Listen. Локально изменённые `/usr/local/hestia/bin/v-add-sys-ip` и `v-update-web-templates` защищены `dpkg-divert` с оригиналами `.distrib`. Обёртка обновления сначала копирует штатные шаблоны без rebuild, затем запускает `v-transform-loopback-web-templates` и только после этого выполняет запрошенные rebuild/restart. При ошибке обновления восстанавливает снимок шаблонов. Существовавшие локальные шаблоны opencart/moodle сохранены.
+
+Проверки: до изменения loopback-соединения отклонялись; после — прямые Host/SNI-запросы выбирают нужные vhosts, оба внешних IP на Apache-портах отклоняют соединения. `apache2ctl configtest`, `nginx -t`, syntax checks прошли. Реальный `v-update-web-templates no skip` и `v-rebuild-web-domain user posurfu.ru no` сохранили loopback. С Mac posurfu.ru, мс-гармония.рф, nosmoke.paulislava.space, paulislava.space, /proff/ после перенаправления, cms/admin и budget вернули HTTP 200. Безномера имел сетевой таймаут до изменения и сохранил его. Независимое ревью не выявило оставшихся дефектов.
+
+Резерв/откат на VPS: `/root/apache-loopback-20261030-090719/rollback.sh`; состав исходных файлов — `files.txt`, архивы `original.tar` и `updater/templates-before-updater.tar`. Исполнение rollback, обновление пакета Hestia, полный rebuild всех доменов, ACME renewal и перезагрузка сервера не выполнялись.
+
 
 ## WSL разрешал новый CDN в старый Beget S3 (2026-11-17)
 
@@ -118,3 +156,42 @@ S3-клиент в WSL получал TLSV1_ALERT_INTERNAL_ERROR для cdn.paul
 ## Загрузчик Proff принимал файл без проверки пароля (2026-11-17)
 
 Условие выполняло присваивание вместо сравнения; при восстановлении проверка исправлена и проверена повторными загрузками. [Подробности](errors/proff-upload-password.md).
+
+
+## Docker CMS заменял общие правила сети WSL
+
+2026-11-17 вопрос `ask_d9c7023bc59349d0a699` завершился `failed` с
+`Proxy connection timed out`. Подключение к SOCKS5 работало с Windows и WSL,
+но из контейнера истекало по таймауту. В filter отсутствовали правила моста
+`br-40eddf6c6cc4`, а политика FORWARD оставалась DROP. MASQUERADE сохранился.
+Временные разрешения только app-контейнер → SOCKS5 и установленного обратного
+трафика восстановили `getMe` за 444 мс, подтвердив место блокировки.
+
+Human4AI и CMS имели одинаковые netns и boot ID. Docker CMS стартовал в 01:22
+после Docker Human4AI в 00:01, управлял iptables по умолчанию и оставил цепочки
+только для docker0, хотя его контейнер использовал host network. Это соответствует
+[конфликту нескольких Docker daemon](https://docs.docker.com/reference/cli/dockerd/#run-multiple-daemons).
+
+Решение: Docker CMS переведён в host-only режим без управления bridge, iptables,
+ip6tables и ip-forward; остальные поля конфигурации сохранены. Старый CMS Docker
+остановлен, штатные правила восстановлены перезапуском Docker Human4AI через
+его SCM lifecycle. Временные правила удалены, FORWARD DROP сохранён. После нового
+запуска CMS и сайта все IPv4 filter/NAT правила Human4AI совпали с baseline.
+Telegram `getWebhookInfo` успешен, backlog 0; контрольный вопрос через MCP получил
+ответ, подтверждение REST вернуло 200. Значение ответа в журнал не внесено.
+
+Проверки: `dockerd --validate`, `bash -n`, объединение JSON с сохранением data-root,
+отказ валидации без замены файла; независимое ревью. Новые автоматические тесты
+не добавлялись по исключению для операционных настроек. Human4AI health 200,
+CMS health 204, сайт 200, S3 LAN health 200. Службы восстановлены через SCM;
+проверенные копии SQLite и PostgreSQL сохранены на ПК и Mac; исходные правила — на ПК.
+
+## Уведомление в поддержку не доставлено при отправке контакта (2026-11-21)
+
+**Симптом:** при отправке формы контакта или заявки с `paulislava.space` письмо уходило, но возвращалась ошибка «Письмо отправлено, но уведомление в поддержку не доставлено. Попробуйте ещё раз.»
+
+**Причина:** `packages/web/src/app/api/contact/route.ts` отправляет сообщение в support-бот с `service: 'PaulIsLavaSpace'`. На VPS в `/opt/support-bot/.env` в `SERVICE_KEYS_JSON` был зарегистрирован только сервис `PaulIsLavaTV`. Support-бот не находил ключ для `PaulIsLavaSpace`, возвращал 401, и уведомление не доходило до Telegram.
+
+**Решение:** в `SERVICE_KEYS_JSON` и `SERVICE_WEBHOOK_ORIGINS_JSON` support-бота на VPS добавлен сервис `PaulIsLavaSpace` с ключом `SUPPORT_SERVICE_KEY`, который использует веб-контейнер. Support-bot перезапущен. Проверена отправка через публичный API `paulislava.space/api/contact` — ответ `{"ok":true}`.
+
+**Файл:** `packages/web/src/app/api/contact/route.ts`; конфигурация support-бота `/opt/support-bot/.env` на VPS.
