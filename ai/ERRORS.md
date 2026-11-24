@@ -195,3 +195,7 @@ CMS health 204, сайт 200, S3 LAN health 200. Службы восстанов
 **Решение:** в `SERVICE_KEYS_JSON` и `SERVICE_WEBHOOK_ORIGINS_JSON` support-бота на VPS добавлен сервис `PaulIsLavaSpace` с ключом `SUPPORT_SERVICE_KEY`, который использует веб-контейнер. Support-bot перезапущен. Проверена отправка через публичный API `paulislava.space/api/contact` — ответ `{"ok":true}`.
 
 **Файл:** `packages/web/src/app/api/contact/route.ts`; конфигурация support-бота `/opt/support-bot/.env` на VPS.
+
+## Отсутствовала таблица учётных записей Proff (2026-11-25)
+
+На новом сервере PHP обращался к отсутствующей `user_proff.accounts`. Доступный исходный каталог MariaDB содержал только `db.opt`. Созданы пустая таблица по используемым полям и локальная роль с правами `SELECT`, `INSERT`, `UPDATE` на `accounts`. Типы полей и начальное значение `access` определены по приложению. Та же выборка после создания выполнилась. PHP подключился под локальной ролью, HTTP вернул 200, число записей равно нулю. Старые пользовательские записи остаются недоступны.
